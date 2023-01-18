@@ -4,7 +4,7 @@ public class Grid
 {
 
   //Initializing grid object
-  public int[][] grid;
+  public char[][] grid;
   
   //Constructor 
   public Grid()
