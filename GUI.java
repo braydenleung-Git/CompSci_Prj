@@ -11,7 +11,7 @@ public class GUI {
         JPanel panel =  new JPanel();
         panel.setLayout(new FlowLayout());
         JLabel label = new JLabel("Test");
-        ImageIcon icon = new ImageIcon("/Iconpng");
+        ImageIcon icon = new ImageIcon("Icon.png");
         frame.setIconImage(icon.getImage());
         frame.add(panel);
         panel.add(label);
