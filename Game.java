@@ -5,70 +5,70 @@ import java.util.*;
 
 public class Game
 {
-  //creates the game grid
-  static Grid grid = new Grid();
+    //creates the game grid
+    static Grid grid = new Grid();
 
-  //Main run method
-  public static void main(String[] args)
-  {
-    grid.print();
-   // while(true)
+    //Main run method
+    public static void main(String[] args)
     {
-      //playerMove(player1);
+        grid.print();
+        Player player1 = new Player(1,"");
+        Player player2 = new Player(2,"");
+        while(true){
+        playerMove(player1);
+        if(checkWin() == true) {
+          break;
+        }
+        playerMove(player2);
+        if(checkWin() == true) {
+          break;
+        }
     }
-  }
-
- // grid[4-1][5-1] = 'a';
-  
-  public void playerMove(Player player)
-  {
-    //int yada = readInt("\nWhich column would you like to fill? ");
-    
-    //grid[][yada - 1] = '';
-  }
-
-public void processMove(Player player)
-{
-    
 }
-  /**
-  * This method yada yada
-  * @param 
-  * @ return
-  */
-  public static int readInt(String question) {
-    Scanner myObj = new Scanner(System.in);
-    System.out.println(question);
-    String input = myObj.nextLine();
-    if(input.equals(""))
+    public static void playerMove(Player player)
     {
-      return 0;
+        int input = readInt("\nWhich column would you like to fill? ");
+        grid.checkValidSpot(input, player.getPlayer_ID());
+        //grid[][yada - 1] = '';
     }
-    else
-    {
-      return Integer.parseInt(input);
+    /**
+    * This method yada yada
+    * @param
+    * @ return
+    */
+    public static int readInt(String question) {
+        Scanner myObj = new Scanner(System.in);
+        System.out.println(question);
+        String input = myObj.nextLine();
+        if(input.equals(""))
+        {
+            return 0;
+        }
+        else
+        {
+            return Integer.parseInt(input);
+        }
     }
-  }
 
-  /**
-  * This method yada yada
-  * @param 
-  * @ return
-  */
-  public static void ui_Line(String input){
-    for(int x =0; x< input.length();x++);  {
-      System.out.print("=");
+    /**
+    * This method yada yada
+    * @param
+    * @ return
+    */
+    public static void ui_Line(String input){
+        for(int x =0; x< input.length();x++);  {
+            System.out.print("=");
+        }
+        System.out.println();
     }
-    System.out.println();
-  }
   
-  /**
-  * This method yada yada
-  * @param
-  * @return 
-  */
-  public static void checkWin()
-  {
-    
-  }
+    /**
+    * This method yada yada
+    * @param
+    * @return
+    */
+    public static boolean checkWin()
+    {
+        return false;
+    }
 }
