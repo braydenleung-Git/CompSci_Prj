@@ -28,9 +28,9 @@ public class Grid
     {
         //int player = grid [0][0];
         int count = 0;
-        if(grid[0][0]!=0)
+        if(grid[0][0]!=0 || input > HORIZONTAL_SIZE)
         {
-            System.out.println("Error this column hs been filled, please choose another one");
+            System.out.println("Error Invalid input");
 
             return 0;
         }
