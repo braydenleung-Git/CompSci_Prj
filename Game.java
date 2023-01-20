@@ -14,10 +14,16 @@ public class Game
     grid.print();
     //System.out.println("");
     int player1 = readInt("\nWhich column would you like to fill? ");
-    
-    
+      
   }
 
+  grid[4-1][5-1] = 'a';
+  
+  public void playerMove(Player player)
+  {
+    grid[][] = ''
+  }
+  
   /**
   * This method yada yada
   * @param 

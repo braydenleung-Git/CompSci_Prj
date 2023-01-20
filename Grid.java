@@ -17,9 +17,10 @@ public class Grid
       {'□','□','□','□','□','□','□'},
       {'□','□','□','□','□','□','□'}
     };
+      grid[4-1][5-1] = 'a';
   }
 
-  public void columnNum( )
+  public void askForCollumn(int input)
   {
     
   }
