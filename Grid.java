@@ -7,7 +7,8 @@ public class Grid
     public static final int HORIZONTAL_SIZE = 7;
     public static final String COLOR_RED = "\033[0;31m";
     public static final String COLOR_YELLOW = "\033[0;33m";
-  //Initializing grid object
+    public static final String COLOR_RESET = "\033[0m"
+    //Initializing grid object
     public int[][] grid;
   
   //Constructor 
@@ -52,13 +53,13 @@ public class Grid
     {
         if(input == 1)
         {
-            return COLOR_RED + '•';
+            return "➊";
         }
         else if (input == 2)
         {
-            return COLOR_YELLOW + '•';
+            return "➋";
         }
-        return "";
+        return COLOR_RED+"▢";
     }
   
     /** This method takes the grid object and prints it out. It does not have any parameters
