@@ -3,6 +3,15 @@ import java.util.*;
 //Brayden and Hanna collaborated on this class. They both added seperate peices of code, and edited and changed
 //different parts of the code.
 
+/*
+    To Do list:
+    - add indicator to indicate which player's turn
+    - setup a working gui window with layout change
+    - merge gui and the game
+    - test game via gui
+    - a more dramatic celerbration
+    - a play again option/Winner scene
+ */
 public class Game
 {
     //creates the game grid
@@ -17,12 +26,14 @@ public class Game
         Player player2 = new Player(2,"test 2");
         while(true){
             playerMove(player1);
-            if(checkWin() == true) {
-              break;
+            if(checkWin(player1.getPlayer_ID())) {
+                System.out.println("Player 1 Wins!");
+                break;
             }
             playerMove(player2);
-            if(checkWin() == true) {
-              break;
+            if(checkWin(player1.getPlayer_ID())) {
+                System.out.println("Player 2 Wins!");
+                break;
             }
         }
     }
@@ -42,9 +53,33 @@ public class Game
     /**
     * This method yada yada
     * @param
-    * @return
+    * @return boolean value of whether there was a winner or not.
     */
-    public static boolean checkWin(){
-        return false;
+    public static boolean checkWin(int player_ID){
+        int x_Increment = 0;
+        int y_Increment = 0;
+        if(Grid.lastVertical != 7 &&  Grid.returnValue(1,y_Increment)== player_ID){
+            for(int x=1; x<=2;x++)
+            {
+                x_Increment += x;
+                if(x_Increment + Grid.lastVertical<=6 && Grid.returnValue(x_Increment,y_Increment) != player_ID){
+                    return false;
+                }
+            }
+        }
+        else if(Grid.lastHorizontal != 6 && Grid.returnValue(x_Increment,1) != 0){
+            return false;
+        }
+        else if (Grid.lastVertical != 0) {
+            return false;
+        }
+        else if (Grid.lastHorizontal != 0) {
+            return false;
+        }
+        else{
+            return false;
+        }
+        //If one of the condition was valid, it will return true as a valid win
+        return true;
     }
 }

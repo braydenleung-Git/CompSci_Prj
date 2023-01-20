@@ -8,8 +8,10 @@ public class Grid
     public static final String COLOR_RED = "\033[0;31m";
     public static final String COLOR_YELLOW = "\033[0;33m";
     public static final String COLOR_RESET = "\033[0m";
+    public static int lastVertical =0;
+    public static int lastHorizontal =0;
     //Initializing grid object
-    public int[][] grid;
+    public static int[][] grid;
   
     //Constructor
     public Grid()
@@ -24,6 +26,24 @@ public class Grid
         }
     }
 
+    /**
+     * This method is used to return the value at the position that is on the 2D Array
+     * @return
+     */
+    /* //disabled because seemed not needed.
+    public static int returnValue(){
+        return grid[lastVertical][lastHorizontal];
+    }*/
+
+    /**
+     * This method is used to return the value at the postion that is on the 2D Array, but with added increment
+     * @param increment_X
+     * @param increment_Y
+     * @return
+     */
+    public static int returnValue(int increment_X, int increment_Y){
+        return grid[lastVertical+increment_X][lastHorizontal+increment_Y];
+    }
     public int checkValidSpot(int input, int player_ID)
     {
         //int player = grid [0][0];
@@ -44,10 +64,14 @@ public class Grid
                 {
                     x--;
                     grid[x][input-1] = player_ID;
+                    lastVertical = x;
+                    lastHorizontal = input-1;
                     break;
                 }
                 else if( x ==VERTICAL_SIZE-1){
                     grid[x][input-1] = player_ID;
+                    lastVertical = x;
+                    lastHorizontal = input;
                     break;
                 }
             }
