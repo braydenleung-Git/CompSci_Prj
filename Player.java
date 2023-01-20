@@ -9,4 +9,9 @@ public class Player
       player_ID = id;
       player_Name = name;
   }
+
+  public int change_ID(int input)
+  {
+    return 0;
+  }
 }

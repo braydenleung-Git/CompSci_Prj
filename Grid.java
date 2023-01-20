@@ -3,26 +3,37 @@
 
 public class Grid
 {
+    public static final int VERTICAL_SIZE = 6 ;
+    public static final int HORIZONTAL_SIZE = 7;
   //Initializing grid object
-  public char[][] grid;
+  public Player[][] grid;
   
   //Constructor 
   public Grid()
   {
-    grid = new char[][]{
-      {'□','□','□','□','□','□','□'},
-      {'□','□','□','□','□','□','□'},
-      {'□','□','□','□','□','□','□'},
-      {'□','□','□','□','□','□','□'},
-      {'□','□','□','□','□','□','□'},
-      {'□','□','□','□','□','□','□'}
-    };
-      grid[4-1][5-1] = 'a';
+    grid = new Player[VERTICAL_SIZE][HORIZONTAL_SIZE];
+    for(int x= 0;x<VERTICAL_SIZE;x++)
+    {
+      for(int i=0; i< HORIZONTAL_SIZE; i++)
+        {
+          
+        }
+    }
   }
 
-  public void askForCollumn(int input)
+  public void checkValidSpot(int input, int player_ID)
   {
-    
+    Player player = grid [0][0];
+    for(int x =0; x<6; x++)
+    {
+        if(! grid[x][input].equals(" "))
+        {
+            x--;
+            player = grid[x][input];
+            player.change_ID(player_ID);
+            break;
+        }
+    }
   }
 
   
