@@ -5,6 +5,8 @@ public class Grid
 {
     public static final int VERTICAL_SIZE = 6 ;
     public static final int HORIZONTAL_SIZE = 7;
+    public static final String COLOR_RED = "\033[0;31m";
+    public static final String COLOR_YELLOW = "\033[0;33m";
   //Initializing grid object
     public int[][] grid;
   
@@ -21,12 +23,14 @@ public class Grid
         }
     }
 
-    public void checkValidSpot(int input, int player_ID)
+    public int checkValidSpot(int input, int player_ID)
     {
         int player = grid [0][0];
         if(grid[0][0]!=0)
         {
+            System.out.println("Error this coloumn hs been filled, please choose another one");
 
+            return 0;
         }
         else {
             for(int x =0; x<VERTICAL_SIZE; x++)
@@ -40,20 +44,21 @@ public class Grid
                 }
 
             }
+            return 1;
         }
     }
 
-    private char sort_ID(int input)
+    private String sort_ID(int input)
     {
         if(input == 1)
         {
-            return ' ';
+            return COLOR_RED + '•';
         }
         else if (input == 2)
         {
-            return ' ';
+            return COLOR_YELLOW + '•';
         }
-        return ' ';
+        return "";
     }
   
     /** This method takes the grid object and prints it out. It does not have any parameters

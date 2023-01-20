@@ -8,6 +8,8 @@ public class Game
     //creates the game grid
     static Grid grid = new Grid();
 
+
+
     //Main run method
     public static void main(String[] args)
     {
@@ -27,41 +29,15 @@ public class Game
     }
     public static void playerMove(Player player)
     {
-        int input = readInt("\nWhich column would you like to fill? ");
-        grid.checkValidSpot(input, player.getPlayer_ID());
-        //grid[][yada - 1] = '';
-    }
-    /**
-    * This method yada yada
-    * @param
-    * @ return
-    */
-    public static int readInt(String question) {
-        Scanner myObj = new Scanner(System.in);
-        System.out.println(question);
-        String input = myObj.nextLine();
-        if(input.equals(""))
-        {
-            return 0;
-        }
-        else
-        {
-            return Integer.parseInt(input);
+        int status = 0;
+        //we created the loop so that if there is an error during validating player move, we can loop it to
+        while(status == 0){
+            int input = UNI_CMD.readInt("\nWhich column would you like to fill? ");
+            status = grid.checkValidSpot(input, player.getPlayer_ID()); //This is used to break the loop,
+            //grid[][yada - 1] = '';
         }
     }
 
-    /**
-    * This method yada yada
-    * @param
-    * @ return
-    */
-    public static void ui_Line(String input){
-        for(int x =0; x< input.length();x++);  {
-            System.out.print("=");
-        }
-        System.out.println();
-    }
-  
     /**
     * This method yada yada
     * @param
