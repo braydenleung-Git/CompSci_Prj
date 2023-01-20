@@ -15,16 +15,16 @@ public class Game
         Player player1 = new Player(1,"");
         Player player2 = new Player(2,"");
         while(true){
-        playerMove(player1);
-        if(checkWin() == true) {
-          break;
-        }
-        playerMove(player2);
-        if(checkWin() == true) {
-          break;
+            playerMove(player1);
+            if(checkWin() == true) {
+              break;
+            }
+            playerMove(player2);
+            if(checkWin() == true) {
+              break;
+            }
         }
     }
-}
     public static void playerMove(Player player)
     {
         int input = readInt("\nWhich column would you like to fill? ");
