@@ -13,9 +13,8 @@ public class Game
     //Main run method
     public static void main(String[] args)
     {
-        grid.print();
-        Player player1 = new Player(1,"");
-        Player player2 = new Player(2,"");
+        Player player1 = new Player(1,"test 1");
+        Player player2 = new Player(2,"test 2");
         while(true){
             playerMove(player1);
             if(checkWin() == true) {
@@ -32,8 +31,10 @@ public class Game
         int status = 0;
         //we created the loop so that if there is an error during validating player move, we can loop it to
         while(status == 0){
+            UNI_CMD.flush(100);
+            grid.print();
             int input = UNI_CMD.readInt("\nWhich column would you like to fill? ");
-            status = grid.checkValidSpot(input, player.getPlayer_ID()); //This is used to break the loop,
+            status = grid.checkValidSpot(input, player.getPlayer_ID()); //This is used to break the loop
             //grid[][yada - 1] = '';
         }
     }
@@ -43,8 +44,7 @@ public class Game
     * @param
     * @return
     */
-    public static boolean checkWin()
-    {
+    public static boolean checkWin(){
         return false;
     }
 }

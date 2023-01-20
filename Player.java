@@ -11,6 +11,7 @@ public class Player
         player_Name = name;
     }
     public int getPlayer_ID(){
+        //System.out.println(player_ID);
         return player_ID;
     }
     public int change_ID(int input)
