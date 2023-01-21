@@ -51,65 +51,102 @@ public class Game
   }
 
   /**
+  BUGS WITH CHECK WINS:
+  - It says someone iwins in horizontal if they just have 4
+      - they do not have to be connectd --> it keeps on moving left/right even if there is a blank space, need to create a break if there is a blank space (0)
+  - When they win it will not place the final block, it will keep it at 3 and just announce that they won
+  
+  */
+  
+  /**
   * This method yada yada
   * @param
   * @return boolean value of whether there was a winner or not.
   */ 
-  public static boolean checkWin(int player_ID){
-    int x_Increment = 0;
-    int y_Increment = 0;
-
-  //checks horizontal win
-  int count = 1;
-  int initial_x = grid.lastHorizontal;
-  int x = initial_x;
-
-  while (x > 0)
+  public static boolean checkWin(int player_ID)
   {
-    x--;
-    int delta_x = x - initial_x;
-    int content = Grid.returnValue(0, delta_x);
-    if (content == player_ID)
+    if(checkHorizontal(player_ID) || checkVertical(player_ID))
     {
-      count++;
+      return true;
     }
-  }
-  x = initial_x;
-  while (x < 6)
-  {
-    x++;
-    int delta_x = x - initial_x;
-    int content = Grid.returnValue(0, delta_x);
-    if (content == player_ID)
-    {
-      count++;
-    }
-  }
-  if(count >= 4)
-  {
-    return true;
-  }
-  return false;
-
-  
+    return false;
     
-  /**
-  while x is on board:
-    x--
-    if on board then
-      if has object then count++
-  x = initial_x
-  while x is on board:
-    x++
-    if x on board
-      if has object then count++
+  }
 
-  if count >= 4 then 
-    return true
-  else
-    return false
-  */
+  //checks for a vertical win
+  public static boolean checkVertical(int player_ID)
+  {
+    int count = 1;
+    int initial_y = Grid.lastVertical;
+    int y = initial_y;
   
+    System.out.println(y);
+    
+    while (y < 5)
+    {
+      y++;
+      int delta_y = y - initial_y;
+      int content = Grid.returnValue(0, delta_y);
+      if (content == player_ID)
+      {
+        count++;
+      }
+    }
+    /**
+    y = initial_y;
+    while (y < 6)
+    {
+      y++;
+      int delta_y = y - initial_y;
+      int content = Grid.returnValue(0, delta_y);
+      if (content == player_ID)
+      {
+        count++;
+      }
+    }
+  */
+    if(count >= 4)
+    {
+      return true;
+    }
+    return false;
+  }
+
+  
+  //checks horizontal win
+  public static boolean checkHorizontal(int player_ID)
+  { 
+    int count = 1;
+    int initial_x = Grid.lastHorizontal;
+    int x = initial_x;
+  
+    while (x > 0)
+    {
+      x--;
+      int delta_x = x - initial_x;
+      int content = Grid.returnValue(0, delta_x);
+      if (content == player_ID)
+      {
+        count++;
+      }
+    }
+    x = initial_x;
+    while (x < 6)
+    {
+      x++;
+      int delta_x = x - initial_x;
+      int content = Grid.returnValue(0, delta_x);
+      if (content == player_ID)
+      {
+        count++;
+      }
+    }
+    if(count >= 4)
+    {
+      return true;
+    }
+    return false;
+  }
 
   /**
     //This if statement of code checks to see if the inputted value is out of bounds
@@ -144,5 +181,4 @@ public class Game
     }
 
   */
-  }
 }
