@@ -1,4 +1,5 @@
 import java.util.*;
+
 //This class is the main file. It contains the information on how the game will actually run
 //Brayden and Hanna collaborated on this class. They both added seperate peices of code, and edited and changed different parts of the code.
 
@@ -11,6 +12,7 @@ import java.util.*;
     - a more dramatic celebration
     - a play again option/Winner scene
  */
+
 public class Game
 {
   //creates the game grid
