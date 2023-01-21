@@ -1,28 +1,29 @@
 /*
- * This class was created so that we can store universal command so that every class can call it if we need it
- * for example like readLine(), readInt()
+ * This class was created so that we can store universal commandz that every 
+ * class can call. Ex: readLine(), readInt() etc.
  */
 
 import java.util.*;
 
 public class UNI_CMD{
-    /**
+    
+  /**
      * This method yada yada
      * @param
      * @return
      */
     public static int readInt(String question) {
-        Scanner myObj = new Scanner(System.in);
-        System.out.println(question);
-        String input = myObj.nextLine();
-        if(input.equals(""))
-        {
-            return 0;
-        }
-        else
-        {
-            return Integer.parseInt(input);
-        }
+      Scanner myObj = new Scanner(System.in);
+      System.out.println(question);
+      String input = myObj.nextLine();
+      if(input.equals(""))
+      {
+        return 0;
+      }
+      else
+      {
+        return Integer.parseInt(input);
+      }
     }
 
     /**
