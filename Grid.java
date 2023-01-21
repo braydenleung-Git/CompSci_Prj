@@ -31,9 +31,11 @@ public class Grid
    * This method is used to return the value at the position that is on the 2D Array
    * @return
    */
-  /* //disabled because is not needed for now.
-  public static int returnValue(){
-      return grid[lastVertical][lastHorizontal];
+  /* 
+//disabled because is not needed for now.
+  public static int returnValue()
+  {
+    return grid[lastVertical][lastHorizontal];
   }*/
 
   /**
@@ -42,7 +44,8 @@ public class Grid
    * @param increment_Y
    * @return int
    */
-  public static int returnValue(int increment_X, int increment_Y){
+  public static int returnValue(int increment_X, int increment_Y)
+  {
     return grid[lastVertical+increment_X][lastHorizontal+increment_Y];
   }
   
@@ -54,39 +57,41 @@ public class Grid
    */
   public int checkValidSpot(int input, int player_ID)
   {
-      //int player = grid [0][0];
-      int count = 0;
-      if(input > HORIZONTAL_SIZE || grid[0][input-1]!=0)
+    //int player = grid [0][0];
+    int count = 0;
+    if(input > HORIZONTAL_SIZE || grid[0][input-1]!=0)
+    {
+      System.out.println("ERROR: Invalid input. Please try again:");
+      UNI_CMD.readLine("Press [Enter] to proceed");
+      return 0;
+    }
+    else 
+    {
+      //the line below is to verify whether the code ran this part or not
+      //System.out.println("2");
+      for(int x = 0; x<VERTICAL_SIZE; x++)
       {
-          System.out.println("ERROR: Invalid input. Please try again:");
-          UNI_CMD.readLine("Press [Enter] to proceed");
-          return 0;
+        if(grid[x][input-1]!= 0 )
+        {
+          x--;
+          grid[x][input-1] = player_ID;
+          lastVertical = x;
+          lastHorizontal = input-1;
+          break;
+        }
+        else if( x == VERTICAL_SIZE-1)
+        {
+          grid[x][input-1] = player_ID;
+          lastVertical = x;
+          lastHorizontal = input-1;
+          break;
+        }
       }
-      else {
-          //the line below is to verify whether the code ran this part or not
-          //System.out.println("2");
-          for(int x = 0; x<VERTICAL_SIZE; x++)
-          {
-              if(grid[x][input-1]!= 0 )
-              {
-                  x--;
-                  grid[x][input-1] = player_ID;
-                  lastVertical = x;
-                  lastHorizontal = input-1;
-                  break;
-              }
-              else if( x == VERTICAL_SIZE-1){
-                  grid[x][input-1] = player_ID;
-                  lastVertical = x;
-                  lastHorizontal = input-1;
-                  break;
-              }
-          }
-          System.out.println("You have placed your dot in column "+ input);
-          UNI_CMD.readLine("Press [Enter] to proceed");
-          //System.out.println("Count :"+count);
-          return 1;
-      }
+      System.out.println("You have placed your dot in column "+ input);
+      UNI_CMD.readLine("Press [Enter] to proceed");
+      //System.out.println("Count :"+count);
+      return 1;
+    }
   }
 
   /**
@@ -98,11 +103,11 @@ public class Grid
   {
     if(input == 1)
     {
-        return COLOR_RED+"➊"+COLOR_RESET;
+      return COLOR_RED+"➊"+COLOR_RESET;
     }
     else if (input == 2)
     {
-        return COLOR_YELLOW+"➋"+COLOR_RESET;
+      return COLOR_YELLOW+"➋"+COLOR_RESET;
     }
     return "□";
   }
@@ -127,5 +132,5 @@ public class Grid
       column_id += (x+1) +" ";
     }
     System.out.println(column_id);
-}
+  }
 }

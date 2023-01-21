@@ -5,14 +5,16 @@
 
 import java.util.*;
 
-public class UNI_CMD{
+public class UNI_CMD
+{
     
   /**
    * This method yada yada
    * @param
    * @return
    */
-  public static int readInt(String question) {
+  public static int readInt(String question) 
+  {
     Scanner myObj = new Scanner(System.in);
     System.out.println(question);
     String input = myObj.nextLine();
@@ -31,7 +33,8 @@ public class UNI_CMD{
    * @param
    * @return
    */
-  public static String readLine(String question){
+  public static String readLine(String question)
+  {
     Scanner myObj = new Scanner(System.in);
     System.out.println(question);
     return myObj.nextLine();
@@ -42,21 +45,25 @@ public class UNI_CMD{
      * @param
      * @return
      */
-    public static void ui_Line(String input){
-      for(int x =0; x<input.length();x++);  {
-        System.out.print("=");
-      }
+  public static void ui_Line(String input)
+  {
+    for(int x =0; x<input.length();x++)  
+    {
+      System.out.print("=");
+    }
+    System.out.println();
+  }
+  
+  /**
+   * This method yada yada
+   * @param
+   * @return
+   */
+  public static void flush(int amount)
+  {
+    for(int x =0; x< amount; x++)
+    {
       System.out.println();
     }
-    /**
-     * This method yada yada
-     * @param
-     * @return
-     */
-    public static void flush(int amount){
-      for(int x =0; x< amount; x++)
-      {
-        System.out.println();
-      }
-    }
+  }
 }
