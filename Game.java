@@ -70,6 +70,7 @@ public class Game
   */ 
   public static boolean checkWin(int player_ID)
   {
+
     if(checkHorizontal(player_ID) || checkVertical(player_ID))
     {
       return true;
@@ -138,7 +139,7 @@ public class Game
     return false;
   }
 
-  /**
+  /*
     //This if statement of code checks to see if the inputted value is out of bounds
     if(Grid.lastVertical != 6 && Grid.returnValue(1,y_Increment)== player_ID)
     {

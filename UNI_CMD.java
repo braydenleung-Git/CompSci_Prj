@@ -37,9 +37,40 @@ public class UNI_CMD
   {
     Scanner myObj = new Scanner(System.in);
     System.out.println(question);
+    myObj.close();
     return myObj.nextLine();
   }
 
+  /**
+   *
+   * @param question
+   * @return
+   */
+  public static String readLine_GUI(String question){
+    Scanner input =  new Scanner(GUI.userInput);
+    input.close();
+    return input.nextLine();
+  }
+
+  /**
+   *
+   * @param question
+   * @return
+   */
+  public static int readInt_GUI(String question)
+  {
+    Scanner myObj = new Scanner(GUI.userInput);
+    System.out.println(question);
+    String input = myObj.nextLine();
+    if(input.equals(""))
+    {
+      return 0;
+    }
+    else
+    {
+      return Integer.parseInt(input);
+    }
+  }
   /**
      * This method yada yada
      * @param
