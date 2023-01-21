@@ -31,7 +31,7 @@ public class Grid
    * This method is used to return the value at the position that is on the 2D Array
    * @return
    */
-  /* //disabled because seemed not needed.
+  /* //disabled because is not needed for now.
   public static int returnValue(){
       return grid[lastVertical][lastHorizontal];
   }*/
@@ -58,7 +58,7 @@ public class Grid
       int count = 0;
       if(input > HORIZONTAL_SIZE || grid[0][input-1]!=0)
       {
-          System.out.println("Error Invalid input");
+          System.out.println("ERROR: Invalid input. Please try again:");
           UNI_CMD.readLine("Press [Enter] to proceed");
           return 0;
       }
@@ -84,7 +84,7 @@ public class Grid
           }
           System.out.println("You have placed your dot in column "+ input);
           UNI_CMD.readLine("Press [Enter] to proceed");
-          System.out.println("Count :"+count);
+          //System.out.println("Count :"+count);
           return 1;
       }
   }

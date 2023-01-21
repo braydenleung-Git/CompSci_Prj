@@ -55,7 +55,7 @@ public class Game
   - It says someone iwins in horizontal if they just have 4
       - they do not have to be connectd --> it keeps on moving left/right even if there is a blank space, need to create a break if there is a blank space (0)
   - When they win it will not place the final block, it will keep it at 3 and just announce that they won
-  - need to redo vertical check
+  - it doesnt reconginze player id??
   */
   
   /**
@@ -79,8 +79,6 @@ public class Game
     int count = 1;
     int initial_y = Grid.lastVertical;
     int y = initial_y;
-
-    System.out.println(y);
     
     while (y < 5)
     {
