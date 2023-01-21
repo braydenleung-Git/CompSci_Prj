@@ -17,14 +17,14 @@ public class Grid
   //Constructor
   public Grid()
   {
-      grid = new int[VERTICAL_SIZE][HORIZONTAL_SIZE];
-      for(int v= 0;v<VERTICAL_SIZE;v++)
-      {
-        for(int h=0; h< HORIZONTAL_SIZE; h++)
-          {
-             grid[v][h] = Player.DEFAULT_ID;
-          }
-      }
+    grid = new int[VERTICAL_SIZE][HORIZONTAL_SIZE];
+    for(int v= 0; v<VERTICAL_SIZE; v++)
+    {
+      for(int h=0; h< HORIZONTAL_SIZE; h++)
+        {
+           grid[v][h] = Player.DEFAULT_ID;
+        }
+    }
   }
 
   /**
@@ -45,7 +45,7 @@ public class Grid
   public static int returnValue(int increment_X, int increment_Y){
     return grid[lastVertical+increment_X][lastHorizontal+increment_Y];
   }
-  u 
+  
   /**
    * This method yada yada
    * @param input
@@ -56,18 +56,17 @@ public class Grid
   {
       //int player = grid [0][0];
       int count = 0;
-      if(grid[0][0]!=0 || input > HORIZONTAL_SIZE)
+      if(input > HORIZONTAL_SIZE || grid[0][input-1]!=0)
       {
           System.out.println("Error Invalid input");
-
+          UNI_CMD.readLine("Press [Enter] to proceed");
           return 0;
       }
       else {
-          //the line below is to verify wether the code ran this part or not
+          //the line below is to verify whether the code ran this part or not
           //System.out.println("2");
           for(int x = 0; x<VERTICAL_SIZE; x++)
           {
-
               if(grid[x][input-1]!= 0 )
               {
                   x--;
@@ -76,10 +75,10 @@ public class Grid
                   lastHorizontal = input-1;
                   break;
               }
-              else if( x ==VERTICAL_SIZE-1){
+              else if( x == VERTICAL_SIZE-1){
                   grid[x][input-1] = player_ID;
                   lastVertical = x;
-                  lastHorizontal = input;
+                  lastHorizontal = input-1;
                   break;
               }
           }
@@ -91,21 +90,21 @@ public class Grid
   }
 
   /**
-   * This method sorts the id between players and return their corrisponding color and character
+   * This method sorts the id between players and return their corrisponding colour and character
    * @param input
-   * @return
+   * @return string
    */
   private String sort_ID(int input)
   {
-      if(input == 1)
-      {
-          return COLOR_RED+"➊"+COLOR_RESET;
-      }
-      else if (input == 2)
-      {
-          return COLOR_YELLOW+"➋"+COLOR_RESET;
-      }
-      return "□";
+    if(input == 1)
+    {
+        return COLOR_RED+"➊"+COLOR_RESET;
+    }
+    else if (input == 2)
+    {
+        return COLOR_YELLOW+"➋"+COLOR_RESET;
+    }
+    return "□";
   }
 
   /**
@@ -114,19 +113,19 @@ public class Grid
    */
   public void print()
   {
-      for(int i = 0; i < grid.length; i++)
-  {
+    for(int i = 0; i < grid.length; i++)
+    {
       for(int j = 0; j < grid[0].length; j++)
       {
-          System.out.print(sort_ID(grid[i][j]) + " ");
+        System.out.print(sort_ID(grid[i][j]) + " ");
       }
       System.out.println();
-  }
-  String column_id ="";
-  for(int x = 0 ; x < grid[0].length; x++)
-  {
+    }
+    String column_id ="";
+    for(int x = 0 ; x < grid[0].length; x++)
+    {
       column_id += (x+1) +" ";
-  }
-  System.out.println(column_id);
-  }
+    }
+    System.out.println(column_id);
+}
 }
