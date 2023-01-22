@@ -1,3 +1,5 @@
+//This class creates the beginning GUI in our game. Brayden created this class.
+
 //set up all the prerequisites for the class
 import java.awt.*;
 import javax.swing.*;
@@ -40,7 +42,6 @@ public class GUI {
     frame.setLocation((screenSize.width / 2) - (frame.getWidth() / 2), (screenSize.height / 2) - (frame.getHeight() / 2));
     frame.setResizable(false);
     frame.setVisible(true);
-
   }
 
   /**

@@ -5,7 +5,6 @@ import java.util.*;
 
 /*
     To Do list:
-    - finish java doc comments
     - finish daily journal updates
     - do testing journals
     - do video
