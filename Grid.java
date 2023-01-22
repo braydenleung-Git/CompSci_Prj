@@ -88,7 +88,7 @@ public class Grid
         }
       }
       System.out.println("You have placed your dot in column "+ input);
-      UNI_CMD.readLine("Press [Enter] to proceed");
+      //UNI_CMD.readLine("Press [Enter] to proceed");
       //System.out.println("Count :"+count);
       return 1;
     }
