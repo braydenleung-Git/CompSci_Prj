@@ -109,7 +109,7 @@ public class GUI {
       cl.show(main_Panel, "Console");
       frame.setBackground(Color.black);
       //suggestion to prevent freeze, run the game based on events, instead of part of gui class
-      Game.run_Game();
+      //Game.run_Game();
       //System.out.println("test");
     });
 
