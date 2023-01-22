@@ -1,6 +1,7 @@
 //set up all the prerequisites for the class
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.io.*;
 
 public class GUI {
@@ -13,17 +14,22 @@ public class GUI {
   private static final JPanel console_Layout= new JPanel();
   public static String userInput = null;
 
+  //Font libary, Each font variable must be declare with public visibility first
+  public static Font HelvetciaNeue_Cond_B_05 = null;
+  public static Font Impact = null;
+  public static Font PTMono_Regular_02 = null;
+  public static Font SplineSansMono_VF_wght = null;
 
   public static void main(String[] args) {
     //Set that when the user clicks cross button, it will kill the code
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+    setup_Fonts();
     setup_Username_Layout();
-
+    setup_Console_Layout();
     //Adds the username_Layout to the main layout
     main_Panel.add(username_Layout,"Username");
-    main_Panel.setLocation(frame.getHeight() / 2, frame.getWidth() / 2);
     main_Panel.add(console_Layout, "Console");
+    main_Panel.setLocation(frame.getHeight() / 2, frame.getWidth() / 2);
     //add the main_panel(one that allow switching scene) to the JFrame
     frame.add(main_Panel, BorderLayout.CENTER);
     frame.pack();
@@ -43,9 +49,9 @@ public class GUI {
     JPanel left_Side = new JPanel();
     left_Side.setLayout(new BoxLayout(left_Side, BoxLayout.Y_AXIS));
     JLabel player1_L = new JLabel("Player 1:");
-    player1_L.setFont(new Font("Arial", Font.PLAIN, 30/* *(1+(username_Layout.getHeight()/10)) */));
+    player1_L.setFont(HelvetciaNeue_Cond_B_05.deriveFont(25f));
     JLabel player2_L = new JLabel("Player 2:");
-    player2_L.setFont(new Font("Arial", Font.PLAIN, 30/* *(1+(username_Layout.getHeight()/10)) */));
+    player2_L.setFont(HelvetciaNeue_Cond_B_05.deriveFont(25f));
     left_Side.add(player1_L);
     left_Side.add(player2_L);
     username.add(left_Side);
@@ -60,7 +66,7 @@ public class GUI {
         Player1_Name = player1_T.getText();
       }
     });
-    player1_T.setFont(new Font("Arial", Font.PLAIN, 25));
+    player1_T.setFont(HelvetciaNeue_Cond_B_05.deriveFont(20f));
     player1_T.setSize(250, 25);
     //line below is for experimental purpose, not supposed to be implemented to code
     //player1_T.setMaximumSize(new Dimension(250/**(1+(username_Layout.getWidth()/25))*/,30/**(1+(username_Layout.getHeight()/25))*/));
@@ -71,7 +77,7 @@ public class GUI {
         Player2_Name = player2_T.getText();
       }
     });
-    player2_T.setFont(new Font("Arial", Font.PLAIN, 25));
+    player2_T.setFont(HelvetciaNeue_Cond_B_05.deriveFont(20f));
     player2_T.setSize(250, 25);
     //line below is for experimental purpose, not supposed to be implemented to code
     //player2_T.setMaximumSize(new Dimension(250/**(1+(username_Layout.getWidth()/25))*/,30/**(1+(username_Layout.getHeight()/25))*/));
@@ -89,12 +95,18 @@ public class GUI {
 
     //This adds a button to start the game
     JButton start_Button =  new JButton("Click to Start Game!");
-    start_Button.setFont(new Font("Arial", Font.PLAIN, 15));
+    start_Button.setFont(Impact.deriveFont(24f));
     start_Button.addActionListener(e -> {
       CardLayout cl = (CardLayout)(main_Panel.getLayout());
-      frame.setSize(screenSize);
-      frame.setLocation(0,0);
-      cl.show(main_Panel, "console");
+      frame.setResizable(true);
+      //GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+      frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+      /*if (device.isFullScreenSupported()) {
+        frame.setUndecorated(true);
+        device.setFullScreenWindow(frame);
+      }*/
+      cl.show(main_Panel, "Console");
+      frame.setBackground(Color.black);
     });
 
 
@@ -109,9 +121,18 @@ public class GUI {
    * This method is used to set up the console "Card" so that it makes switching between "cards" possible
    */
   public static void setup_Console_Layout() {
-
     console_Layout.setLayout(new BorderLayout());
-
+    /*
+    console_Layout.setLayout(new GridBagLayout());
+    GridBagConstraints Output =new GridBagConstraints();
+    GridBagConstraints Input = new GridBagConstraints();
+    Output.weightx = 10.0;
+    Output.weighty = 0.9;
+    Output.gridy = GridBagConstraints.NORTH;
+    Input.weightx = 1.0;
+    Input.weighty = 0.1;
+    Input.gridy = GridBagConstraints.SOUTH;
+    */
     //Set up console out put to text area
     JTextArea console_Output = new JTextArea();
     console_Output.setEditable(false);
@@ -124,8 +145,15 @@ public class GUI {
     System.setOut(output);
     System.setErr(output);
     console_Output.setBackground(Color.black);
-    console_Output.setFont(new Font(""));
-    console_Layout.add(console_Output,BorderLayout.PAGE_START);
+    console_Output.setForeground(Color.white);
+    console_Output.setFont(PTMono_Regular_02.deriveFont(15f));
+    //console_Output.setFont(new Font());
+    //console_Layout.add(console_Output,Output);
+    Dimension output_Max_Size = new Dimension();
+    output_Max_Size.setSize(screenSize.getWidth(),(screenSize.getHeight()-25));
+    //console_Output.setMaximumSize(output_Max_Size);
+    console_Layout.add(console_Output, BorderLayout.NORTH);
+
 
     //Set up console input to the text field
     JTextField console_Input = new JTextField();
@@ -140,8 +168,57 @@ public class GUI {
         console_Input.setText("");
       }
     });
-    console_Input.setBackground(Color.decode("242424"));
-    console_Layout.add(console_Input,BorderLayout.PAGE_END);
+    console_Input.setBackground(Color.decode("#4f4f4f"));
+    console_Input.setForeground(Color.white);
+    console_Input.setFont(PTMono_Regular_02.deriveFont(15f));
+    //console_Layout.add(console_Input,Input);
+    console_Layout.add(console_Input, BorderLayout.SOUTH);
+    console_Layout.setBackground(Color.BLACK);
+
+
+  }
+
+  /**
+   * This method is used to import the font used in the program.
+   * Note: Only one that are imported are count towards "Font", varies by file name.
+   */
+  public static void setup_Fonts(){
+    GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+    try {
+
+      // Load the font file
+      //HelveticaNeue-CondensedBold-05
+      File HelvetciaNeue_Cond_B_05_File = new File("./Fonts/HelveticaNeue-CondensedBold-05.ttf");
+      HelvetciaNeue_Cond_B_05 = Font.createFont(Font.TRUETYPE_FONT, HelvetciaNeue_Cond_B_05_File);
+      ge.registerFont(HelvetciaNeue_Cond_B_05);
+    } catch (IOException | FontFormatException e) {
+      e.printStackTrace();
+    }
+    try {
+      //Impact
+      File Impact_File = new File("./Fonts/Impact.ttf");
+      Impact = Font.createFont(Font.TRUETYPE_FONT, Impact_File);
+      ge.registerFont(Impact);
+    } catch (IOException | FontFormatException e) {
+      e.printStackTrace();
+    }
+    try {
+      //PTMono-Regular-02
+      File PTMono_Regular_02_File = new File("./Fonts/PTMono-Regular-02.ttf");
+      PTMono_Regular_02 = Font.createFont(Font.TRUETYPE_FONT, PTMono_Regular_02_File);
+      ge.registerFont(PTMono_Regular_02);
+    } catch (IOException | FontFormatException e) {
+      e.printStackTrace();
+    }
+    try {
+      //SplineSansMono-VariableFont_wght
+      File SplineSansMono_VF_wght_File = new File("./Fonts/SplineSansMono-VariableFont_wght.ttf");
+      SplineSansMono_VF_wght = Font.createFont(Font.TRUETYPE_FONT, SplineSansMono_VF_wght_File);
+      ge.registerFont(SplineSansMono_VF_wght);
+
+    } catch (IOException | FontFormatException e) {
+      e.printStackTrace();
+    }
   }
 }
 //Offline Copy of GPT code (Console)
@@ -273,5 +350,22 @@ public class Console {
       }
   }
 */
+//Offline Copy of GPT code(add fonts)
+/*
+===============================================
+try {
+    // Load the font file
+    File fontFile = new File("path/to/font.ttf");
+    Font font = Font.createFont(Font.TRUETYPE_FONT, fontFile);
+    GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+    ge.registerFont(font);
 
+    // Set the font for a JLabel
+    JLabel label = new JLabel("Hello World!");
+    label.setFont(font.deriveFont(24f));
+} catch (IOException | FontFormatException e) {
+    e.printStackTrace();
+}
+
+ */
 

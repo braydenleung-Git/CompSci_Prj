@@ -4,7 +4,12 @@ import java.io.*;
 
 public class test{
 
+    public static void main(String[] args){
+        String text= "-";
+        System.out.println(text);
+    }
     //This is testing the switch scene that ChatGPT provide used to understand how it works
+    /*
     public class SwitchScenes extends JFrame {
         private JPanel cards;
         private JTextField usernameField;
@@ -51,7 +56,7 @@ public class test{
             pack();
             setVisible(true);
         }
-    }
+    }*/
     //This is testing the console that ChatGPT provide use to understand how it works
     /*
     public static void main(String[] args) {
@@ -83,11 +88,10 @@ public class test{
             // code to process user input
             input.setText("");
         });
-
         frame.pack();
         frame.setVisible(true);
-    }
-    */
+    }*/
+
     //this is a demostration chatGPT about borderlayout in buttons?
     /*
     public static void main(String[] args){
