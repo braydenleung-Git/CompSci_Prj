@@ -142,7 +142,7 @@ public class Game
   {
     int count = 1;
     int initial_x = Grid.lastHorizontal;
-    int inital_y = Grid.lastVertical
+    int inital_y = Grid.lastVertical;
     int x = initial_x;
     int y = inital_y;
 
