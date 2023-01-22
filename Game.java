@@ -5,11 +5,9 @@ import java.util.*;
 
 /*
     To Do list:
-    - add indicator to indicate which player's turn
     - setup a working gui window with layout change
     - merge gui and the game
     - test game via gui
-    - a more dramatic celebration
     - a play again option/Winner scene
  */
 
@@ -20,12 +18,18 @@ public class Game
 
   //Main run method
   public static void main(String[] args)
-  //Hanna if you are reading this, ignore the line below, it is just used for making the game runnable in GUI, it is still in Dev
-  //ok sounds good 
+
   //public static void run_Game()
   {
-    Player player1 = new Player(1,GUI.Player1_Name);
-    Player player2 = new Player(2,GUI.Player2_Name);
+    //shows some rules before the game begins
+    UNI_CMD.flush(100);
+    System.out.println("Welcome to Connect Four! \n \nRules of the game:");
+    System.out.println("1) There are 7 columns. You will take turns dropping your circles down one by one. \n2) To win you must have four of your coins in a row. /n3) This can be done vertically, horizontally, or diagonally.");
+    UNI_CMD.readLine("\nPress [Enter] to proceed");
+
+    
+    Player player1 = new Player(1, GUI.Player1_Name);
+    Player player2 = new Player(2, GUI.Player2_Name);
     UNI_CMD.flush(100);
     grid.print();
     while(true)
@@ -44,7 +48,6 @@ public class Game
       }
     }
   }
-
   
   public static void playerMove(Player player)
   {
@@ -62,13 +65,6 @@ public class Game
     }
   }
 
-  /**
-  BUGS WITH CHECK WINS:
-  - It says someone iwins in horizontal if they just have 4
-      - they do not have to be connectd --> it keeps on moving left/right even if there is a blank space, need to create a break if there is a blank space (0)
-  - When they win it will not place the final block, it will keep it at 3 and just announce that they won
-  - it doesnt reconginze player id??
-  */
   
   /**
   * This method yada yada
