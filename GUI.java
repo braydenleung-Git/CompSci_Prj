@@ -2,6 +2,7 @@
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.Border;
+import java.awt.event.ActionEvent;
 import java.io.*;
 
 
@@ -9,12 +10,14 @@ public class GUI {
 
   public static String Player1_Name = "Player 1";
   public static String Player2_Name = "Player 2";
-  private static final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-  private static final JFrame frame = new JFrame("Connect 4, By Brayden & Hanna");
+  public static final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+  public static JFrame frame = new JFrame("Connect 4, By Brayden & Hanna");
   private static final JPanel main_Panel = new JPanel(new CardLayout());
   private static final JPanel username_Layout = new JPanel();
   private static final JPanel console_Layout= new JPanel();
-  public static String userInput = null;
+  public static String userInput = " ";
+
+  public static boolean runGame = false;
 
   //Font library, Each font variable must be declared with public visibility first
   public static Font HelvetciaNeue_Cond_B_05 = null;
@@ -24,6 +27,8 @@ public class GUI {
 
   public static void main(String[] args) {
   //public static void run_GUI(){
+
+
     //Set that when the user clicks cross button, it will kill the code
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setup_Fonts();
@@ -99,17 +104,18 @@ public class GUI {
 
 
     //This adds a button to start the game
-    JButton start_Button =  new JButton("Click to Start Game!");
+    JButton start_Button =  new JButton("Click to Proceed");
     start_Button.setFont(Impact.deriveFont(24f));
     start_Button.addActionListener(e -> {
       CardLayout cl = (CardLayout)(main_Panel.getLayout());
-      frame.setResizable(true);
+      //frame.setResizable(true);
       //GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-      frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+      //frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
       cl.show(main_Panel, "Console");
       frame.setBackground(Color.black);
-      //suggestion to prevent freeze, run the game based on events, instead of part of gui class
-      //Game.run_Game();
+
+      //Note: if the application freeze, causation is from extended-state of the frame, run the extended within the game class to resolve
+      Game.run_Game();
       //System.out.println("test");
     });
 
@@ -142,9 +148,10 @@ public class GUI {
     console_Output.setEditable(false);
     PrintStream output = new PrintStream(new OutputStream() {
       @Override
-      public void write(int b) throws IOException {
+      public void write(int b) {
         console_Output.setForeground(Color.white);
         console_Output.append(String.valueOf((char) b));
+        //Automatically scroll down console
         console_Output.setCaretPosition(console_Output.getDocument().getLength());
       }
     });
@@ -164,17 +171,16 @@ public class GUI {
 
     //Set up console input to the text field
     JTextField console_Input = new JTextField();
-    console_Input.addActionListener(e -> {
-      if(console_Input.equals(null))
-      {
-        userInput = " ";
-      }
-      else
-      {
-        userInput = console_Input.getText();
-        console_Input.setText("");
-      }
+    console_Input.addActionListener((ActionEvent e) -> {
+      userInput = console_Input.getText();
+      console_Output.append(userInput);
+      console_Input.setText("");
     });
+
+
+
+
+
     console_Input.setBackground(Color.decode("#4f4f4f"));
     console_Input.setForeground(Color.white);
     console_Input.setFont(PTMono_Regular_02.deriveFont(15f));

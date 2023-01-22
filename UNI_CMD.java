@@ -37,7 +37,6 @@ public class UNI_CMD
   {
     Scanner myObj = new Scanner(System.in);
     System.out.println(question);
-    myObj.close();
     return myObj.nextLine();
   }
 
@@ -48,7 +47,7 @@ public class UNI_CMD
    */
   public static String readLine_GUI(String question){
     Scanner input =  new Scanner(GUI.userInput);
-    input.close();
+    System.out.println(question);
     return input.nextLine();
   }
 

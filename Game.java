@@ -1,4 +1,4 @@
-import java.util.*;
+import javax.swing.*;
 
 //This class is the main file. It contains the information on how the game will actually run
 //Hanna and Brayden collaborated on this class. They both added seperate peices of code, and edited and changed different parts of the code.
@@ -19,12 +19,17 @@ public class Game
   static Grid grid = new Grid();
 
   //Main run method
-  public static void main(String[] args)
+  //public static void main(String[] args)
   //Hanna if you are reading this, ignore the line below, it is just used for making the game runnable in GUI, it is still in Dev
-  //public static void run_Game()
+  public static void run_Game()
   {
+
+
     Player player1 = new Player(1,GUI.Player1_Name);
     Player player2 = new Player(2,GUI.Player2_Name);
+    GUI.frame.setSize(1080,720);
+    GUI.frame.setLocation((GUI.screenSize.width / 2) - (GUI.frame.getWidth() / 2), (GUI.screenSize.height / 2) - (GUI.frame.getHeight() / 2));
+    //GUI.frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
     while(true)
     {
       playerMove(player1);
@@ -49,9 +54,9 @@ public class Game
     //we created the loop so that if there is an error during validating player move, we can loop it to
     while(status == 0)
     {
-      UNI_CMD.flush(100);
+      //UNI_CMD.flush(100);
       grid.print();
-      int input = UNI_CMD.readInt("\nWhich column would you like to fill? ");
+      int input = UNI_CMD.readInt_GUI("\nWhich column would you like to fill? ");
       //This is used to break the loop
       status = grid.checkValidSpot(input, player.getPlayer_ID()); 
     }
