@@ -4,7 +4,9 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import java.io.*;
 
+
 public class GUI {
+
   public static String Player1_Name = "Player 1";
   public static String Player2_Name = "Player 2";
   private static final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -14,13 +16,14 @@ public class GUI {
   private static final JPanel console_Layout= new JPanel();
   public static String userInput = null;
 
-  //Font libary, Each font variable must be declare with public visibility first
+  //Font library, Each font variable must be declared with public visibility first
   public static Font HelvetciaNeue_Cond_B_05 = null;
   public static Font Impact = null;
   public static Font PTMono_Regular_02 = null;
   public static Font SplineSansMono_VF_wght = null;
 
   public static void main(String[] args) {
+  //public static void run_GUI(){
     //Set that when the user clicks cross button, it will kill the code
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setup_Fonts();
@@ -37,12 +40,14 @@ public class GUI {
     frame.setLocation((screenSize.width / 2) - (frame.getWidth() / 2), (screenSize.height / 2) - (frame.getHeight() / 2));
     frame.setResizable(false);
     frame.setVisible(true);
+
   }
 
   /**
    * This method is used to set up the username "Card" so that it make switching between "cards possible
    */
   public static void setup_Username_Layout() {
+
 
     JPanel username = new JPanel();
     //This is used to set up the left side(text) of the username layout
@@ -101,12 +106,11 @@ public class GUI {
       frame.setResizable(true);
       //GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
       frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-      /*if (device.isFullScreenSupported()) {
-        frame.setUndecorated(true);
-        device.setFullScreenWindow(frame);
-      }*/
       cl.show(main_Panel, "Console");
       frame.setBackground(Color.black);
+      //suggestion to prevent freeze, run the game based on events, instead of part of gui class
+      Game.run_Game();
+      //System.out.println("test");
     });
 
 
@@ -138,8 +142,10 @@ public class GUI {
     console_Output.setEditable(false);
     PrintStream output = new PrintStream(new OutputStream() {
       @Override
-      public void write(int b) {
+      public void write(int b) throws IOException {
+        console_Output.setForeground(Color.white);
         console_Output.append(String.valueOf((char) b));
+        console_Output.setCaretPosition(console_Output.getDocument().getLength());
       }
     });
     System.setOut(output);
@@ -152,7 +158,8 @@ public class GUI {
     Dimension output_Max_Size = new Dimension();
     output_Max_Size.setSize(screenSize.getWidth(),(screenSize.getHeight()-25));
     //console_Output.setMaximumSize(output_Max_Size);
-    console_Layout.add(console_Output, BorderLayout.NORTH);
+    JScrollPane console_Output_Scroll =  new JScrollPane(console_Output);
+    console_Layout.add(console_Output_Scroll, BorderLayout.NORTH);
 
 
     //Set up console input to the text field

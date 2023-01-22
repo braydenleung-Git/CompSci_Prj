@@ -19,10 +19,11 @@ public class Game
   static Grid grid = new Grid();
 
   //Main run method
-  public static void main(String[] args)
+  //public static void main(String[] args)
+  public static void run_Game()
   {
-    Player player1 = new Player(1,"test 1");
-    Player player2 = new Player(2,"test 2");
+    Player player1 = new Player(1,GUI.Player1_Name);
+    Player player2 = new Player(2,GUI.Player2_Name);
     while(true)
     {
       playerMove(player1);

@@ -3,11 +3,11 @@ import java.awt.*;
 import java.io.*;
 
 public class test{
-
+    /*
     public static void main(String[] args){
         String text= "-";
         System.out.println(text);
-    }
+    }*/
     //This is testing the switch scene that ChatGPT provide used to understand how it works
     /*
     public class SwitchScenes extends JFrame {
