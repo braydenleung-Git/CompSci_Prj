@@ -70,12 +70,11 @@ public class Game
   */ 
   public static boolean checkWin(int player_ID)
   {
-    if(checkHorizontal(player_ID) || checkVertical(player_ID))
+    if(checkHorizontal(player_ID) || checkVertical(player_ID) || checkVertical(player_ID))
     {
       return true;
     }
     return false;
-    
   }
 
   //checks for a vertical win
@@ -138,6 +137,84 @@ public class Game
     return false;
   }
 
+  //checks diagonal win
+  public static boolean checkDiagonal(int player_ID)
+  {
+    int count = 1;
+    int initial_x = Grid.lastHorizontal;
+    int inital_y = Grid.lastVertical
+    int x = initial_x;
+    int y = inital_y;
+
+    //top left, up
+    while (x > 0 && y > 0)
+    {
+      x--;
+      y--;
+      int delta_x = x - initial_x;
+      int delta_y = y - inital_y;
+      int content = Grid.returnValue(delta_y, delta_x);
+      if (content == player_ID)
+      {
+        count++;
+      }
+    }
+    x = initial_x;
+    y = inital_y;
+    
+    //bottom left, down
+    while (x > 0 && y < 5)
+    {
+      x--;
+      y++;
+      int delta_x = x - initial_x;
+      int delta_y = y - inital_y;
+      int content = Grid.returnValue(delta_y, delta_x);
+      if (content == player_ID)
+      {
+        count++;
+      }
+    }
+    x = initial_x;
+    y = inital_y;
+
+    //top right, up
+    while (x < 6 && y > 0)
+    {
+      x++;
+      y--;
+      int delta_x = x - initial_x;
+      int delta_y = y - inital_y;
+      int content = Grid.returnValue(delta_y, delta_x);
+      if (content == player_ID)
+      {
+        count++;
+      }
+    }
+    x = initial_x;
+    y = inital_y;
+
+    //bottom right, down
+    while (x < 6 && y < 5)
+    {
+      x++;
+      y++;
+      int delta_x = x - initial_x;
+      int delta_y = y - inital_y;
+      int content = Grid.returnValue(delta_y, delta_x);
+      if (content == player_ID)
+      {
+        count++;
+      }
+    }
+    
+    if(count >= 4)
+    {
+      return true;
+    }
+    return false;
+  }
+  
   /**
     //This if statement of code checks to see if the inputted value is out of bounds
     if(Grid.lastVertical != 6 && Grid.returnValue(1,y_Increment)== player_ID)
