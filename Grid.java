@@ -9,8 +9,8 @@ public class Grid
   public static final String COLOR_RED = "\033[0;31m";
   public static final String COLOR_YELLOW = "\033[0;33m";
   public static final String COLOR_RESET = "\033[0m";
-  public static int lastVertical =0;
-  public static int lastHorizontal =0;
+  public static int lastVertical = 0;
+  public static int lastHorizontal = 0;
   //Initializing grid object
   public static int[][] grid;
 

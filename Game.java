@@ -35,7 +35,7 @@ public class Game
         break;
       }
       playerMove(player2);
-      if(checkWin(player1.getPlayer_ID())) 
+      if(checkWin(player2.getPlayer_ID())) 
       {
         System.out.println("Player 2 Wins!");
         break;
@@ -50,11 +50,13 @@ public class Game
     //we created the loop so that if there is an error during validating player move, we can loop it to
     while(status == 0)
     {
-      UNI_CMD.flush(100);
-      grid.print();
+      //UNI_CMD.flush(100);
+      //grid.print();
       int input = UNI_CMD.readInt("\nWhich column would you like to fill? ");
       //This is used to break the loop
       status = grid.checkValidSpot(input, player.getPlayer_ID()); 
+      UNI_CMD.flush(100);
+      grid.print();
     }
   }
 
