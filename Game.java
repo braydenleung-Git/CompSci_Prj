@@ -33,13 +33,13 @@ public class Game
       playerMove(player1);
       if(checkWin(player1.getPlayer_ID()))
       {
-        System.out.println("Player 1 Wins!");
+        System.out.println("\nPLAYER 1 WINS!!!");
         break;
       }
       playerMove(player2);
       if(checkWin(player2.getPlayer_ID())) 
       {
-        System.out.println("Player 2 Wins!");
+        System.out.println("\nPLAYER 2 WINS!!!");
         break;
       }
     }
