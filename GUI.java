@@ -15,9 +15,12 @@ public class GUI {
   private static final JPanel username_Layout = new JPanel();
   private static final JPanel console_Layout= new JPanel();
   public static String userInput = " ";
+  public static Dimension output_Max_Size = new Dimension();
 
   public static boolean runGame = false;
   public static JTextArea console_Output = new JTextArea();
+
+  public static int start_Size = 15;
 
   //Font library, Each font variable must be declared with public visibility first
   public static Font HelvetciaNeue_Cond_B_05 = null;
@@ -27,8 +30,8 @@ public class GUI {
 
   public static Font Arial_Unicode = null;
 
-  //public static void main(String[] args) {
-  public static void run_GUI(){
+  public static void main(String[] args) {
+  //public static void run_GUI(){
 
 
     //Set that when the user clicks cross button, it will kill the code
@@ -106,7 +109,7 @@ public class GUI {
 
 
     //This adds a button to start the game
-    JButton start_Button =  new JButton("Click to Proceed");
+    JButton start_Button =  new JButton("Click to Start Game");
     start_Button.setFont(Impact.deriveFont(24f));
     start_Button.addActionListener(e -> {
       CardLayout cl = (CardLayout)(main_Panel.getLayout());
@@ -115,12 +118,14 @@ public class GUI {
       //frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
       cl.show(main_Panel, "Console");
       frame.setBackground(Color.black);
-      GUI.frame.setSize(1080,720);
+      frame.setSize(output_Max_Size);
+      //GUI.frame.setSize(1080,720);
       GUI.frame.setLocation((GUI.screenSize.width / 2) - (GUI.frame.getWidth() / 2), (GUI.screenSize.height / 2) - (GUI.frame.getHeight() / 2));
-      UNI_CMD.readLine("Start Game? [Enter]");
-      runGame = true;
+      //UNI_CMD.readLine_GUI("Start Game? [Enter]");
+      //runGame = true;
       //Note: if the application freeze, causation is from extended-state of the frame, run the extended within the game class to resolve
-      //Game.run_Game();
+      //Game game = new Game();
+      Game.run_Game();
       //System.out.println("test");
     });
 
@@ -151,6 +156,7 @@ public class GUI {
     //Set up console out put to text area
 
     console_Output.setEditable(false);
+    console_Layout.setBackground(Color.BLACK);
     PrintStream output = new PrintStream(new OutputStream() {
       @Override
       public void write(byte[] b, int off, int len){
@@ -176,14 +182,16 @@ public class GUI {
     console_Output.setBackground(Color.black);
     console_Output.setForeground(Color.white);
     console_Output.setFont(PTMono_Regular_02.deriveFont(15f));
-    //console_Output.setFont(new Font());
-    //console_Layout.add(console_Output,Output);
-    Dimension output_Max_Size = new Dimension();
-    output_Max_Size.setSize(screenSize.getWidth(),(screenSize.getHeight()-25));
-    //console_Output.setMaximumSize(output_Max_Size);
-    JScrollPane console_Output_Scroll =  new JScrollPane(console_Output);
-    console_Layout.add(console_Output_Scroll, BorderLayout.NORTH);
 
+    //console_Layout.add(console_Output,Output);
+    //Dimension output_Max_Size = new Dimension();
+    output_Max_Size.setSize(screenSize.getWidth(),(screenSize.getHeight()-25));
+    JScrollPane console_Output_Scroll =  new JScrollPane(console_Output);
+
+    console_Output_Scroll.setBackground(Color.BLACK);
+    console_Layout.add(console_Output_Scroll, BorderLayout.CENTER);
+
+    frame.pack();
 
     //Set up console input to the text field
     JTextField console_Input = new JTextField();
@@ -193,7 +201,7 @@ public class GUI {
         userInput = console_Input.getText();
         ByteArrayInputStream in = new ByteArrayInputStream(userInput.getBytes());
         System.setIn(in);
-        console_Output.append(userInput);
+        console_Output.append("\n"+userInput);
         console_Input.setText("");
       }
     });
@@ -203,7 +211,6 @@ public class GUI {
     //console_Layout.add(console_Input,Input);
     console_Layout.add(console_Input, BorderLayout.SOUTH);
     console_Layout.setBackground(Color.BLACK);
-
 
   }
 

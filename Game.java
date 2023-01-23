@@ -19,10 +19,10 @@ public class Game
   static Grid grid = new Grid();
 
   //Main run method
-  public static void main(String[] args)
+  //public static void main(String[] args)
   //Hanna if you are reading this, ignore the line below, it is just used for making the game runnable in GUI, it is still in Dev
   //ok sounds good 
-  //public static void run_Game()
+  public static void run_Game()
   {
     Player player1 = new Player(1,GUI.Player1_Name);
     Player player2 = new Player(2,GUI.Player2_Name);
