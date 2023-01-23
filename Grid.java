@@ -29,10 +29,9 @@ public class Grid
 
   /**
    * This method is used to return the value at the position that is on the 2D Array
-   * @return
+   * @return int
    */
-  /* 
-//disabled because is not needed for now.
+  /* DISABLED because is not needed for now.
   public static int returnValue()
   {
     return grid[lastVertical][lastHorizontal];
@@ -40,8 +39,8 @@ public class Grid
 
   /**
    * This method is used to return the value at the postion that is on the 2D Array, but with added increment
-   * @param increment_X
-   * @param increment_Y
+   * @param increment_X, the current position 
+   * @param increment_Y, the current position
    * @return int
    */
   public static int returnValue(int increment_X, int increment_Y)
@@ -50,16 +49,15 @@ public class Grid
   }
   
   /**
-   * This method yada yada
-   * @param input
-   * @param player_ID
-   * @return int
+   * This method checks to see if the spot the player wants to put an object down upon is open. It has a few problems with it, like code that is unnecsary or doesnt make sense, but does its job properly so we left them for now. It also fixes some bugs if a player inputs a wrong number. 
+   * @param player_ID, the object they put is dependant on their player id.
+   * @return int, what the spots player_ID is
    */
-  public int checkValidSpot(int input, int player_ID)
+  public int checkValidSpot(int player_ID)
   {
     //int player = grid [0][0];
     int count = 0;
-    if(input > HORIZONTAL_SIZE || grid[0][input-1]!=0)
+    if(Game.input == 0 || Game.input > HORIZONTAL_SIZE || grid[0][Game.input-1]!=0)
     {
       System.out.println("ERROR: Invalid input. Please try again:");
       UNI_CMD.readLine("Press [Enter] to proceed");
@@ -71,23 +69,24 @@ public class Grid
       //System.out.println("2");
       for(int x = 0; x<VERTICAL_SIZE; x++)
       {
-        if(grid[x][input-1]!= 0 )
+        if(grid[x][Game.input-1]!= 0 )
         {
           x--;
-          grid[x][input-1] = player_ID;
+          grid[x][Game.input-1] = player_ID;
           lastVertical = x;
-          lastHorizontal = input-1;
+          lastHorizontal = Game.input-1;
           break;
         }
         else if( x == VERTICAL_SIZE-1)
         {
-          grid[x][input-1] = player_ID;
+          grid[x][Game.input-1] = player_ID;
           lastVertical = x;
-          lastHorizontal = input-1;
+          lastHorizontal = Game.input-1;
           break;
         }
       }
-      System.out.println("You have placed your dot in column "+ input);
+      //System.out.println("You have placed your dot in column "+ Game.input);
+      Game.input = 0 ;
       //UNI_CMD.readLine("Press [Enter] to proceed");
       //System.out.println("Count :"+count);
       return 1;
@@ -95,9 +94,9 @@ public class Grid
   }
 
   /**
-   * This method sorts the id between players and return their corrisponding colour and character
-   * @param input
-   * @return string
+   * This method sorts the id between players and return their corrisponding colour and object character
+   * @param input, what the id is
+   * @return string, the grid object or player object
    */
   private String sort_ID(int input)
   {
@@ -113,8 +112,7 @@ public class Grid
   }
 
   /**
-   * This method takes the grid object and prints it out. It does not have any parameters
-   * or returns.
+   * This method takes the grid object and prints it out as well as the column numbers. It does not have any parameters or returns.
    */
   public void print()
   {
