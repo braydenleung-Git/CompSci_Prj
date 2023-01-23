@@ -21,14 +21,14 @@ public class UNI_CMD
     System.out.println(question);
     String input = myObj.nextLine();
     char input_c = input.charAt(0);
-
-    if(input.isEmpty() || !Character.isDigit(input_c))
+    if(Character.isDigit(input_c))
     {
-      return 0;
+
+      return Character.getNumericValue(input_c);
     }
     else
     {
-        return input_c;
+        return 0;
 
     }
   }
