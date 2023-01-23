@@ -7,9 +7,9 @@ public class UNI_CMD
 {
     
   /**
-   * This method prints out a question or statment and expects an int as a response to it. It assings the respons to the ints name.
+   * This method prints out a question or statment and expects an int as a response to it. It assigns the respons to the ints name.
    * @param question, the int that this is called on.
-   * @return int, a number that the user inputs after reading the question or statment.
+   * @return int, a number that the user inputs after reading the question or statment.c
    */
   public static int readInt(String question)
   {
