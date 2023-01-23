@@ -21,8 +21,8 @@ public class Game
   public static int input = 0;
 
   //Main run method
-  //public static void main(String[] args)
-  public static void run_Game()
+  public static void main(String[] args)
+  //public static void run_Game()
   {
     //this shows rules before the game begins
     UNI_CMD.flush(50);
