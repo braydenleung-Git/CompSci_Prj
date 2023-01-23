@@ -16,16 +16,18 @@ public class UNI_CMD
     Scanner myObj = new Scanner(System.in);
     System.out.println(question);
     String input = myObj.nextLine();
-    char input_c = input.charAt(0);
-    if(Character.isDigit(input_c))
-    {
-
-      return Character.getNumericValue(input_c);
-    }
-    else
-    {
+    if(input.equals("")){
       return 0;
+    }
+    else {
+      char input_c = input.charAt(0);
+      if (Character.isDigit(input_c)) {
 
+        return Character.getNumericValue(input_c);
+      } else {
+        return 0;
+
+      }
     }
   }
 
@@ -38,8 +40,7 @@ public class UNI_CMD
   {
     Scanner myObj = new Scanner(System.in);
     System.out.println(question);
-    String text =  myObj.nextLine();
-    return text;
+    return myObj.nextLine();
   }
 
   /**
