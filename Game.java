@@ -1,15 +1,18 @@
 import java.util.*;
 
 //This class is the main file. It contains the information on how the game will actually run
-//Hanna and Brayden collaborated on this class. They both added seperate peices of code, and edited and changed different parts of the code.
+//Hanna and Brayden collaborated on this class. They both added seperate peices of code, and edited and changed different parts. 
 
 /*
     To Do list:
-    - add indicator to indicate which player's turn
+    - finish daily journal updates
+    - do testing journals
+    - do video
+    - user guide
+
     - setup a working gui window with layout change
     - merge gui and the game
     - test game via gui
-    - a more dramatic celebration
     - a play again option/Winner scene
  */
 
@@ -17,17 +20,23 @@ public class Game
 {
   //creates the game grid
   static Grid grid = new Grid();
+  public static int input = 0;
 
   //Main run method
   public static void main(String[] args)
-  //Hanna if you are reading this, ignore the line below, it is just used for making the game runnable in GUI, it is still in Dev
-  //ok sounds good 
   //public static void run_Game()
   {
-    Player player1 = new Player(1,GUI.Player1_Name);
-    Player player2 = new Player(2,GUI.Player2_Name);
-    UNI_CMD.flush(100);
+    //this shows rules before the game begins
+    UNI_CMD.flush(50);
+    System.out.println("WELCOME TO CONNECT FOUR! \n \nRules of the game:");
+    System.out.println("1) There are 7 columns. You will take turns dropping your circles down one by one. \n2) To WIN, you must have FOUR of your coins in a ROW. \n3) This can be done vertically, horizontally, or diagonally.");
+    UNI_CMD.readLine("\nEnjoy the game! \nPress [Enter] to proceed:");
+    
+    Player player1 = new Player(1, GUI.Player1_Name);
+    Player player2 = new Player(2, GUI.Player2_Name);
+    UNI_CMD.flush(50);
     grid.print();
+    
     while(true)
     {
       playerMove(player1);
@@ -45,35 +54,29 @@ public class Game
     }
   }
 
-  
+  /**
+  * This method takes the users column input and places the object there by calling on a grid method
+  * @param player, the object placed depends on the player
+  */ 
   public static void playerMove(Player player)
   {
     int status = 0;
     //we created the loop so that if there is an error during validating player move, we can loop it to
+    
     while(status == 0)
     {
-      //UNI_CMD.flush(100);
-      //grid.print();
-      int input = UNI_CMD.readInt("\nPlayer: " + player.getPlayer_ID() + "\nWhich column would you like to fill? ");
+      input = UNI_CMD.readInt("\nPlayer: " + player.getPlayer_ID() + "\nWhich column would you like to fill? ");
       //This is used to break the loop
-      status = grid.checkValidSpot(input, player.getPlayer_ID()); 
-      UNI_CMD.flush(100);
+      status = grid.checkValidSpot(player.getPlayer_ID()); 
+      UNI_CMD.flush(50);
       grid.print();
     }
   }
-
-  /**
-  BUGS WITH CHECK WINS:
-  - It says someone iwins in horizontal if they just have 4
-      - they do not have to be connectd --> it keeps on moving left/right even if there is a blank space, need to create a break if there is a blank space (0)
-  - When they win it will not place the final block, it will keep it at 3 and just announce that they won
-  - it doesnt reconginze player id??
-  */
   
   /**
-  * This method yada yada
-  * @param
-  * @return boolean value of whether there was a winner or not.
+  * This method calls on 3 different checkwin methods to check whether the placed object completes a winning strike of four objects
+  * @param player_ID, the code looks for the players objects
+  * @return boolean, value of whether there was a winner or not.
   */ 
   public static boolean checkWin(int player_ID)
   {
@@ -84,7 +87,11 @@ public class Game
     return false;
   }
 
-  //checks for a vertical win
+  /**
+  * This method checks if the object placed was a vertical win
+  * @param player_ID, the code looks for the players objects
+  * @return boolean, value of whether there was a vertical connect four or not
+  */ 
   public static boolean checkVertical(int player_ID)
   {
     int count = 1;
@@ -113,14 +120,17 @@ public class Game
   }
 
   
-  //checks horizontal win
+  /**
+  * This method checks if the object placed was a horizontal win
+  * @param player_ID, the code looks for the players objects
+  * @return boolean, value of whether there was a horizontal connect four or not.
+  */ 
   public static boolean checkHorizontal(int player_ID)
   { 
     int count = 1;
     int initial_x = Grid.lastHorizontal;
     int x = initial_x;
     
-  
     while (x > 0)
     {
       x--;
@@ -157,7 +167,11 @@ public class Game
     return false;
   }
 
-  //checks diagonal win
+  /**
+  * This method checks if the object placed was a diagonal win, going both ways
+  * @param player_ID, the code looks for the players objects
+  * @return boolean, value of whether there was a diaognal connect four or not.
+  */ 
   public static boolean checkDiagonal(int player_ID)
   {
     int count = 1;
@@ -166,7 +180,7 @@ public class Game
     int x = initial_x;
     int y = inital_y;
 
-    //top left, up
+    //checks for top left objects, going up
     while (x > 0 && y > 0)
     {
       x--;
@@ -184,7 +198,7 @@ public class Game
       }
     }
 
-    //bottom right, down
+    //checks for bottom right objects, going down
     x = initial_x;
     y = inital_y;
     while (x < 6 && y < 5)
@@ -208,8 +222,8 @@ public class Game
       return true;
     }
 
+    //checks for bottom left objects, going down
     count = 1;
-    //bottom left, down
     x = initial_x;
     y = inital_y;
     while (x > 0 && y < 5)
@@ -229,7 +243,7 @@ public class Game
       }
     }
 
-    //top right, up
+    //checks for top right objects, going up
     x = initial_x;
     y = inital_y;
     while (x < 6 && y > 0)
@@ -257,37 +271,4 @@ public class Game
     }
     return false;
   }
-  
-  /**
-    //This if statement of code checks to see if the inputted value is out of bounds
-    if(Grid.lastVertical != 6 && Grid.returnValue(1,y_Increment)== player_ID)
-    {
-      for(int x=1; x<=2;x++)
-      {
-        x_Increment += x;
-        if(x_Increment + Grid.lastVertical<=6 && Grid.returnValue(x_Increment,y_Increment) != player_ID){ 
-          return false;
-        }
-        else if(x == 2)
-        {
-          return true;
-        }
-      }
-    }
-    else if(Grid.lastHorizontal != 6 && Grid.returnValue(x_Increment,1) != 0){
-      return false;
-    }
-    else if (Grid.lastVertical != 0) {
-      return false;
-    }
-    else if (Grid.lastHorizontal != 0) {
-      return false;
-    }
-    else{
-      return false;
-    }
-    //If one of the condition was valid, it will return true as a valid win
-    return false;
-    }
-  */
 }
