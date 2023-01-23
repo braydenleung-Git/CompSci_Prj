@@ -51,13 +51,13 @@ public class Game
       playerMove(player1);
       if(checkWin(player1.getPlayer_ID()))
       {
-        System.out.println("\nPLAYER 1 WINS!!!");
+        System.out.println("\n"+ player1.getName().toUpperCase()+" WINS!!!");
         break;
       }
       playerMove(player2);
       if(checkWin(player2.getPlayer_ID())) 
       {
-        System.out.println("\nPLAYER 2 WINS!!!");
+        System.out.println("\n"+player2.getName().toUpperCase()+" WINS!!!");
         break;
       }
     }
