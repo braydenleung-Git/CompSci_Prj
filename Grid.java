@@ -120,7 +120,7 @@ public class Grid
     {
       for(int j = 0; j < grid[0].length; j++)
       {
-        System.out.print(sort_ID(grid[i][j]) + "  ");
+        System.out.print(sort_ID(grid[i][j]) + " ");
       }
       System.out.println();
     }

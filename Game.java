@@ -1,19 +1,6 @@
 //This class is the main file. It contains the information on how the game will actually run
 //Hanna and Brayden collaborated on this class. They both added separate pieces of code, and edited and changed different parts.
 
-/*
-    To Do list:
-    - finish daily journal updates
-    - do testing journals
-    - do video
-    - user guide
-
-    - set up a working gui window with layout change
-    - merge gui and the game
-    - test game via gui
-    - a play again option/Winner scene
- */
-
 public class Game
 {
   //creates the game grid
@@ -31,24 +18,29 @@ public class Game
   {
     //this shows rules before the game begins
     UNI_CMD.flush(50);
-    System.out.println("WELCOME TO CONNECT FOUR! \n \nRules of the game:");
+    System.out.println("WELCOME TO CONNECT FOUR! \n \nRules of the game: \n");
     UNI_CMD.ui_Line(82);
-    System.out.println("1) There are 7 columns. You will take turns dropping your circles down one by one. \n2) To WIN, you must have FOUR of your coins in a ROW. \n3) This can be done vertically, horizontally, or diagonally.");
+    System.out.println("\n1) There are 7 columns. You will take turns dropping your circles down one by one. \n2) To WIN, you must have FOUR of your coins in a ROW. \n3) This can be done vertically, horizontally, or diagonally. \n4) To choose a column, TYPE a column number when asked.\n");
     UNI_CMD.ui_Line(82);
     UNI_CMD.readLine("\nEnjoy the game! \nPress [Enter] to proceed:");
     UNI_CMD.flush(50);
+    
+    //This section asks for players names
     prompt= "Please enter Player 1's name, press [Enter] to skip";
     UNI_CMD.ui_Line(prompt);
     text = UNI_CMD.readLine(prompt);
-    if(!text.equals("")){
+    if(!text.equals(""))
+    {
       p1_Name = text;
     }
     prompt = "Please enter Player 2's name, press [Enter] to skip";
     UNI_CMD.ui_Line(prompt);
     text= UNI_CMD.readLine(prompt);
-    if(!text.equals("")){
+    if(!text.equals(""))
+    {
       p2_Name = text;
     }
+    
     Player player1 = new Player(1, p1_Name);
     Player player2 = new Player(2, p2_Name);
     UNI_CMD.flush(50);
