@@ -16,13 +16,16 @@ public class UNI_CMD
     Scanner myObj = new Scanner(System.in);
     System.out.println(question);
     String input = myObj.nextLine();
-    //char input_c = input.charAt(0);
+    char input_c = input.charAt(0);
+    if(Character.isDigit(input_c))
+    {
 
-    if(input.isEmpty()|| input.equals(" ")){
-      return 0;
+      return Character.getNumericValue(input_c);
     }
-    else{
-      return Integer.parseInt(input);
+    else
+    {
+      return 0;
+
     }
   }
 
