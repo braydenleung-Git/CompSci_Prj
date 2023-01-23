@@ -1,5 +1,3 @@
-import java.util.*;
-
 //This class is the main file. It contains the information on how the game will actually run
 //Hanna and Brayden collaborated on this class. They both added seperate peices of code, and edited and changed different parts. 
 
@@ -23,8 +21,8 @@ public class Game
   public static int input = 0;
 
   //Main run method
-  public static void main(String[] args)
-  //public static void run_Game()
+  //public static void main(String[] args)
+  public static void run_Game()
   {
     //this shows rules before the game begins
     UNI_CMD.flush(50);

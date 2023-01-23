@@ -3,11 +3,14 @@
 //set up all the prerequisites for the class
 import java.awt.*;
 import javax.swing.*;
-import java.awt.event.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.util.*;
 
 
-public class GUI {
+public class GUI extends Game {
 
   public static String Player1_Name = "Player 1";
   public static String Player2_Name = "Player 2";
@@ -16,13 +19,13 @@ public class GUI {
   private static final JPanel main_Panel = new JPanel(new CardLayout());
   private static final JPanel username_Layout = new JPanel();
   private static final JPanel console_Layout= new JPanel();
-  public static String userInput = " ";
+  public static String userInput = "";
   public static Dimension output_Max_Size = new Dimension();
 
-  public static boolean runGame = false;
-  public static JTextArea console_Output = new JTextArea();
+  public static JTextField console_Input = new JTextField();
 
-  public static int start_Size = 15;
+  //public static boolean runGame = false;
+  public static JTextArea console_Output = new JTextArea();
 
   //Font library, Each font variable must be declared with public visibility first
   public static Font HelvetciaNeue_Cond_B_05 = null;
@@ -114,20 +117,19 @@ public class GUI {
     start_Button.setFont(Impact.deriveFont(24f));
     start_Button.addActionListener(e -> {
       CardLayout cl = (CardLayout)(main_Panel.getLayout());
-      //frame.setResizable(true);
-      //GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-      //frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
       cl.show(main_Panel, "Console");
+      main_Panel.setBackground(Color.BLACK);
       frame.setBackground(Color.black);
       frame.setSize(output_Max_Size);
-      //GUI.frame.setSize(1080,720);
-      GUI.frame.setLocation((GUI.screenSize.width / 2) - (GUI.frame.getWidth() / 2), (GUI.screenSize.height / 2) - (GUI.frame.getHeight() / 2));
+      frame.setLocation((screenSize.width / 2) - (frame.getWidth() / 2), (screenSize.height / 2) - (frame.getHeight() / 2));
+      System.out.println("Player one's name:"+Player1_Name);
+      System.out.println("Player two's name:"+Player2_Name);
       //UNI_CMD.readLine_GUI("Start Game? [Enter]");
-      //runGame = true;
-      //Note: if the application freeze, causation is from extended-state of the frame, run the extended within the game class to resolve
-      //Game game = new Game();
-      Game.run_Game();
       //System.out.println("test");
+      //Note: if the application freeze, causation is from extended-state of the frame, run the extended within the game class to resolve
+      //Game.run_Game();
+
+      //run_Game();
     });
 
 
@@ -143,17 +145,6 @@ public class GUI {
    */
   public static void setup_Console_Layout() {
     console_Layout.setLayout(new BorderLayout());
-    /*
-    console_Layout.setLayout(new GridBagLayout());
-    GridBagConstraints Output =new GridBagConstraints();
-    GridBagConstraints Input = new GridBagConstraints();
-    Output.weightx = 10.0;
-    Output.weighty = 0.9;
-    Output.gridy = GridBagConstraints.NORTH;
-    Input.weightx = 1.0;
-    Input.weighty = 0.1;
-    Input.gridy = GridBagConstraints.SOUTH;
-    */
     //Set up console out put to text area
 
     console_Output.setEditable(false);
@@ -161,15 +152,12 @@ public class GUI {
     PrintStream output = new PrintStream(new OutputStream() {
       @Override
       public void write(byte[] b, int off, int len){
-        try{
         console_Output.setForeground(Color.white);
-        console_Output.append(new String(b, off, len, "UTF-8"));
+        console_Output.append(new String(b, off, len, StandardCharsets.UTF_8));
         //Automatically scroll down console
         console_Output.setCaretPosition(console_Output.getDocument().getLength());
 
-      } catch (UnsupportedEncodingException e){
-          e.printStackTrace();
-        }}
+      }
       public void write(int b) {
         try {
           write(new byte[]{(byte)b});
@@ -183,35 +171,27 @@ public class GUI {
     console_Output.setBackground(Color.black);
     console_Output.setForeground(Color.white);
     console_Output.setFont(PTMono_Regular_02.deriveFont(15f));
-
-    //console_Layout.add(console_Output,Output);
-    //Dimension output_Max_Size = new Dimension();
     output_Max_Size.setSize(screenSize.getWidth(),(screenSize.getHeight()-25));
     JScrollPane console_Output_Scroll =  new JScrollPane(console_Output);
-
     console_Output_Scroll.setBackground(Color.BLACK);
     console_Layout.add(console_Output_Scroll, BorderLayout.CENTER);
 
-    frame.pack();
-
     //Set up console input to the text field
-    JTextField console_Input = new JTextField();
-    console_Input.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        userInput = console_Input.getText();
-        ByteArrayInputStream in = new ByteArrayInputStream(userInput.getBytes());
-        System.setIn(in);
-        console_Output.append("\n"+userInput);
-        console_Input.setText("");
+    console_Input.addActionListener(e -> {
+      userInput = console_Input.getText();
+      if(userInput.equals(""))
+      {
+        userInput = "◽";
       }
+      ByteArrayInputStream in = new ByteArrayInputStream(console_Input.getText().getBytes());
+      System.setIn(in);
+      console_Output.append("\n"+console_Input.getText());
+      console_Input.setText("");
     });
     console_Input.setBackground(Color.decode("#4f4f4f"));
     console_Input.setForeground(Color.white);
     console_Input.setFont(PTMono_Regular_02.deriveFont(15f));
-    //console_Layout.add(console_Input,Input);
     console_Layout.add(console_Input, BorderLayout.SOUTH);
-    console_Layout.setBackground(Color.BLACK);
 
   }
 
@@ -266,6 +246,63 @@ public class GUI {
       e.printStackTrace();
     }
   }
+
+  public static void run_Game(){
+    UNI_CMD.flush(50);
+    System.out.println("WELCOME TO CONNECT FOUR! \n \nRules of the game:");
+    System.out.println("1) There are 7 columns. You will take turns dropping your circles down one by one. \n2) To WIN, you must have FOUR of your coins in a ROW. \n3) This can be done vertically, horizontally, or diagonally.");
+    UNI_CMD.readLine("\nEnjoy the game! \nPress [Enter] to proceed:");
+
+    Player player1 = new Player(1, GUI.Player1_Name);
+    Player player2 = new Player(2, GUI.Player2_Name);
+    UNI_CMD.flush(50);
+    grid.print();
+
+    while(true)
+    {
+      playerMove(player1);
+      if(checkWin(player1.getPlayer_ID()))
+      {
+        System.out.println("\nPLAYER 1 WINS!!!");
+        break;
+      }
+      playerMove(player2);
+      if(checkWin(player2.getPlayer_ID()))
+      {
+        System.out.println("\nPLAYER 2 WINS!!!");
+        break;
+      }
+    }
+  }
+
+
+  public static boolean checkEnter(){
+    final boolean[] check = {false};
+
+    console_Input.addKeyListener(new KeyListener() {
+      @Override
+      public void keyTyped(KeyEvent e) {
+
+      }
+
+      @Override
+      public void keyPressed(KeyEvent e) {
+          if(e.getID() == 10 ){
+            check[0] = true;
+          }
+      }
+
+      @Override
+      public void keyReleased(KeyEvent e) {
+
+      }
+    });
+    while (!check[0]){
+
+    }
+    return true;
+  }
+
 }
 //Offline Copy of GPT code (Console)
 /*

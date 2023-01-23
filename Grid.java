@@ -57,7 +57,7 @@ public class Grid
   {
     //int player = grid [0][0];
     int count = 0;
-    if(Game.input == 0 || Game.input > HORIZONTAL_SIZE || grid[0][Game.input-1]!=0)
+    if(Game.input <= 0 || Game.input > HORIZONTAL_SIZE || grid[0][Game.input-1]!=0)
     {
       System.out.println("ERROR: Invalid input. Please try again:");
       UNI_CMD.readLine("Press [Enter] to proceed");

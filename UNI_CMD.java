@@ -1,6 +1,9 @@
 //This class was created so that we can store universal commands that every class can call. Ex: readLine(), readInt() etc. This was needed because these commands were not already in replits database, like they were in codehs' databse. 
 //Seperate commands and docs were added by Brayden and Hanna. Some edits were made and some debugging was required. 
 
+import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.*;
 
 public class UNI_CMD
@@ -13,7 +16,7 @@ public class UNI_CMD
    */
   public static int readInt(String question) 
   {
-    Scanner myObj = new Scanner(GUI.userInput);
+    Scanner myObj = new Scanner(System.in);
     System.out.println(question);
     String input = myObj.nextLine();
     if(input.equals("") || input.equals(" "))
@@ -31,23 +34,33 @@ public class UNI_CMD
    * @param question, the string that this is called on.
    * @return String, a string object that the user inputs after reading the question or statment.
    */
-  public static String readLine(String question)
-  {
-    Scanner myObj = new Scanner(GUI.userInput);
+  public static String readLine(String question) {
+    Scanner myObj = new Scanner(System.in);
     System.out.println(question);
     return myObj.nextLine();
+
   }
 
-  /**
+    /**
    * This method gets a response from a string question or statment in a GUI setting. (aka the scanner input)
    * @param question, the string that this is called on
    * @return String, a string object that the user inputs after reading the question or statement
    */
   public static String readLine_GUI(String question)
   {
-    Scanner input =  new Scanner(GUI.userInput);
     System.out.println(question);
-    return input.nextLine();
+    while(GUI.userInput.equals(""))
+    {
+
+    }
+    if(GUI.userInput.equals("◽"))
+    {
+      return " ";
+    }
+    else
+    {
+      return GUI.userInput;
+    }
   }
 
   /**
@@ -57,16 +70,17 @@ public class UNI_CMD
    */
   public static int readInt_GUI(String question)
   {
-    Scanner myObj = new Scanner(GUI.userInput);
+
     System.out.println(question);
-    String input = myObj.nextLine();
-    if(input.equals(""))
+    while (GUI.userInput.equals("")) {
+    }
+    if(GUI.userInput.equals("◽"))
     {
       return 0;
     }
     else
     {
-      return Integer.parseInt(input);
+      return Integer.parseInt(GUI.userInput);
     }
   }
   
