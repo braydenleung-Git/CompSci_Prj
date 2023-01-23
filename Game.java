@@ -1,4 +1,4 @@
-import javax.swing.*;
+import java.util.*;
 
 //This class is the main file. It contains the information on how the game will actually run
 //Hanna and Brayden collaborated on this class. They both added seperate peices of code, and edited and changed different parts of the code.
@@ -19,29 +19,27 @@ public class Game
   static Grid grid = new Grid();
 
   //Main run method
-  //public static void main(String[] args)
+  public static void main(String[] args)
   //Hanna if you are reading this, ignore the line below, it is just used for making the game runnable in GUI, it is still in Dev
-  public static void run_Game()
+  //ok sounds good 
+  //public static void run_Game()
   {
-
-
     Player player1 = new Player(1,GUI.Player1_Name);
     Player player2 = new Player(2,GUI.Player2_Name);
-    GUI.frame.setSize(1080,720);
-    GUI.frame.setLocation((GUI.screenSize.width / 2) - (GUI.frame.getWidth() / 2), (GUI.screenSize.height / 2) - (GUI.frame.getHeight() / 2));
-    //GUI.frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+    UNI_CMD.flush(100);
+    grid.print();
     while(true)
     {
       playerMove(player1);
       if(checkWin(player1.getPlayer_ID()))
       {
-        System.out.println("Player 1 Wins!");
+        System.out.println("\nPLAYER 1 WINS!!!");
         break;
       }
       playerMove(player2);
-      if(checkWin(player1.getPlayer_ID())) 
+      if(checkWin(player2.getPlayer_ID())) 
       {
-        System.out.println("Player 2 Wins!");
+        System.out.println("\nPLAYER 2 WINS!!!");
         break;
       }
     }
@@ -55,10 +53,12 @@ public class Game
     while(status == 0)
     {
       //UNI_CMD.flush(100);
-      grid.print();
-      int input = UNI_CMD.readInt_GUI("\nWhich column would you like to fill? ");
+      //grid.print();
+      int input = UNI_CMD.readInt("\nPlayer: " + player.getPlayer_ID() + "\nWhich column would you like to fill? ");
       //This is used to break the loop
       status = grid.checkValidSpot(input, player.getPlayer_ID()); 
+      UNI_CMD.flush(100);
+      grid.print();
     }
   }
 
@@ -77,7 +77,7 @@ public class Game
   */ 
   public static boolean checkWin(int player_ID)
   {
-    if(checkHorizontal(player_ID) || checkVertical(player_ID) || checkVertical(player_ID))
+    if(checkHorizontal(player_ID) || checkVertical(player_ID) || checkDiagonal(player_ID))
     {
       return true;
     }
@@ -100,6 +100,10 @@ public class Game
       {
         count++;
       }
+      else 
+      {
+        break;
+      }
     }
     if(count >= 4)
     {
@@ -115,15 +119,20 @@ public class Game
     int count = 1;
     int initial_x = Grid.lastHorizontal;
     int x = initial_x;
+    
   
     while (x > 0)
     {
       x--;
       int delta_x = x - initial_x;
       int content = Grid.returnValue(0, delta_x);
-      if (content == player_ID)
+      if (content == player_ID) 
       {
         count++;
+      }
+      else 
+      {
+        break;
       }
     }
     x = initial_x;
@@ -135,6 +144,10 @@ public class Game
       if (content == player_ID)
       {
         count++;
+      }
+      else 
+      {
+        break;
       }
     }
     if(count >= 4)
@@ -165,43 +178,15 @@ public class Game
       {
         count++;
       }
-    }
-    x = initial_x;
-    y = inital_y;
-    
-    //bottom left, down
-    while (x > 0 && y < 5)
-    {
-      x--;
-      y++;
-      int delta_x = x - initial_x;
-      int delta_y = y - inital_y;
-      int content = Grid.returnValue(delta_y, delta_x);
-      if (content == player_ID)
+      else 
       {
-        count++;
+        break;
       }
     }
-    x = initial_x;
-    y = inital_y;
-
-    //top right, up
-    while (x < 6 && y > 0)
-    {
-      x++;
-      y--;
-      int delta_x = x - initial_x;
-      int delta_y = y - inital_y;
-      int content = Grid.returnValue(delta_y, delta_x);
-      if (content == player_ID)
-      {
-        count++;
-      }
-    }
-    x = initial_x;
-    y = inital_y;
 
     //bottom right, down
+    x = initial_x;
+    y = inital_y;
     while (x < 6 && y < 5)
     {
       x++;
@@ -213,7 +198,58 @@ public class Game
       {
         count++;
       }
+      else 
+      {
+        break;
+      }
     }
+    if(count >= 4)
+    {
+      return true;
+    }
+
+    count = 1;
+    //bottom left, down
+    x = initial_x;
+    y = inital_y;
+    while (x > 0 && y < 5)
+    {
+      x--;
+      y++;
+      int delta_x = x - initial_x;
+      int delta_y = y - inital_y;
+      int content = Grid.returnValue(delta_y, delta_x);
+      if (content == player_ID)
+      {
+        count++;
+      }
+      else 
+      {
+        break;
+      }
+    }
+
+    //top right, up
+    x = initial_x;
+    y = inital_y;
+    while (x < 6 && y > 0)
+    {
+      x++;
+      y--;
+      int delta_x = x - initial_x;
+      int delta_y = y - inital_y;
+      int content = Grid.returnValue(delta_y, delta_x);
+      if (content == player_ID)
+      {
+        count++;
+      }
+      else 
+      {
+        break;
+      }
+    }
+    x = initial_x;
+    y = inital_y;
     
     if(count >= 4)
     {

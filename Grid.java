@@ -9,8 +9,8 @@ public class Grid
   public static final String COLOR_RED = "\033[0;31m";
   public static final String COLOR_YELLOW = "\033[0;33m";
   public static final String COLOR_RESET = "\033[0m";
-  public static int lastVertical =0;
-  public static int lastHorizontal =0;
+  public static int lastVertical = 0;
+  public static int lastHorizontal = 0;
   //Initializing grid object
   public static int[][] grid;
 
@@ -62,7 +62,7 @@ public class Grid
     if(input > HORIZONTAL_SIZE || grid[0][input-1]!=0)
     {
       System.out.println("ERROR: Invalid input. Please try again:");
-      UNI_CMD.readLine_GUI("Press [Enter] to proceed");
+      UNI_CMD.readLine("Press [Enter] to proceed");
       return 0;
     }
     else 
@@ -88,7 +88,7 @@ public class Grid
         }
       }
       System.out.println("You have placed your dot in column "+ input);
-      UNI_CMD.readLine_GUI("Press [Enter] to proceed");
+      //UNI_CMD.readLine("Press [Enter] to proceed");
       //System.out.println("Count :"+count);
       return 1;
     }

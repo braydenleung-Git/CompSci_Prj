@@ -37,6 +37,7 @@ public class UNI_CMD
   {
     Scanner myObj = new Scanner(System.in);
     System.out.println(question);
+    //myObj.close(); //Taking out .close() since it seems to not be needed and was messing up the code: https://www.w3schools.com/java/java_user_input.asp
     return myObj.nextLine();
   }
 
@@ -47,7 +48,7 @@ public class UNI_CMD
    */
   public static String readLine_GUI(String question){
     Scanner input =  new Scanner(GUI.userInput);
-    System.out.println(question);
+    input.close();
     return input.nextLine();
   }
 
