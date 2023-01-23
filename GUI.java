@@ -1,8 +1,7 @@
 //set up all the prerequisites for the class
 import java.awt.*;
 import javax.swing.*;
-import javax.swing.border.Border;
-import java.awt.event.ActionEvent;
+import java.awt.event.*;
 import java.io.*;
 
 
@@ -18,6 +17,7 @@ public class GUI {
   public static String userInput = " ";
 
   public static boolean runGame = false;
+  public static JTextArea console_Output = new JTextArea();
 
   //Font library, Each font variable must be declared with public visibility first
   public static Font HelvetciaNeue_Cond_B_05 = null;
@@ -25,8 +25,10 @@ public class GUI {
   public static Font PTMono_Regular_02 = null;
   public static Font SplineSansMono_VF_wght = null;
 
-  public static void main(String[] args) {
-  //public static void run_GUI(){
+  public static Font Arial_Unicode = null;
+
+  //public static void main(String[] args) {
+  public static void run_GUI(){
 
 
     //Set that when the user clicks cross button, it will kill the code
@@ -113,9 +115,12 @@ public class GUI {
       //frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
       cl.show(main_Panel, "Console");
       frame.setBackground(Color.black);
-
+      GUI.frame.setSize(1080,720);
+      GUI.frame.setLocation((GUI.screenSize.width / 2) - (GUI.frame.getWidth() / 2), (GUI.screenSize.height / 2) - (GUI.frame.getHeight() / 2));
+      UNI_CMD.readLine("Start Game? [Enter]");
+      runGame = true;
       //Note: if the application freeze, causation is from extended-state of the frame, run the extended within the game class to resolve
-      Game.run_Game();
+      //Game.run_Game();
       //System.out.println("test");
     });
 
@@ -144,15 +149,26 @@ public class GUI {
     Input.gridy = GridBagConstraints.SOUTH;
     */
     //Set up console out put to text area
-    JTextArea console_Output = new JTextArea();
+
     console_Output.setEditable(false);
     PrintStream output = new PrintStream(new OutputStream() {
       @Override
-      public void write(int b) {
+      public void write(byte[] b, int off, int len){
+        try{
         console_Output.setForeground(Color.white);
-        console_Output.append(String.valueOf((char) b));
+        console_Output.append(new String(b, off, len, "UTF-8"));
         //Automatically scroll down console
         console_Output.setCaretPosition(console_Output.getDocument().getLength());
+
+      } catch (UnsupportedEncodingException e){
+          e.printStackTrace();
+        }}
+      public void write(int b) {
+        try {
+          write(new byte[]{(byte)b});
+        } catch (IOException e) {
+          throw new RuntimeException(e);
+        }
       }
     });
     System.setOut(output);
@@ -171,16 +187,16 @@ public class GUI {
 
     //Set up console input to the text field
     JTextField console_Input = new JTextField();
-    console_Input.addActionListener((ActionEvent e) -> {
-      userInput = console_Input.getText();
-      console_Output.append(userInput);
-      console_Input.setText("");
+    console_Input.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        userInput = console_Input.getText();
+        ByteArrayInputStream in = new ByteArrayInputStream(userInput.getBytes());
+        System.setIn(in);
+        console_Output.append(userInput);
+        console_Input.setText("");
+      }
     });
-
-
-
-
-
     console_Input.setBackground(Color.decode("#4f4f4f"));
     console_Input.setForeground(Color.white);
     console_Input.setFont(PTMono_Regular_02.deriveFont(15f));
@@ -228,6 +244,15 @@ public class GUI {
       File SplineSansMono_VF_wght_File = new File("./Fonts/SplineSansMono-VariableFont_wght.ttf");
       SplineSansMono_VF_wght = Font.createFont(Font.TRUETYPE_FONT, SplineSansMono_VF_wght_File);
       ge.registerFont(SplineSansMono_VF_wght);
+
+    } catch (IOException | FontFormatException e) {
+      e.printStackTrace();
+    }
+    try {
+      //Arial Unicode
+      File Arial_Unicode_File = new File("./Fonts/Arial Unicode.ttf");
+      Arial_Unicode = Font.createFont(Font.TRUETYPE_FONT, Arial_Unicode_File);
+      ge.registerFont(Arial_Unicode);
 
     } catch (IOException | FontFormatException e) {
       e.printStackTrace();

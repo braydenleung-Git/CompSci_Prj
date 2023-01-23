@@ -58,7 +58,7 @@ public class test{
         }
     }*/
     //This is testing the console that ChatGPT provide use to understand how it works
-
+    /*
     public static void main(String[] args) {
         JFrame frame = new JFrame("Console");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -90,7 +90,7 @@ public class test{
         });
         frame.pack();
         frame.setVisible(true);
-    }
+    }*/
 
     //this is a demostration chatGPT about borderlayout in buttons?
     /*
