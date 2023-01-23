@@ -15,12 +15,20 @@ public class Player
   }
 
   /**
-  *This method gets the player id of a player.
-  */
+   * This method gets the player id of a player.
+   * @return
+   */
   public int getPlayer_ID()
   {
-    //System.out.println(player_ID);
     return player_ID;
+  }
+
+  /**
+   * this return Player's Name.
+   * @return
+   */
+  public String getName(){
+    return player_Name;
   }
 
   /**

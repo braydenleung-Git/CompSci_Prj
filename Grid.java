@@ -14,6 +14,7 @@ public class Grid
   //Initializing grid object
   public static int[][] grid;
 
+
   //Constructor
   public Grid()
   {
@@ -39,13 +40,13 @@ public class Grid
 
   /**
    * This method is used to return the value at the postion that is on the 2D Array, but with added increment
-   * @param increment_X, the current position 
-   * @param increment_Y, the current position
-   * @return int
+   * @param increment_Y the vertical increment
+   * @param increment_X the horizontal increment
+   * @return int the player ID stored in that position
    */
-  public static int returnValue(int increment_X, int increment_Y)
+  public static int returnValue(int increment_Y, int increment_X)
   {
-    return grid[lastVertical+increment_X][lastHorizontal+increment_Y];
+    return grid[lastVertical+increment_Y][lastHorizontal+increment_X];
   }
   
   /**
@@ -57,7 +58,7 @@ public class Grid
   {
     //int player = grid [0][0];
     int count = 0;
-    if(Game.input == 0 || Game.input > HORIZONTAL_SIZE || grid[0][Game.input-1]!=0)
+    if(Game.input <= 0 || Game.input > HORIZONTAL_SIZE || grid[0][Game.input-1]!=0)
     {
       System.out.println("ERROR: Invalid input. Please try again:");
       UNI_CMD.readLine("Press [Enter] to proceed");
@@ -66,7 +67,6 @@ public class Grid
     else 
     {
       //the line below is to verify whether the code ran this part or not
-      //System.out.println("2");
       for(int x = 0; x<VERTICAL_SIZE; x++)
       {
         if(grid[x][Game.input-1]!= 0 )
@@ -120,7 +120,7 @@ public class Grid
     {
       for(int j = 0; j < grid[0].length; j++)
       {
-        System.out.print(sort_ID(grid[i][j]) + " ");
+        System.out.print(sort_ID(grid[i][j]) + "  ");
       }
       System.out.println();
     }
@@ -130,5 +130,6 @@ public class Grid
       column_id += (x+1) +" ";
     }
     System.out.println(column_id);
+    UNI_CMD.ui_Line(column_id);
   }
 }

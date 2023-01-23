@@ -35,44 +35,12 @@ public class UNI_CMD
   {
     Scanner myObj = new Scanner(System.in);
     System.out.println(question);
-    //myObj.close(); //Taking out .close() since it seems to not be needed and was messing up the code: https://www.w3schools.com/java/java_user_input.asp
-    return myObj.nextLine();
+    String text =  myObj.nextLine();
+    return text;
   }
 
   /**
-   * This method gets a response from a string question or statment in a GUI setting. (aka the scanner input)
-   * @param question, the string that this is called on
-   * @return String, a string object that the user inputs after reading the question or statement
-   */
-  public static String readLine_GUI(String question)
-  {
-    Scanner input =  new Scanner(GUI.userInput);
-    input.close();
-    return input.nextLine();
-  }
-
-  /**
-   * This method prints out a question or statment and expects an int as a response to it. It assings the response to the ints name. This is in a GUI setting (hence the scanner being involved.)
-   * @param question, the int that this is called on.
-   * @return int, a number that the user inputs after reading the question or statment.
-   */
-  public static int readInt_GUI(String question)
-  {
-    Scanner myObj = new Scanner(GUI.userInput);
-    System.out.println(question);
-    String input = myObj.nextLine();
-    if(input.equals(""))
-    {
-      return 0;
-    }
-    else
-    {
-      return Integer.parseInt(input);
-    }
-  }
-  
-  /**
-     * This method takes a string and checks its length, and prints out the exact amount of equal signs for the strings length. It's is based on text length.  
+     * This method takes a string and checks its length, and based on text length prints out that amount of equal signs
      * @param input, the string it is breaking down into ui lines
      */
   public static void ui_Line(String input)
@@ -84,7 +52,20 @@ public class UNI_CMD
     //prints out the input again after the ui line
     System.out.println();
   }
-  
+
+  /**
+   * This method takes a integer and prints out the exact amount of equal signs
+   * @param input Number of equal signs
+   */
+  public static void ui_Line(int input)
+  {
+    for(int x =0; x<input;x++)
+    {
+      System.out.print("=");
+    }
+    //prints out the input again after the ui line
+    System.out.println();
+  }
   /**
    * This method 'flushes' the console board. It puts down an amount of lines inbetween the played grids so that the grid always appears fresh and you don't have a bunch of grids one after another. 
    * @param amount, the number of lines you will flush

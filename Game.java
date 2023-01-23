@@ -1,7 +1,5 @@
-import java.util.*;
-
 //This class is the main file. It contains the information on how the game will actually run
-//Hanna and Brayden collaborated on this class. They both added seperate peices of code, and edited and changed different parts. 
+//Hanna and Brayden collaborated on this class. They both added separate pieces of code, and edited and changed different parts.
 
 /*
     To Do list:
@@ -10,7 +8,7 @@ import java.util.*;
     - do video
     - user guide
 
-    - setup a working gui window with layout change
+    - set up a working gui window with layout change
     - merge gui and the game
     - test game via gui
     - a play again option/Winner scene
@@ -21,6 +19,11 @@ public class Game
   //creates the game grid
   static Grid grid = new Grid();
   public static int input = 0;
+  public static String prompt = "";
+  public static String text ="";
+
+  public static String p1_Name = "Player 1";
+  public static String p2_Name = "Player 2";
 
   //Main run method
   public static void main(String[] args)
@@ -29,11 +32,25 @@ public class Game
     //this shows rules before the game begins
     UNI_CMD.flush(50);
     System.out.println("WELCOME TO CONNECT FOUR! \n \nRules of the game:");
+    UNI_CMD.ui_Line(82);
     System.out.println("1) There are 7 columns. You will take turns dropping your circles down one by one. \n2) To WIN, you must have FOUR of your coins in a ROW. \n3) This can be done vertically, horizontally, or diagonally.");
+    UNI_CMD.ui_Line(82);
     UNI_CMD.readLine("\nEnjoy the game! \nPress [Enter] to proceed:");
-    
-    Player player1 = new Player(1, GUI.Player1_Name);
-    Player player2 = new Player(2, GUI.Player2_Name);
+    UNI_CMD.flush(50);
+    prompt= "Please enter Player 1's name, press [Enter] to skip";
+    UNI_CMD.ui_Line(prompt);
+    text = UNI_CMD.readLine(prompt);
+    if(!text.equals("")){
+      p1_Name = text;
+    }
+    prompt = "Please enter Player 2's name, press [Enter] to skip";
+    UNI_CMD.ui_Line(prompt);
+    text= UNI_CMD.readLine(prompt);
+    if(!text.equals("")){
+      p2_Name = text;
+    }
+    Player player1 = new Player(1, p1_Name);
+    Player player2 = new Player(2, p2_Name);
     UNI_CMD.flush(50);
     grid.print();
     
@@ -65,7 +82,7 @@ public class Game
     
     while(status == 0)
     {
-      input = UNI_CMD.readInt("\nPlayer: " + player.getPlayer_ID() + "\nWhich column would you like to fill? ");
+      input = UNI_CMD.readInt( player.getName()+","+ "\nWhich column would you like to fill? ");
       //This is used to break the loop
       status = grid.checkValidSpot(player.getPlayer_ID()); 
       UNI_CMD.flush(50);
@@ -80,11 +97,7 @@ public class Game
   */ 
   public static boolean checkWin(int player_ID)
   {
-    if(checkHorizontal(player_ID) || checkVertical(player_ID) || checkDiagonal(player_ID))
-    {
-      return true;
-    }
-    return false;
+    return checkHorizontal(player_ID) || checkVertical(player_ID) || checkDiagonal(player_ID);
   }
 
   /**
@@ -112,11 +125,7 @@ public class Game
         break;
       }
     }
-    if(count >= 4)
-    {
-      return true;
-    }
-    return false;
+    return count >= 4;
   }
 
   
@@ -129,8 +138,8 @@ public class Game
   { 
     int count = 1;
     int initial_x = Grid.lastHorizontal;
+    //This is used to check the points that are on the right side of the token placed by the player
     int x = initial_x;
-    
     while (x > 0)
     {
       x--;
@@ -145,6 +154,7 @@ public class Game
         break;
       }
     }
+    //This is used to check the points that are on the left side of the token placed by the player
     x = initial_x;
     while (x < 6)
     {
@@ -160,25 +170,21 @@ public class Game
         break;
       }
     }
-    if(count >= 4)
-    {
-      return true;
-    }
-    return false;
+    return count >= 4;
   }
 
   /**
   * This method checks if the object placed was a diagonal win, going both ways
   * @param player_ID, the code looks for the players objects
-  * @return boolean, value of whether there was a diaognal connect four or not.
+  * @return boolean, value of whether there was a diagonal connect four or not.
   */ 
   public static boolean checkDiagonal(int player_ID)
   {
     int count = 1;
     int initial_x = Grid.lastHorizontal;
-    int inital_y = Grid.lastVertical;
+    int initial_y = Grid.lastVertical;
     int x = initial_x;
-    int y = inital_y;
+    int y = initial_y;
 
     //checks for top left objects, going up
     while (x > 0 && y > 0)
@@ -186,7 +192,7 @@ public class Game
       x--;
       y--;
       int delta_x = x - initial_x;
-      int delta_y = y - inital_y;
+      int delta_y = y - initial_y;
       int content = Grid.returnValue(delta_y, delta_x);
       if (content == player_ID)
       {
@@ -200,13 +206,13 @@ public class Game
 
     //checks for bottom right objects, going down
     x = initial_x;
-    y = inital_y;
+    y = initial_y;
     while (x < 6 && y < 5)
     {
       x++;
       y++;
       int delta_x = x - initial_x;
-      int delta_y = y - inital_y;
+      int delta_y = y - initial_y;
       int content = Grid.returnValue(delta_y, delta_x);
       if (content == player_ID)
       {
@@ -225,13 +231,13 @@ public class Game
     //checks for bottom left objects, going down
     count = 1;
     x = initial_x;
-    y = inital_y;
+    y = initial_y;
     while (x > 0 && y < 5)
     {
       x--;
       y++;
       int delta_x = x - initial_x;
-      int delta_y = y - inital_y;
+      int delta_y = y - initial_y;
       int content = Grid.returnValue(delta_y, delta_x);
       if (content == player_ID)
       {
@@ -245,13 +251,13 @@ public class Game
 
     //checks for top right objects, going up
     x = initial_x;
-    y = inital_y;
+    y = initial_y;
     while (x < 6 && y > 0)
     {
       x++;
       y--;
       int delta_x = x - initial_x;
-      int delta_y = y - inital_y;
+      int delta_y = y - initial_y;
       int content = Grid.returnValue(delta_y, delta_x);
       if (content == player_ID)
       {
@@ -262,13 +268,7 @@ public class Game
         break;
       }
     }
-    x = initial_x;
-    y = inital_y;
-    
-    if(count >= 4)
-    {
-      return true;
-    }
-    return false;
+
+    return count >= 4;
   }
 }
