@@ -11,18 +11,21 @@ public class UNI_CMD
    * @param question, the int that this is called on.
    * @return int, a number that the user inputs after reading the question or statment.
    */
-  public static int readInt(String question) 
+  public static int readInt(String question)
   {
     Scanner myObj = new Scanner(System.in);
     System.out.println(question);
     String input = myObj.nextLine();
-    if(input.equals(""))
+    char input_c = input.charAt(0);
+
+    if(input.isEmpty() || !Character.isDigit(input_c))
     {
       return 0;
     }
     else
     {
-      return Integer.parseInt(input);
+        return input_c;
+
     }
   }
 

@@ -14,7 +14,6 @@ public class Grid
   //Initializing grid object
   public static int[][] grid;
 
-
   //Constructor
   public Grid()
   {
