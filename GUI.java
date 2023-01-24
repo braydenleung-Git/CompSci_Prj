@@ -122,10 +122,10 @@ public class GUI extends Game {
       frame.setBackground(Color.black);
       frame.setSize(output_Max_Size);
       frame.setLocation((screenSize.width / 2) - (frame.getWidth() / 2), (screenSize.height / 2) - (frame.getHeight() / 2));
-      //System.out.println("Player one's name:"+Player1_Name);
-      //System.out.println("Player two's name:"+Player2_Name);
-      UNI_CMD.readLine_GUI("Start Game? [Enter]");
-      System.out.println("test");
+      System.out.println("Player one's name:"+Player1_Name);
+      System.out.println("Player two's name:"+Player2_Name);
+      //UNI_CMD.readLine_GUI("Start Game? [Enter]");
+      //System.out.println("test");
       //Note: if the application freeze, causation is from extended-state of the frame, run the extended within the game class to resolve
       //Game.run_Game();
 
