@@ -1,13 +1,23 @@
 import javax.swing.*;
 import java.awt.*;
 import java.io.*;
-
+import java.util.*;
 public class test{
-    /*
+
     public static void main(String[] args){
-        String text= "-";
-        System.out.println(text);
-    }*/
+        while(true) {
+            String question = "What is your name ?";
+            String answer = readLine(question);
+            System.out.println("Name: " + answer);
+        }
+
+    }
+
+    public static String readLine(String q){
+        Scanner sc = new Scanner(System.in);
+        System.out.println(q);
+        return sc.nextLine();
+    }
     //This is testing the switch scene that ChatGPT provide used to understand how it works
     /*
     public class SwitchScenes extends JFrame {
@@ -58,7 +68,7 @@ public class test{
         }
     }*/
     //This is testing the console that ChatGPT provide use to understand how it works
-
+    /*
     public static void main(String[] args) {
         JFrame frame = new JFrame("Console");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -90,7 +100,7 @@ public class test{
         });
         frame.pack();
         frame.setVisible(true);
-    }
+    }*/
 
     //this is a demostration chatGPT about borderlayout in buttons?
     /*
