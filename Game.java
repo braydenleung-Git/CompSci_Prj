@@ -28,7 +28,7 @@ public class Game
     UNI_CMD.flush(50);
     System.out.println("WELCOME TO CONNECT FOUR! \n \nRules of the game:");
     System.out.println("1) There are 7 columns. You will take turns dropping your circles down one by one. \n2) To WIN, you must have FOUR of your coins in a ROW. \n3) This can be done vertically, horizontally, or diagonally.");
-    UNI_CMD.readLine("\nEnjoy the game! \nPress [Enter] to proceed:");
+    UNI_CMD.readLine_GUI("\nEnjoy the game! \nPress [Enter] to proceed:");
     
     Player player1 = new Player(1, GUI.Player1_Name);
     Player player2 = new Player(2, GUI.Player2_Name);
@@ -63,7 +63,7 @@ public class Game
     
     while(status == 0)
     {
-      input = UNI_CMD.readInt("\nPlayer: " + player.getPlayer_ID() + "\nWhich column would you like to fill? ");
+      input = UNI_CMD.readInt_GUI("\nPlayer: " + player.getPlayer_ID() + "\nWhich column would you like to fill? ");
       //This is used to break the loop
       status = grid.checkValidSpot(player.getPlayer_ID()); 
       UNI_CMD.flush(50);

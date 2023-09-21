@@ -18,7 +18,7 @@ public class GUI extends Game {
   public static JFrame frame = new JFrame("Connect 4, By Brayden & Hanna");
   private static final JPanel main_Panel = new JPanel(new CardLayout());
   private static final JPanel username_Layout = new JPanel();
-  private static final JPanel console_Layout= new JPanel();
+  private static final JPanel console_Layout = new JPanel();
   public static String userInput = "";
   public static Dimension output_Max_Size = new Dimension();
 
@@ -36,7 +36,7 @@ public class GUI extends Game {
   public static Font Arial_Unicode = null;
 
   public static void main(String[] args) {
-  //public static void run_GUI(){
+    //public static void run_GUI(){
 
 
     //Set that when the user clicks cross button, it will kill the code
@@ -45,7 +45,7 @@ public class GUI extends Game {
     setup_Username_Layout();
     setup_Console_Layout();
     //Adds the username_Layout to the main layout
-    main_Panel.add(username_Layout,"Username");
+    main_Panel.add(username_Layout, "Username");
     main_Panel.add(console_Layout, "Console");
     main_Panel.setLocation(frame.getHeight() / 2, frame.getWidth() / 2);
     //add the main_panel(one that allow switching scene) to the JFrame
@@ -103,40 +103,33 @@ public class GUI extends Game {
 
 
     //This adds a button to start the game
-    JButton start_Button =  new JButton("Click to Start Game");
+    JButton start_Button = new JButton("Click to Start Game");
     start_Button.setFont(Impact.deriveFont(24f));
     start_Button.addActionListener(e -> {
       //This is used for turning the text input that the user put in the text box as the player name, by default it is set to "Player 1"
 
       if (player1_T.getText() != null) {
         Player1_Name = player1_T.getText();
-      };
+      }
+
       //This is used for turning the text input that the user put in the text box as the player name, by default it is set to "Player 2"
 
       if (player2_T.getText() != null) {
         Player2_Name = player2_T.getText();
-      };
-      CardLayout cl = (CardLayout)(main_Panel.getLayout());
+      }
+
+      CardLayout cl = (CardLayout) (main_Panel.getLayout());
       cl.show(main_Panel, "Console");
       main_Panel.setBackground(Color.BLACK);
       frame.setBackground(Color.black);
       frame.setSize(output_Max_Size);
       frame.setLocation((screenSize.width / 2) - (frame.getWidth() / 2), (screenSize.height / 2) - (frame.getHeight() / 2));
-      System.out.println("Player one's name:"+Player1_Name);
-      System.out.println("Player two's name:"+Player2_Name);
+      System.out.println("Player one's name:" + Player1_Name);
+      System.out.println("Player two's name:" + Player2_Name);
       //UNI_CMD.readLine_GUI("Start Game? [Enter]");
       //System.out.println("test");
       //Note: if the application freeze, causation is from extended-state of the frame, run the extended within the game class to resolve
       //Game.run_Game();
-      /*
-      while(true){
-        try {
-          Thread.sleep(1000);
-        } catch (InterruptedException ex) {
-          throw new RuntimeException(ex);
-        }
-      }*/
-      //run_Game();
     });
 
 
@@ -144,7 +137,7 @@ public class GUI extends Game {
     username_Layout.setLayout(new BorderLayout());
     username_Layout.add(game_Icon_TitleScreen, BorderLayout.NORTH);
     username_Layout.add(username, BorderLayout.CENTER);
-    username_Layout.add(start_Button,BorderLayout.SOUTH);
+    username_Layout.add(start_Button, BorderLayout.SOUTH);
   }
 
   /**
@@ -158,16 +151,17 @@ public class GUI extends Game {
     console_Layout.setBackground(Color.BLACK);
     PrintStream output = new PrintStream(new OutputStream() {
       @Override
-      public void write(byte[] b, int off, int len){
+      public void write(byte[] b, int off, int len) {
         console_Output.setForeground(Color.white);
         console_Output.append(new String(b, off, len, StandardCharsets.UTF_8));
         //Automatically scroll down console
         console_Output.setCaretPosition(console_Output.getDocument().getLength());
 
       }
+
       public void write(int b) {
         try {
-          write(new byte[]{(byte)b});
+          write(new byte[]{(byte) b});
         } catch (IOException e) {
           throw new RuntimeException(e);
         }
@@ -178,21 +172,20 @@ public class GUI extends Game {
     console_Output.setBackground(Color.black);
     console_Output.setForeground(Color.white);
     console_Output.setFont(PTMono_Regular_02.deriveFont(15f));
-    output_Max_Size.setSize(screenSize.getWidth(),(screenSize.getHeight()-25));
-    JScrollPane console_Output_Scroll =  new JScrollPane(console_Output);
+    output_Max_Size.setSize(screenSize.getWidth(), (screenSize.getHeight() - 25));
+    JScrollPane console_Output_Scroll = new JScrollPane(console_Output);
     console_Output_Scroll.setBackground(Color.BLACK);
     console_Layout.add(console_Output_Scroll, BorderLayout.CENTER);
 
     //Set up console input to the text field
     console_Input.addActionListener(e -> {
       userInput = console_Input.getText();
-      if(userInput.equals(""))
-      {
+      if (userInput.equals("")) {
         userInput = "◽";
       }
       ByteArrayInputStream in = new ByteArrayInputStream(console_Input.getText().getBytes());
       System.setIn(in);
-      console_Output.append("\n"+console_Input.getText());
+      console_Output.append("\n" + console_Input.getText());
       console_Input.setText("");
     });
     console_Input.setBackground(Color.decode("#4f4f4f"));
@@ -206,7 +199,7 @@ public class GUI extends Game {
    * This method is used to import the font used in the program.
    * Note: Only one that are imported are count towards "Font", varies by file name.
    */
-  public static void setup_Fonts(){
+  public static void setup_Fonts() {
     GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
     try {
 
@@ -253,64 +246,10 @@ public class GUI extends Game {
       e.printStackTrace();
     }
   }
-
-  public static void run_Game(){
-    UNI_CMD.flush(50);
-    System.out.println("WELCOME TO CONNECT FOUR! \n \nRules of the game:");
-    System.out.println("1) There are 7 columns. You will take turns dropping your circles down one by one. \n2) To WIN, you must have FOUR of your coins in a ROW. \n3) This can be done vertically, horizontally, or diagonally.");
-    UNI_CMD.readLine("\nEnjoy the game! \nPress [Enter] to proceed:");
-
-    Player player1 = new Player(1, GUI.Player1_Name);
-    Player player2 = new Player(2, GUI.Player2_Name);
-    UNI_CMD.flush(50);
-    grid.print();
-
-    while(true)
-    {
-      playerMove(player1);
-      if(checkWin(player1.getPlayer_ID()))
-      {
-        System.out.println("\nPLAYER 1 WINS!!!");
-        break;
-      }
-      playerMove(player2);
-      if(checkWin(player2.getPlayer_ID()))
-      {
-        System.out.println("\nPLAYER 2 WINS!!!");
-        break;
-      }
-    }
-  }
-
-
-  public static boolean checkEnter(){
-    final boolean[] check = {false};
-
-    console_Input.addKeyListener(new KeyListener() {
-      @Override
-      public void keyTyped(KeyEvent e) {
-
-      }
-
-      @Override
-      public void keyPressed(KeyEvent e) {
-          if(e.getID() == 10 ){
-            check[0] = true;
-          }
-      }
-
-      @Override
-      public void keyReleased(KeyEvent e) {
-
-      }
-    });
-    while (!check[0]){
-
-    }
-    return true;
-  }
-
 }
+
+
+
 //Offline Copy of GPT code (Console)
 /*
 ==========================================================================

@@ -60,7 +60,7 @@ public class Grid
     if(Game.input <= 0 || Game.input > HORIZONTAL_SIZE || grid[0][Game.input-1]!=0)
     {
       System.out.println("ERROR: Invalid input. Please try again:");
-      UNI_CMD.readLine("Press [Enter] to proceed");
+      UNI_CMD.readLine_GUI("Press [Enter] to proceed");
       return 0;
     }
     else 
