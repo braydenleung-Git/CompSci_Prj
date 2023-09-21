@@ -53,9 +53,9 @@ public class UNI_CMD
   public static String readLine_GUI(String question)
   {
     System.out.println(question);
-    while(GUI.userInput.equals(""))
+    while (GUI.GUI_Triggered = false)
     {
-
+      
     }
     if(GUI.userInput.equals("◽"))
     {

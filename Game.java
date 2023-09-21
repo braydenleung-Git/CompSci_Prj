@@ -3,15 +3,7 @@
 
 /*
     To Do list:
-    - finish daily journal updates
-    - do testing journals
-    - do video
-    - user guide
-
-    - setup a working gui window with layout change
-    - merge gui and the game
-    - test game via gui
-    - a play again option/Winner scene
+    - Fix the readLine_GUI();
  */
 
 public class Game

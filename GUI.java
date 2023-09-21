@@ -14,6 +14,7 @@ public class GUI extends Game {
 
   public static String Player1_Name = "Player 1";
   public static String Player2_Name = "Player 2";
+  public static boolean GUI_Triggered = false;
   public static final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
   public static JFrame frame = new JFrame("Connect 4, By Brayden & Hanna");
   private static final JPanel main_Panel = new JPanel(new CardLayout());
