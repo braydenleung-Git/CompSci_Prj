@@ -79,27 +79,17 @@ public class GUI extends Game {
     JPanel right_Side = new JPanel();
     right_Side.setLayout(new BoxLayout(right_Side, BoxLayout.Y_AXIS));
     JTextField player1_T = new JTextField("Insert your name");
-    //This is used for turning the text input that the user put in the text box as the player name, by default it is set to "Player 1"
-    player1_T.addActionListener(e -> {
-      if (player1_T.getText() != null) {
-        Player1_Name = player1_T.getText();
-      }
-    });
     player1_T.setFont(HelvetciaNeue_Cond_B_05.deriveFont(20f));
     player1_T.setSize(250, 25);
     //line below is for experimental purpose, not supposed to be implemented to code
     //player1_T.setMaximumSize(new Dimension(250/**(1+(username_Layout.getWidth()/25))*/,30/**(1+(username_Layout.getHeight()/25))*/));
+
     JTextField player2_T = new JTextField("Insert your name");
-    //This is used for turning the text input that the user put in the text box as the player name, by default it is set to "Player 2"
-    player2_T.addActionListener(e -> {
-      if (player2_T.getText() != null) {
-        Player2_Name = player2_T.getText();
-      }
-    });
     player2_T.setFont(HelvetciaNeue_Cond_B_05.deriveFont(20f));
     player2_T.setSize(250, 25);
     //line below is for experimental purpose, not supposed to be implemented to code
     //player2_T.setMaximumSize(new Dimension(250/**(1+(username_Layout.getWidth()/25))*/,30/**(1+(username_Layout.getHeight()/25))*/));
+
     right_Side.add(player1_T);
     right_Side.add(player2_T);
     username.add(right_Side);
@@ -116,6 +106,14 @@ public class GUI extends Game {
     JButton start_Button =  new JButton("Click to Start Game");
     start_Button.setFont(Impact.deriveFont(24f));
     start_Button.addActionListener(e -> {
+      //This is used for turning the text input that the user put in the text box as the player name, by default it is set to "Player 1"
+      if (player1_T.getText() != null) {
+        Player1_Name = player1_T.getText();
+      };
+      //This is used for turning the text input that the user put in the text box as the player name, by default it is set to "Player 2"
+      if (player2_T.getText() != null) {
+        Player2_Name = player2_T.getText();
+      };
       CardLayout cl = (CardLayout)(main_Panel.getLayout());
       cl.show(main_Panel, "Console");
       main_Panel.setBackground(Color.BLACK);
@@ -124,7 +122,7 @@ public class GUI extends Game {
       frame.setLocation((screenSize.width / 2) - (frame.getWidth() / 2), (screenSize.height / 2) - (frame.getHeight() / 2));
       System.out.println("Player one's name:"+Player1_Name);
       System.out.println("Player two's name:"+Player2_Name);
-      //UNI_CMD.readLine_GUI("Start Game? [Enter]");
+      UNI_CMD.readLine_GUI("Start Game? [Enter]");
       //System.out.println("test");
       //Note: if the application freeze, causation is from extended-state of the frame, run the extended within the game class to resolve
       //Game.run_Game();
