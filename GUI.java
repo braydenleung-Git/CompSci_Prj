@@ -3,18 +3,16 @@
 //set up all the prerequisites for the class
 import java.awt.*;
 import javax.swing.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.util.*;
 
 
-public class GUI extends Game {
+public class GUI {
 
   public static String Player1_Name = "Player 1";
   public static String Player2_Name = "Player 2";
   public static boolean GUI_Triggered = false;
+  public static boolean GUI_Input_Confirmed = false;
   public static final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
   public static JFrame frame = new JFrame("Connect 4, By Brayden & Hanna");
   private static final JPanel main_Panel = new JPanel(new CardLayout());
@@ -25,7 +23,6 @@ public class GUI extends Game {
 
   public static JTextField console_Input = new JTextField();
 
-  //public static boolean runGame = false;
   public static JTextArea console_Output = new JTextArea();
 
   //Font library, Each font variable must be declared with public visibility first
@@ -37,8 +34,6 @@ public class GUI extends Game {
   public static Font Arial_Unicode = null;
 
   public static void main(String[] args) {
-    //public static void run_GUI(){
-
 
     //Set that when the user clicks cross button, it will kill the code
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -127,8 +122,8 @@ public class GUI extends Game {
       frame.setLocation((screenSize.width / 2) - (frame.getWidth() / 2), (screenSize.height / 2) - (frame.getHeight() / 2));
       System.out.println("Player one's name:" + Player1_Name);
       System.out.println("Player two's name:" + Player2_Name);
-      //UNI_CMD.readLine_GUI("Start Game? [Enter]");
-      //System.out.println("test");
+      UNI_CMD.readLine_GUI("Start Game? [Enter]");
+      System.out.println("test");
       //Note: if the application freeze, causation is from extended-state of the frame, run the extended within the game class to resolve
       //Game.run_Game();
     });
@@ -150,13 +145,13 @@ public class GUI extends Game {
 
     console_Output.setEditable(false);
     console_Layout.setBackground(Color.BLACK);
+    //this setup the output of the console
     PrintStream output = new PrintStream(new OutputStream() {
       @Override
       public void write(byte[] b, int off, int len) {
-        console_Output.setForeground(Color.white);
         console_Output.append(new String(b, off, len, StandardCharsets.UTF_8));
         //Automatically scroll down console
-        console_Output.setCaretPosition(console_Output.getDocument().getLength());
+        //console_Output.setCaretPosition(console_Output.getDocument().getLength());
 
       }
 
@@ -174,20 +169,23 @@ public class GUI extends Game {
     console_Output.setForeground(Color.white);
     console_Output.setFont(PTMono_Regular_02.deriveFont(15f));
     output_Max_Size.setSize(screenSize.getWidth(), (screenSize.getHeight() - 25));
+
     JScrollPane console_Output_Scroll = new JScrollPane(console_Output);
     console_Output_Scroll.setBackground(Color.BLACK);
     console_Layout.add(console_Output_Scroll, BorderLayout.CENTER);
 
     //Set up console input to the text field
     console_Input.addActionListener(e -> {
-      userInput = console_Input.getText();
-      if (userInput.equals("")) {
-        userInput = "◽";
+      //This is to prevent accidental activation
+      if(GUI_Triggered){
+        userInput = console_Input.getText();
+        if (userInput.equals("")) {
+          userInput = "◽";
+        }
+        //this mirrors the user input to console output, and then resets
+        console_Output.append("\n" + console_Input.getText());
+        console_Input.setText("");
       }
-      ByteArrayInputStream in = new ByteArrayInputStream(console_Input.getText().getBytes());
-      System.setIn(in);
-      console_Output.append("\n" + console_Input.getText());
-      console_Input.setText("");
     });
     console_Input.setBackground(Color.decode("#4f4f4f"));
     console_Input.setForeground(Color.white);

@@ -53,18 +53,11 @@ public class UNI_CMD
   public static String readLine_GUI(String question)
   {
     System.out.println(question);
-    while (GUI.GUI_Triggered = false)
-    {
-      
+    GUI.GUI_Triggered = true;
+    while(!GUI.GUI_Input_Confirmed){
+
     }
-    if(GUI.userInput.equals("◽"))
-    {
-      return " ";
-    }
-    else
-    {
-      return GUI.userInput;
-    }
+    return GUI.userInput;
   }
 
   /**
@@ -76,8 +69,7 @@ public class UNI_CMD
   {
 
     System.out.println(question);
-    while (GUI.userInput.equals("")) {
-    }
+    GUI.GUI_Triggered = true;
     if(GUI.userInput.equals("◽"))
     {
       return 0;
