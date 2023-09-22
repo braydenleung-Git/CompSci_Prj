@@ -78,22 +78,22 @@ public class UNI_CMD
 
     System.out.println(question);
     synchronized(GUI.lock){
-        GUI.GUI_Triggered = true;
-        while(!GUI.GUI_Input_Confirmed){
-          try {
-            GUI.lock.wait();
-          } catch (InterruptedException e) {
-            e.printStackTrace();
-          }
-          if(GUI.userInput.equals("◽"))
-          {
-            return 0;
-          }
-          else
-          {
-            return Integer.parseInt(GUI.userInput);
-          }
+      GUI.GUI_Triggered = true;
+      while(!GUI.GUI_Input_Confirmed){
+        try {
+          GUI.lock.wait();
+        } catch (InterruptedException e) {
+          e.printStackTrace();
         }
+      }
+      if(GUI.userInput.equals("◽"))
+      {
+        return 0;
+      }
+      else
+      {
+        return Integer.parseInt(GUI.userInput);
+      }
     }
   }
   
