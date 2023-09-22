@@ -21,6 +21,7 @@ public class UNI_CMD
     System.out.println(question);
     String input = myObj.nextLine();
     char input_c = input.charAt(0);
+    myObj.close();
     if(Character.isDigit(input_c))
     {
 
@@ -41,6 +42,7 @@ public class UNI_CMD
   public static String readLine(String question) {
     Scanner myObj = new Scanner(System.in);
     System.out.println(question);
+    myObj.close();
     return myObj.nextLine();
 
   }
