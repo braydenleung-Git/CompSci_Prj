@@ -55,7 +55,7 @@ public class UNI_CMD
   public static String readLine_GUI(String question)
   {
     System.out.println(question);
-    synchronized(){
+    synchronized(GUI.lock){
       GUI.GUI_Triggered = true;
       while (!GUI.GUI_Input_Confirmed) {
         try {
@@ -77,7 +77,7 @@ public class UNI_CMD
   {
 
     System.out.println(question);
-    synchronized(){
+    synchronized(GUI.lock){
         GUI.GUI_Triggered = true;
         while(!GUI.GUI_Input_Confirmed){
           try {
