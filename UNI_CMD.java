@@ -53,9 +53,15 @@ public class UNI_CMD
   public static String readLine_GUI(String question)
   {
     System.out.println(question);
-    GUI.GUI_Triggered = true;
-    while(!GUI.GUI_Input_Confirmed){
-
+    synchronized(){
+      GUI.GUI_Triggered = true;
+      while (!GUI.GUI_Input_Confirmed) {
+        try {
+            GUI.lock.wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+      }
     }
     return GUI.userInput;
   }
@@ -69,14 +75,23 @@ public class UNI_CMD
   {
 
     System.out.println(question);
-    GUI.GUI_Triggered = true;
-    if(GUI.userInput.equals("◽"))
-    {
-      return 0;
-    }
-    else
-    {
-      return Integer.parseInt(GUI.userInput);
+    synchronized(){
+        GUI.GUI_Triggered = true;
+        while(!GUI.GUI_Input_Confirmed){
+          try {
+            GUI.lock.wait();
+          } catch (InterruptedException e) {
+            e.printStackTrace();
+          }
+          if(GUI.userInput.equals("◽"))
+          {
+            return 0;
+          }
+          else
+          {
+            return Integer.parseInt(GUI.userInput);
+          }
+        }
     }
   }
   

@@ -151,7 +151,7 @@ public class GUI {
       public void write(byte[] b, int off, int len) {
         console_Output.append(new String(b, off, len, StandardCharsets.UTF_8));
         //Automatically scroll down console
-        //console_Output.setCaretPosition(console_Output.getDocument().getLength());
+        console_Output.setCaretPosition(console_Output.getDocument().getLength());
 
       }
 
@@ -185,6 +185,10 @@ public class GUI {
         //this mirrors the user input to console output, and then resets
         console_Output.append("\n" + console_Input.getText());
         console_Input.setText("");
+      }
+      synchronized(lock) {
+      GUI_Input_Confirmed = true;
+      lock.notifyAll();
       }
     });
     console_Input.setBackground(Color.decode("#4f4f4f"));
