@@ -14,7 +14,7 @@ public class GUI {
   public static String Player2_Name = "Player 2";
   public static boolean GUI_Triggered = false;
   public static boolean GUI_Input_Confirmed = false;
-  public static Object lock = new Object();
+  public static final Object lock = new Object();
   public static final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
   public static JFrame frame = new JFrame("Connect 4, By Brayden & Hanna");
   private static final JPanel main_Panel = new JPanel(new CardLayout());
@@ -104,30 +104,31 @@ public class GUI {
     JButton start_Button = new JButton("Click to Start Game");
     start_Button.setFont(Impact.deriveFont(24f));
     start_Button.addActionListener(e -> {
-      //This is used for turning the text input that the user put in the text box as the player name, by default it is set to "Player 1"
 
-      if (player1_T.getText() != null) {
-        Player1_Name = player1_T.getText();
-      }
+      new Thread(()-> {
+        //System.out.println("2");
+        //This is used for turning the text input that the user put in the text box as the player name, by default it is set to "Player 1"
+        if (!player1_T.getText().equals("Insert your name")) {
+          Player1_Name = player1_T.getText();
+        }
+        //This is used for turning the text input that the user put in the text box as the player name, by default it is set to "Player 2"
+        if (!player2_T.getText().equals("Insert your name")) {
+          Player2_Name = player2_T.getText();
+        }
 
-      //This is used for turning the text input that the user put in the text box as the player name, by default it is set to "Player 2"
-
-      if (player2_T.getText() != null) {
-        Player2_Name = player2_T.getText();
-      }
-
-      CardLayout cl = (CardLayout) (main_Panel.getLayout());
-      cl.show(main_Panel, "Console");
-      main_Panel.setBackground(Color.BLACK);
-      frame.setBackground(Color.black);
-      frame.setSize(output_Max_Size);
-      frame.setLocation((screenSize.width / 2) - (frame.getWidth() / 2), (screenSize.height / 2) - (frame.getHeight() / 2));
-      System.out.println("Player one's name:" + Player1_Name);
-      System.out.println("Player two's name:" + Player2_Name);
-      //UNI_CMD.readLine_GUI("Start Game? [Enter]");
-      System.out.println("test");
-      //Note: if the application freeze, causation is from extended-state of the frame, run the extended within the game class to resolve
-      //Game.run_Game();
+        CardLayout cl = (CardLayout) (main_Panel.getLayout());
+        cl.show(main_Panel, "Console");
+        main_Panel.setBackground(Color.BLACK);
+        frame.setBackground(Color.black);
+        frame.setSize(output_Max_Size);
+        frame.setLocation((screenSize.width / 2) - (frame.getWidth() / 2), (screenSize.height / 2) - (frame.getHeight() / 2));
+        System.out.println("Player one's name:" + Player1_Name);
+        System.out.println("Player two's name:" + Player2_Name);
+        UNI_CMD.readLine_GUI("Start Game? [Enter]");
+        System.out.println("test");
+        //Note: if the application freeze, causation is from extended-state of the frame, run the extended within the game class to resolve
+        Game.run_Game();
+      }).start();
     });
 
 
@@ -176,23 +177,30 @@ public class GUI {
     console_Output_Scroll.setBackground(Color.BLACK);
     console_Layout.add(console_Output_Scroll, BorderLayout.CENTER);
 
-    //Set up console input to the text field
-    console_Input.addActionListener(e -> {
-      //This is to prevent accidental activation
-      if(GUI_Triggered){
-        userInput = console_Input.getText();
-        if (userInput.equals("")) {
-          userInput = "◽";
+    //This creates a new thread so that, when the action is triggered,
+    //GUI.lock.wait(); will not wait the same thread this listener is set on,
+    //preventing the gui to froze
+    new Thread(() -> {
+      //System.out.println("1");
+      //Set up console input to the text field
+      console_Input.addActionListener(e -> {
+        //This is to prevent accidental activation
+        if(GUI_Triggered){
+          userInput = console_Input.getText();
+          if (userInput.equals("")) {
+            userInput = "◽";
+          }
+          //this mirrors the user input to console output
+          console_Output.append("\n" + console_Input.getText());
         }
-        //this mirrors the user input to console output
-        console_Output.append("\n" + console_Input.getText());
-      }
-      console_Input.setText("");
-      synchronized(lock) {
-        GUI_Input_Confirmed = true;
-        lock.notifyAll();
-      }
-    });
+        console_Input.setText("");
+        synchronized(lock) {
+          GUI_Input_Confirmed = true;
+          lock.notifyAll();
+        }
+      });
+    }).start();
+
     console_Input.setBackground(Color.decode("#4f4f4f"));
     console_Input.setForeground(Color.white);
     console_Input.setFont(PTMono_Regular_02.deriveFont(15f));
