@@ -1,6 +1,9 @@
 //This class creates a grid object and replaces them with player objects
 //Hanna and Brayden collaborated on this class (Hanna initialized it and Brayden added to it and debugged it). It went through major changes along the way.
 package Game_code;
+
+import java.awt.*;
+
 public class Grid
 {
   //These lines of code create the grid and seperate objects
@@ -62,7 +65,7 @@ public class Grid
     int count = 0;
     if(Game.input <= 0 || Game.input > HORIZONTAL_SIZE || grid[0][Game.input-1]!=0)
     {
-      System.out.println("ERROR: Invalid input. Please try again:");
+      System.out.println("\nERROR: Invalid input. Please try again:");
       UNI_CMD.readLine_GUI("Press [Enter] to proceed");
       return 0;
     }
@@ -89,7 +92,7 @@ public class Grid
           break;
         }
       }
-      System.out.println("You have placed your dot in column "+ Game.input);
+      System.out.println("\nYou have placed your dot in column "+ Game.input);
       Game.input = 0 ;
       UNI_CMD.readLine_GUI("Press [Enter] to proceed");
       return 1;
@@ -105,11 +108,13 @@ public class Grid
   {
     if(input == 1)
     {
-      return COLOR_RED+"➊"+COLOR_RESET;
+      GUI.altTextColour("➊", Color.RED);
+      return null;
     }
     else if (input == 2)
     {
-      return COLOR_YELLOW+"➋"+COLOR_RESET;
+      GUI.altTextColour("➋",Color.YELLOW);
+      return null;
     }
     return "□";
   }
@@ -123,14 +128,21 @@ public class Grid
     {
       for(int j = 0; j < grid[0].length; j++)
       {
-        System.out.print(sort_ID(grid[i][j]) + " ");
+        //GUI.altTextColor(); taken over the printing part,
+        //therefore when the grid is null(certain ID) it would just print the spacers
+        if(sort_ID(grid[i][j]) == null){
+          System.out.print(" ");
+        }
+        else {
+          System.out.print(sort_ID(grid[i][j]) + " ");
+        }
       }
       System.out.println();
     }
     String column_id ="";
     for(int x = 0 ; x < grid[0].length; x++)
     {
-      column_id += (x+1) +" ";
+      column_id += (x+1) +"  ";
     }
     System.out.println(column_id);
     UNI_CMD.ui_Line(column_id);

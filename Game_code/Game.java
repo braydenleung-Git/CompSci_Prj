@@ -1,6 +1,8 @@
 //This class is the main file. It contains the information on how the game will actually run
 //Hanna and Brayden collaborated on this class. They both added separate pieces of code, and edited and changed different parts.
 package Game_code;
+
+
 /*
     To Do list:
  */
@@ -25,8 +27,7 @@ public class Game
       1) There are 7 columns. You will take turns dropping your circles down one by one.\s
       2) To WIN, you must have FOUR of your coins in a ROW.\s
       3) This can be done vertically, horizontally, or diagonally.\s
-      4) To choose a column, TYPE a column number when asked.\s
-      """
+      4) To choose a column, TYPE a column number when asked."""
     );
     UNI_CMD.ui_Line(82);
     UNI_CMD.readLine_GUI("\nEnjoy the game! \nPress [Enter] to proceed:");
@@ -36,9 +37,8 @@ public class Game
     Player player2 = new Player(2, GUI.Player2_Name);
     UNI_CMD.flush(50);
     grid.print();
-    
-    while(true)
-    {
+
+    while(true){
       playerMove(player1);
       if(checkWin(player1.getPlayer_ID()))
       {
@@ -51,6 +51,24 @@ public class Game
         System.out.println("\n"+player2.getName().toUpperCase()+" WINS!!!");
         break;
       }
+    }
+
+    while(true){
+      prompt = "Back to main Menu? [Y/N]";
+      UNI_CMD.ui_Line(prompt);
+      text = UNI_CMD.readLine_GUI(prompt).toUpperCase();
+      if(text.equals("Y")) {
+        GUI.return_TitleScreen();
+        break;
+      }
+      if(text.equals("N")) {
+        //System.out.println("Program Exited");
+        System.exit(0);
+      }
+      prompt = "Error: Invalid input [Enter]";
+      UNI_CMD.ui_Line(prompt);
+      UNI_CMD.readLine_GUI(prompt);
+      UNI_CMD.flush(50);
     }
   }
 

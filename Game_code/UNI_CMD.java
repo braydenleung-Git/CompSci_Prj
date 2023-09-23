@@ -53,7 +53,6 @@ public class UNI_CMD
   public static String readLine_GUI(String question)
   {
     CountDownLatch latch = new CountDownLatch(1);
-
     new Thread(() -> {
       System.out.println(question);
       synchronized(GUI.lock){
@@ -75,6 +74,7 @@ public class UNI_CMD
       e.printStackTrace();
     }
     GUI.GUI_Input_Confirmed = false;
+    GUI.GUI_Triggered = false;
     return GUI.userInput;
   }
 
@@ -106,6 +106,8 @@ public class UNI_CMD
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
+    GUI.GUI_Input_Confirmed = false;
+    GUI.GUI_Triggered = false;
     if(GUI.userInput.equals("◽"))
     {
       return 0;
