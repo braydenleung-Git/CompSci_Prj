@@ -1,4 +1,4 @@
-//This class creates a grid object and replaces them with player objects
+package Game_code;//This class creates a grid object and replaces them with player objects
 //Hanna and Brayden collaborated on this class (Hanna initialized it and Brayden added to it and debugged it). It went through major changes along the way.
 
 public class Grid
@@ -85,9 +85,9 @@ public class Grid
           break;
         }
       }
-      //System.out.println("You have placed your dot in column "+ Game.input);
+      //System.out.println("You have placed your dot in column "+ Game_code.Game.input);
       Game.input = 0 ;
-      //UNI_CMD.readLine("Press [Enter] to proceed");
+      //Game_code.UNI_CMD.readLine("Press [Enter] to proceed");
       //System.out.println("Count :"+count);
       return 1;
     }

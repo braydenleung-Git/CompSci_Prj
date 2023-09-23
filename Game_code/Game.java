@@ -1,4 +1,4 @@
-//This class is the main file. It contains the information on how the game will actually run
+package Game_code;//This class is the main file. It contains the information on how the game will actually run
 //Hanna and Brayden collaborated on this class. They both added seperate peices of code, and edited and changed different parts. 
 
 /*
@@ -55,7 +55,7 @@ public class Game
     
     while(status == 0)
     {
-      input = UNI_CMD.readInt_GUI("\nPlayer: " + player.getPlayer_ID() + "\nWhich column would you like to fill? ");
+      input = UNI_CMD.readInt_GUI("\nGame_code.Player: " + player.getPlayer_ID() + "\nWhich column would you like to fill? ");
       //This is used to break the loop
       status = grid.checkValidSpot(player.getPlayer_ID()); 
       UNI_CMD.flush(50);

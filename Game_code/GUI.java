@@ -1,4 +1,4 @@
-//This class creates the beginning GUI in our game. Brayden created this class.
+package Game_code;//This class creates the beginning Game_code.GUI in our game. Brayden created this class.
 
 //set up all the prerequisites for the class
 import java.awt.*;
@@ -9,8 +9,8 @@ import java.nio.charset.StandardCharsets;
 
 public class GUI {
 
-  public static String Player1_Name = "Player 1";
-  public static String Player2_Name = "Player 2";
+  public static String Player1_Name = "Game_code.Player 1";
+  public static String Player2_Name = "Game_code.Player 2";
   public static boolean GUI_Triggered = false;
   public static boolean GUI_Input_Confirmed = false;
   public static Object lock = new Object();
@@ -64,9 +64,9 @@ public class GUI {
     //This is used to set up the left side(text) of the username layout
     JPanel left_Side = new JPanel();
     left_Side.setLayout(new BoxLayout(left_Side, BoxLayout.Y_AXIS));
-    JLabel player1_L = new JLabel("Player 1:");
+    JLabel player1_L = new JLabel("Game_code.Player 1:");
     player1_L.setFont(HelvetciaNeue_Cond_B_05.deriveFont(25f));
-    JLabel player2_L = new JLabel("Player 2:");
+    JLabel player2_L = new JLabel("Game_code.Player 2:");
     player2_L.setFont(HelvetciaNeue_Cond_B_05.deriveFont(25f));
     left_Side.add(player1_L);
     left_Side.add(player2_L);
@@ -92,7 +92,7 @@ public class GUI {
     username.add(right_Side);
 
     //This adds image to the panel
-    ImageIcon icon = new ImageIcon("Connect 4 Icon.png");
+    ImageIcon icon = new ImageIcon("Resource/Connect 4 Icon.png");
     Image icon_Image = (icon.getImage()).getScaledInstance((int) (icon.getIconHeight() * (0.30)), (int) (icon.getIconWidth() * (0.30)), Image.SCALE_SMOOTH);
     icon = new ImageIcon(icon_Image);
     JLabel game_Icon_TitleScreen = new JLabel(icon);
@@ -100,16 +100,16 @@ public class GUI {
 
 
     //This adds a button to start the game
-    JButton start_Button = new JButton("Click to Start Game");
+    JButton start_Button = new JButton("Click to Start Game_code.Game");
     start_Button.setFont(Impact.deriveFont(24f));
     start_Button.addActionListener(e -> {
-      //This is used for turning the text input that the user put in the text box as the player name, by default it is set to "Player 1"
+      //This is used for turning the text input that the user put in the text box as the player name, by default it is set to "Game_code.Player 1"
 
       if (player1_T.getText() != null) {
         Player1_Name = player1_T.getText();
       }
 
-      //This is used for turning the text input that the user put in the text box as the player name, by default it is set to "Player 2"
+      //This is used for turning the text input that the user put in the text box as the player name, by default it is set to "Game_code.Player 2"
 
       if (player2_T.getText() != null) {
         Player2_Name = player2_T.getText();
@@ -121,12 +121,12 @@ public class GUI {
       frame.setBackground(Color.black);
       frame.setSize(output_Max_Size);
       frame.setLocation((screenSize.width / 2) - (frame.getWidth() / 2), (screenSize.height / 2) - (frame.getHeight() / 2));
-      System.out.println("Player one's name:" + Player1_Name);
-      System.out.println("Player two's name:" + Player2_Name);
-      UNI_CMD.readLine_GUI("Start Game? [Enter]");
-      System.out.println("test");
+      System.out.println("Game_code.Player one's name:" + Player1_Name);
+      System.out.println("Game_code.Player two's name:" + Player2_Name);
+      //Game_code.UNI_CMD.readLine_GUI("Start Game_code.Game? [Enter]");
+      System.out.println("Game_code.test");
       //Note: if the application freeze, causation is from extended-state of the frame, run the extended within the game class to resolve
-      //Game.run_Game();
+      //Game_code.Game.run_Game();
     });
 
 
@@ -183,13 +183,13 @@ public class GUI {
         if (userInput.equals("")) {
           userInput = "◽";
         }
-        //this mirrors the user input to console output, and then resets
+        //this mirrors the user input to console output
         console_Output.append("\n" + console_Input.getText());
-        console_Input.setText("");
       }
+      console_Input.setText("");
       synchronized(lock) {
-      GUI_Input_Confirmed = true;
-      lock.notifyAll();
+        GUI_Input_Confirmed = true;
+        lock.notifyAll();
       }
     });
     console_Input.setBackground(Color.decode("#4f4f4f"));
@@ -209,7 +209,7 @@ public class GUI {
 
       // Load the font file
       //HelveticaNeue-CondensedBold-05
-      File HelvetciaNeue_Cond_B_05_File = new File("./Fonts/HelveticaNeue-CondensedBold-05.ttf");
+      File HelvetciaNeue_Cond_B_05_File = new File("./Resource/Fonts/HelveticaNeue-CondensedBold-05.ttf");
       HelvetciaNeue_Cond_B_05 = Font.createFont(Font.TRUETYPE_FONT, HelvetciaNeue_Cond_B_05_File);
       ge.registerFont(HelvetciaNeue_Cond_B_05);
     } catch (IOException | FontFormatException e) {
@@ -217,7 +217,7 @@ public class GUI {
     }
     try {
       //Impact
-      File Impact_File = new File("./Fonts/Impact.ttf");
+      File Impact_File = new File("./Resource/Fonts/Impact.ttf");
       Impact = Font.createFont(Font.TRUETYPE_FONT, Impact_File);
       ge.registerFont(Impact);
     } catch (IOException | FontFormatException e) {
@@ -225,7 +225,7 @@ public class GUI {
     }
     try {
       //PTMono-Regular-02
-      File PTMono_Regular_02_File = new File("./Fonts/PTMono-Regular-02.ttf");
+      File PTMono_Regular_02_File = new File("./Resource/Fonts/PTMono-Regular-02.ttf");
       PTMono_Regular_02 = Font.createFont(Font.TRUETYPE_FONT, PTMono_Regular_02_File);
       ge.registerFont(PTMono_Regular_02);
     } catch (IOException | FontFormatException e) {
@@ -233,7 +233,7 @@ public class GUI {
     }
     try {
       //SplineSansMono-VariableFont_wght
-      File SplineSansMono_VF_wght_File = new File("./Fonts/SplineSansMono-VariableFont_wght.ttf");
+      File SplineSansMono_VF_wght_File = new File("./Resource/Fonts/SplineSansMono-VariableFont_wght.ttf");
       SplineSansMono_VF_wght = Font.createFont(Font.TRUETYPE_FONT, SplineSansMono_VF_wght_File);
       ge.registerFont(SplineSansMono_VF_wght);
 
@@ -242,7 +242,7 @@ public class GUI {
     }
     try {
       //Arial Unicode
-      File Arial_Unicode_File = new File("./Fonts/Arial Unicode.ttf");
+      File Arial_Unicode_File = new File("./Resource/Fonts/Arial Unicode.ttf");
       Arial_Unicode = Font.createFont(Font.TRUETYPE_FONT, Arial_Unicode_File);
       ge.registerFont(Arial_Unicode);
 
