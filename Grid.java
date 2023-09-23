@@ -65,9 +65,10 @@ public class Grid
     }
     else 
     {
-      //the line below is to verify whether the code ran this part or not
+      //Game.input = Column #, x = Vertical Position of the placement
       for(int x = 0; x<VERTICAL_SIZE; x++)
       {
+        //if the space at x is not empty, Dot will be placed above the dot
         if(grid[x][Game.input-1]!= 0 )
         {
           x--;
@@ -76,6 +77,7 @@ public class Grid
           lastHorizontal = Game.input-1;
           break;
         }
+        //if the vertical placement is equals to bottom(VERTICAL_SIZE-1), Dot will be placed
         else if( x == VERTICAL_SIZE-1)
         {
           grid[x][Game.input-1] = player_ID;
@@ -84,16 +86,15 @@ public class Grid
           break;
         }
       }
-      //System.out.println("You have placed your dot in column "+ Game.input);
+      System.out.println("You have placed your dot in column "+ Game.input);
       Game.input = 0 ;
-      //UNI_CMD.readLine("Press [Enter] to proceed");
-      //System.out.println("Count :"+count);
+      UNI_CMD.readLine("Press [Enter] to proceed");
       return 1;
     }
   }
 
   /**
-   * This method sorts the id between players and return their corrisponding colour and object character
+   * This method sorts the id between players and return their corresponding colour and object character
    * @param input, what the id is
    * @return string, the grid object or player object
    */
