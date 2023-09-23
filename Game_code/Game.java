@@ -3,7 +3,6 @@
 package Game_code;
 /*
     To Do list:
-    - Fix the readLine_GUI();
  */
 
 public class Game
