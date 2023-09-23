@@ -1,21 +1,14 @@
-package Game_code;
-import java.util.*;
+package Game_code;//This was our test world where we tested out GUI
+import javax.swing.*;
+import java.awt.*;
+import java.io.*;
+
 public class test{
-
+    /*
     public static void main(String[] args){
-        while(true) {
-            String question = "What is your name ?";
-            String answer = readLine(question);
-            System.out.println("Name: " + answer);
-        }
-
-    }
-
-    public static String readLine(String q){
-        Scanner sc = new Scanner(System.in);
-        System.out.println(q);
-        return sc.nextLine();
-    }
+        String text= "-";
+        System.out.println(text);
+    }*/
     //This is testing the switch scene that ChatGPT provide used to understand how it works
     /*
     public class SwitchScenes extends JFrame {

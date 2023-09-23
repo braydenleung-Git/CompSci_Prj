@@ -4,6 +4,10 @@
 package Game_code;
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 
@@ -17,23 +21,24 @@ public class GUI {
   public static final Object lock = new Object();
   public static final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
   public static JFrame frame = new JFrame("Connect 4, By Brayden & Hanna");
-  private static final JPanel main_Panel = new JPanel(new CardLayout());
+  public static final JPanel main_Panel = new JPanel(new CardLayout());
   private static final JPanel username_Layout = new JPanel();
   private static final JPanel console_Layout = new JPanel();
   public static String userInput = "";
-  public static Dimension output_Max_Size = new Dimension();
-
+  public static Dimension console_frame_Size = new Dimension();
+  public static Dimension titlescreen_frame_Size = new Dimension();
   public static JTextField console_Input = new JTextField();
 
-  public static JTextArea console_Output = new JTextArea();
+  public static JTextPane console_Output = new JTextPane();
 
   //Font library, Each font variable must be declared with public visibility first
   public static Font HelvetciaNeue_Cond_B_05 = null;
   public static Font Impact = null;
   public static Font PTMono_Regular_02 = null;
   public static Font SplineSansMono_VF_wght = null;
-
   public static Font Arial_Unicode = null;
+  public static Font Nanum_Gothic_Coding_B = null;
+  public static Font Nanum_Gothic_Coding_R = null;
 
   public static void main(String[] args) {
 
@@ -49,6 +54,7 @@ public class GUI {
     //add the main_panel(one that allow switching scene) to the JFrame
     frame.add(main_Panel, BorderLayout.CENTER);
     frame.pack();
+    titlescreen_frame_Size.setSize(frame.getWidth(),frame.getHeight());
     //set the position of the frame to center of the screen
     frame.setLocation((screenSize.width / 2) - (frame.getWidth() / 2), (screenSize.height / 2) - (frame.getHeight() / 2));
     frame.setResizable(false);
@@ -120,15 +126,16 @@ public class GUI {
         cl.show(main_Panel, "Console");
         main_Panel.setBackground(Color.BLACK);
         frame.setBackground(Color.black);
-        frame.setSize(output_Max_Size);
+        frame.setSize(console_frame_Size);
         frame.setLocation((screenSize.width / 2) - (frame.getWidth() / 2), (screenSize.height / 2) - (frame.getHeight() / 2));
-        System.out.println("Player one's name:" + Player1_Name);
-        System.out.println("Player two's name:" + Player2_Name);
-        UNI_CMD.readLine_GUI("Start Game? [Enter]");
-        System.out.println("test");
+        //System.out.println("Player one's name:" + Player1_Name);
+        //System.out.println("Player two's name:" + Player2_Name);
+        //UNI_CMD.readLine_GUI("Start Game? [Enter]");
+        //System.out.println("test");
         //Note: if the application freeze, causation is from extended-state of the frame, run the extended within the game class to resolve
-        Game.run_Game();
       }).start();
+      Thread Game_T = new Thread(Game::run_Game);
+      Game_T.start();
     });
 
 
@@ -136,7 +143,7 @@ public class GUI {
     username_Layout.setLayout(new BorderLayout());
     username_Layout.add(game_Icon_TitleScreen, BorderLayout.NORTH);
     username_Layout.add(username, BorderLayout.CENTER);
-    username_Layout.add(start_Button, BorderLayout.SOUTH);
+    username_Layout.add(start_Button, BorderLayout.AFTER_LAST_LINE);
   }
 
   /**
@@ -144,38 +151,44 @@ public class GUI {
    */
   public static void setup_Console_Layout() {
     console_Layout.setLayout(new BorderLayout());
-    //Set up console out put to text area
-
-    console_Output.setEditable(false);
     console_Layout.setBackground(Color.BLACK);
+    //Set up console output to text area
+    console_Output.setEditable(false);
+    console_Output.setFont(Nanum_Gothic_Coding_B);
+    StyledDocument doc = console_Output.getStyledDocument();
+    SimpleAttributeSet normal_Text = new SimpleAttributeSet();
+    console_Output.setBackground(Color.BLACK);
+    StyleConstants.setForeground(normal_Text, Color.white);
+    console_Output.setFont(Nanum_Gothic_Coding_B.deriveFont(20f));
+
     //this setup the output of the console
     PrintStream output = new PrintStream(new OutputStream() {
       @Override
       public void write(byte[] b, int off, int len) {
-        console_Output.append(new String(b, off, len, StandardCharsets.UTF_8));
-        //Automatically scroll down console
-        console_Output.setCaretPosition(console_Output.getDocument().getLength());
-
-      }
-
-      public void write(int b) {
+        String text = new String(b, off, len, StandardCharsets.UTF_8);
         try {
-          write(new byte[]{(byte) b});
-        } catch (IOException e) {
+          doc.insertString(doc.getLength(), text, normal_Text);
+        } catch (BadLocationException e) {
           throw new RuntimeException(e);
         }
+        // Automatically scroll down console
+        console_Output.setCaretPosition(doc.getLength());
+      }
+      @Override
+      public void write(int b) {
+        write(new byte[]{(byte) b}, 0, 1);
       }
     });
     System.setOut(output);
     System.setErr(output);
-    console_Output.setBackground(Color.black);
-    console_Output.setForeground(Color.white);
-    console_Output.setFont(PTMono_Regular_02.deriveFont(15f));
-    output_Max_Size.setSize(screenSize.getWidth(), (screenSize.getHeight() - 25));
+
+    console_frame_Size.setSize(screenSize.getWidth(), (screenSize.getHeight() - 25));
+
 
     JScrollPane console_Output_Scroll = new JScrollPane(console_Output);
     console_Output_Scroll.setBackground(Color.BLACK);
     console_Layout.add(console_Output_Scroll, BorderLayout.CENTER);
+
 
     //This creates a new thread so that, when the action is triggered,
     //GUI.lock.wait(); will not wait the same thread this listener is set on,
@@ -191,7 +204,11 @@ public class GUI {
             userInput = "◽";
           }
           //this mirrors the user input to console output
-          console_Output.append("\n" + console_Input.getText());
+          try {
+            doc.insertString(doc.getLength(),"\n" + console_Input.getText(), normal_Text);
+          } catch (BadLocationException a) {
+            throw new RuntimeException(a);
+          }
         }
         console_Input.setText("");
         synchronized(lock) {
@@ -203,22 +220,49 @@ public class GUI {
 
     console_Input.setBackground(Color.decode("#4f4f4f"));
     console_Input.setForeground(Color.white);
-    console_Input.setFont(PTMono_Regular_02.deriveFont(15f));
+    console_Input.setFont(PTMono_Regular_02.deriveFont(20f));
     console_Layout.add(console_Input, BorderLayout.SOUTH);
 
   }
 
   /**
+   * This method is to change the color of a certain text that is going to be printed in console output
+   * @param input text input
+   */
+  public static void altTextColour(String input, Color color){
+    SimpleAttributeSet coloredText = new SimpleAttributeSet();
+    StyleConstants.setForeground(coloredText, color);
+
+    StyledDocument doc = console_Output.getStyledDocument();
+    try {
+      doc.insertString(doc.getLength(), input, coloredText);
+    } catch (BadLocationException e) {
+      throw new RuntimeException(e);
+    }
+  }
+  /**
    * This method is used to import the font used in the program.
    * Note: Only one that are imported are count towards "Font", varies by file name.
    */
+public static void return_TitleScreen(){
+  CardLayout cl = (CardLayout) (main_Panel.getLayout());
+  cl.show(GUI.main_Panel, "Username");
+  frame.setSize(GUI.titlescreen_frame_Size);
+  frame.setLocation((screenSize.width / 2) - (frame.getWidth() / 2), (screenSize.height / 2) - (frame.getHeight() / 2));
+  StyledDocument doc = console_Output.getStyledDocument();
+  try {
+    doc.remove(0, doc.getLength());
+  } catch (BadLocationException e){
+    e.printStackTrace();
+  }
+}
   public static void setup_Fonts() {
     GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
     try {
 
-      // Load the font file
+      //Load the font file
       //HelveticaNeue-CondensedBold-05
-      File HelvetciaNeue_Cond_B_05_File = new File("./Resource/Fonts/HelveticaNeue-CondensedBold-05.ttf");
+      File HelvetciaNeue_Cond_B_05_File = new File("./Resource/Fonts/HelveticaNeue/HelveticaNeue-CondensedBold-05.ttf");
       HelvetciaNeue_Cond_B_05 = Font.createFont(Font.TRUETYPE_FONT, HelvetciaNeue_Cond_B_05_File);
       ge.registerFont(HelvetciaNeue_Cond_B_05);
     } catch (IOException | FontFormatException e) {
@@ -234,7 +278,7 @@ public class GUI {
     }
     try {
       //PTMono-Regular-02
-      File PTMono_Regular_02_File = new File("./Resource/Fonts/PTMono-Regular-02.ttf");
+      File PTMono_Regular_02_File = new File("./Resource/Fonts/PTMono/PTMono-Regular-02.ttf");
       PTMono_Regular_02 = Font.createFont(Font.TRUETYPE_FONT, PTMono_Regular_02_File);
       ge.registerFont(PTMono_Regular_02);
     } catch (IOException | FontFormatException e) {
@@ -242,7 +286,7 @@ public class GUI {
     }
     try {
       //SplineSansMono-VariableFont_wght
-      File SplineSansMono_VF_wght_File = new File("./Resource/Fonts/SplineSansMono-VariableFont_wght.ttf");
+      File SplineSansMono_VF_wght_File = new File("./Resource/Fonts/SplineSans/SplineSansMono-VariableFont_wght.ttf");
       SplineSansMono_VF_wght = Font.createFont(Font.TRUETYPE_FONT, SplineSansMono_VF_wght_File);
       ge.registerFont(SplineSansMono_VF_wght);
 
@@ -254,6 +298,24 @@ public class GUI {
       File Arial_Unicode_File = new File("./Resource/Fonts/Arial Unicode.ttf");
       Arial_Unicode = Font.createFont(Font.TRUETYPE_FONT, Arial_Unicode_File);
       ge.registerFont(Arial_Unicode);
+
+    } catch (IOException | FontFormatException e) {
+      e.printStackTrace();
+    }
+    try {
+      //NanumGothicCoding-Bold
+      File Nanum_Gothic_Coding_B_File = new File("./Resource/Fonts/Nanum_Gothic_Coding/NanumGothicCoding-Bold.ttf");
+      Nanum_Gothic_Coding_B = Font.createFont(Font.TRUETYPE_FONT, Nanum_Gothic_Coding_B_File);
+      ge.registerFont(Nanum_Gothic_Coding_B);
+
+    } catch (IOException | FontFormatException e) {
+      e.printStackTrace();
+    }
+    try {
+      //NanumGothicCoding-Regular
+      File Nanum_Gothic_Coding_R_File = new File("./Resource/Fonts/Nanum_Gothic_Coding/NanumGothicCoding-Regular.ttf");
+      Nanum_Gothic_Coding_R = Font.createFont(Font.TRUETYPE_FONT, Nanum_Gothic_Coding_R_File);
+      ge.registerFont(Nanum_Gothic_Coding_R);
 
     } catch (IOException | FontFormatException e) {
       e.printStackTrace();
@@ -410,4 +472,3 @@ try {
 }
 
  */
-
