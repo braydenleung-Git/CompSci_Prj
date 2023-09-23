@@ -1,6 +1,7 @@
-package Game_code;//This class was created so that we can store universal commands that every class can call. Ex: readLine(), readInt() etc. This was needed because these commands were not already in replits database, like they were in codehs' databse.
-//Separate commands and docs were added by Brayden and Hanna. Some edits were made and some debugging was required.
 
+//This class was created so that we can store universal commands that every class can call. Ex: readLine(), readInt() etc. This was needed because these commands were not already in replits database, like they were in codehs' databse.
+//Separate commands and docs were added by Brayden and Hanna. Some edits were made and some debugging was required.
+package Game_code;
 import java.util.Scanner;
 import java.util.concurrent.CountDownLatch;
 
@@ -46,7 +47,7 @@ public class UNI_CMD
   }
 
     /**
-   * This method gets a response from a string question or statment in a Game_code.GUI setting. (aka the scanner input)
+   * This method gets a response from a string question or statment in a GUI setting. (aka the scanner input)
    * @param question, the string that this is called on
    * @return String, a string object that the user inputs after reading the question or statement
    */
@@ -79,7 +80,7 @@ public class UNI_CMD
   }
 
   /**
-   * This method prints out a question or statment and expects an int as a response to it. It assings the response to the ints name. This is in a Game_code.GUI setting (hence the scanner being involved.)
+   * This method prints out a question or statment and expects an int as a response to it. It assings the response to the ints name. This is in a GUI setting (hence the scanner being involved.)
    * @param question, the int that this is called on.
    * @return int, a number that the user inputs after reading the question or statment.
    */

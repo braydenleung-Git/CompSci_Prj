@@ -1,6 +1,7 @@
-package Game_code;//This class creates the beginning Game_code.GUI in our game. Brayden created this class.
+//This class creates the beginning GUI in our game. Brayden created this class.
 
 //set up all the prerequisites for the class
+package Game_code;
 import java.awt.*;
 import javax.swing.*;
 import java.io.*;
@@ -9,8 +10,8 @@ import java.nio.charset.StandardCharsets;
 
 public class GUI {
 
-  public static String Player1_Name = "Game_code.Player 1";
-  public static String Player2_Name = "Game_code.Player 2";
+  public static String Player1_Name = "Player 1";
+  public static String Player2_Name = "Player 2";
   public static boolean GUI_Triggered = false;
   public static boolean GUI_Input_Confirmed = false;
   public static Object lock = new Object();
@@ -64,9 +65,9 @@ public class GUI {
     //This is used to set up the left side(text) of the username layout
     JPanel left_Side = new JPanel();
     left_Side.setLayout(new BoxLayout(left_Side, BoxLayout.Y_AXIS));
-    JLabel player1_L = new JLabel("Game_code.Player 1:");
+    JLabel player1_L = new JLabel("Player 1:");
     player1_L.setFont(HelvetciaNeue_Cond_B_05.deriveFont(25f));
-    JLabel player2_L = new JLabel("Game_code.Player 2:");
+    JLabel player2_L = new JLabel("Player 2:");
     player2_L.setFont(HelvetciaNeue_Cond_B_05.deriveFont(25f));
     left_Side.add(player1_L);
     left_Side.add(player2_L);
@@ -100,16 +101,16 @@ public class GUI {
 
 
     //This adds a button to start the game
-    JButton start_Button = new JButton("Click to Start Game_code.Game");
+    JButton start_Button = new JButton("Click to Start Game");
     start_Button.setFont(Impact.deriveFont(24f));
     start_Button.addActionListener(e -> {
-      //This is used for turning the text input that the user put in the text box as the player name, by default it is set to "Game_code.Player 1"
+      //This is used for turning the text input that the user put in the text box as the player name, by default it is set to "Player 1"
 
       if (player1_T.getText() != null) {
         Player1_Name = player1_T.getText();
       }
 
-      //This is used for turning the text input that the user put in the text box as the player name, by default it is set to "Game_code.Player 2"
+      //This is used for turning the text input that the user put in the text box as the player name, by default it is set to "Player 2"
 
       if (player2_T.getText() != null) {
         Player2_Name = player2_T.getText();
@@ -121,12 +122,12 @@ public class GUI {
       frame.setBackground(Color.black);
       frame.setSize(output_Max_Size);
       frame.setLocation((screenSize.width / 2) - (frame.getWidth() / 2), (screenSize.height / 2) - (frame.getHeight() / 2));
-      System.out.println("Game_code.Player one's name:" + Player1_Name);
-      System.out.println("Game_code.Player two's name:" + Player2_Name);
-      //Game_code.UNI_CMD.readLine_GUI("Start Game_code.Game? [Enter]");
-      System.out.println("Game_code.test");
+      System.out.println("Player one's name:" + Player1_Name);
+      System.out.println("Player two's name:" + Player2_Name);
+      //UNI_CMD.readLine_GUI("Start Game? [Enter]");
+      System.out.println("test");
       //Note: if the application freeze, causation is from extended-state of the frame, run the extended within the game class to resolve
-      //Game_code.Game.run_Game();
+      //Game.run_Game();
     });
 
 

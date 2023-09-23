@@ -1,6 +1,6 @@
-package Game_code;//This class controls the player id and is used to run the grid properly and assigns players to their objects.
+//This class controls the player id and is used to run the grid properly and assigns players to their objects.
 //Brayden and Hanna collaborated on this class. (They both added seperate peices of code, and Brayden edited it.)
-
+package Game_code;
 public class Player
 {
   public static final int DEFAULT_ID = 0;
