@@ -122,10 +122,10 @@ public class GUI {
         frame.setBackground(Color.black);
         frame.setSize(output_Max_Size);
         frame.setLocation((screenSize.width / 2) - (frame.getWidth() / 2), (screenSize.height / 2) - (frame.getHeight() / 2));
-        System.out.println("Player one's name:" + Player1_Name);
-        System.out.println("Player two's name:" + Player2_Name);
-        UNI_CMD.readLine_GUI("Start Game? [Enter]");
-        System.out.println("test");
+        //System.out.println("Player one's name:" + Player1_Name);
+        //System.out.println("Player two's name:" + Player2_Name);
+        //UNI_CMD.readLine_GUI("Start Game? [Enter]");
+        //System.out.println("test");
         //Note: if the application freeze, causation is from extended-state of the frame, run the extended within the game class to resolve
         Game.run_Game();
       }).start();
@@ -216,9 +216,9 @@ public class GUI {
     GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
     try {
 
-      // Load the font file
+      //Load the font file
       //HelveticaNeue-CondensedBold-05
-      File HelvetciaNeue_Cond_B_05_File = new File("./Resource/Fonts/HelveticaNeue-CondensedBold-05.ttf");
+      File HelvetciaNeue_Cond_B_05_File = new File("./Resource/Fonts/HelveticaNeue/HelveticaNeue-CondensedBold-05.ttf");
       HelvetciaNeue_Cond_B_05 = Font.createFont(Font.TRUETYPE_FONT, HelvetciaNeue_Cond_B_05_File);
       ge.registerFont(HelvetciaNeue_Cond_B_05);
     } catch (IOException | FontFormatException e) {
@@ -234,7 +234,7 @@ public class GUI {
     }
     try {
       //PTMono-Regular-02
-      File PTMono_Regular_02_File = new File("./Resource/Fonts/PTMono-Regular-02.ttf");
+      File PTMono_Regular_02_File = new File("./Resource/Fonts/PTMono/PTMono-Regular-02.ttf");
       PTMono_Regular_02 = Font.createFont(Font.TRUETYPE_FONT, PTMono_Regular_02_File);
       ge.registerFont(PTMono_Regular_02);
     } catch (IOException | FontFormatException e) {
@@ -242,7 +242,7 @@ public class GUI {
     }
     try {
       //SplineSansMono-VariableFont_wght
-      File SplineSansMono_VF_wght_File = new File("./Resource/Fonts/SplineSansMono-VariableFont_wght.ttf");
+      File SplineSansMono_VF_wght_File = new File("./Resource/Fonts/SplineSans/SplineSansMono-VariableFont_wght.ttf");
       SplineSansMono_VF_wght = Font.createFont(Font.TRUETYPE_FONT, SplineSansMono_VF_wght_File);
       ge.registerFont(SplineSansMono_VF_wght);
 

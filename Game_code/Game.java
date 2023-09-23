@@ -12,12 +12,9 @@ public class Game
   public static String prompt = "";
   public static String text ="";
 
-  public static String p1_Name = "Player 1";
-  public static String p2_Name = "Player 2";
-
   //Main run method
-  public static void main(String[] args)
-  //public static void run_Game()
+  //public static void main(String[] args)
+  public static void run_Game()
   {
     //this shows rules before the game begins
     UNI_CMD.flush(50);
@@ -28,11 +25,11 @@ public class Game
       1) There are 7 columns. You will take turns dropping your circles down one by one.\s
       2) To WIN, you must have FOUR of your coins in a ROW.\s
       3) This can be done vertically, horizontally, or diagonally.\s
-      4) To choose a column, TYPE a column number when asked.
+      4) To choose a column, TYPE a column number when asked.\s
       """
     );
     UNI_CMD.ui_Line(82);
-    UNI_CMD.readLine("\nEnjoy the game! \nPress [Enter] to proceed:");
+    UNI_CMD.readLine_GUI("\nEnjoy the game! \nPress [Enter] to proceed:");
     UNI_CMD.flush(50);
 
     Player player1 = new Player(1, GUI.Player1_Name);
@@ -68,7 +65,7 @@ public class Game
     
     while(status == 0)
     {
-      input = UNI_CMD.readInt( player.getName()+","+ "\nWhich column would you like to fill? ");
+      input = UNI_CMD.readInt_GUI( player.getName()+","+ "\nWhich column would you like to fill? ");
       //This is used to break the loop
       status = grid.checkValidSpot(player.getPlayer_ID()); 
       UNI_CMD.flush(50);
