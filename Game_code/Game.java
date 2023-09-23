@@ -20,7 +20,14 @@ public class Game
     UNI_CMD.flush(50);
     System.out.println("WELCOME TO CONNECT FOUR! \n \nRules of the game: \n");
     UNI_CMD.ui_Line(82);
-    System.out.println("\n1) There are 7 columns. You will take turns dropping your circles down one by one. \n2) To WIN, you must have FOUR of your coins in a ROW. \n3) This can be done vertically, horizontally, or diagonally. \n4) To choose a column, TYPE a column number when asked.\n");
+    System.out.println(
+      """
+      1) There are 7 columns. You will take turns dropping your circles down one by one.\s
+      2) To WIN, you must have FOUR of your coins in a ROW.\s
+      3) This can be done vertically, horizontally, or diagonally.\s
+      4) To choose a column, TYPE a column number when asked.
+      """
+    );
     UNI_CMD.ui_Line(82);
     UNI_CMD.readLine("\nEnjoy the game! \nPress [Enter] to proceed:");
     UNI_CMD.flush(50);
