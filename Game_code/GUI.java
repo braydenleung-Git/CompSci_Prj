@@ -1,4 +1,4 @@
-//This class creates the beginning GUI in our game. Brayden created this class.
+package Game_code;//This class creates the beginning GUI in our game. Brayden created this class.
 
 //set up all the prerequisites for the class
 import java.awt.*;

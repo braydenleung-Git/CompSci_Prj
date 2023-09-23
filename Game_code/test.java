@@ -1,4 +1,4 @@
-//This was our test world where we tested out GUI
+package Game_code;//This was our test world where we tested out GUI
 import javax.swing.*;
 import java.awt.*;
 import java.io.*;

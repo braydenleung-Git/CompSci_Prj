@@ -1,4 +1,4 @@
-//This class creates a grid object and replaces them with player objects
+package Game_code;//This class creates a grid object and replaces them with player objects
 //Hanna and Brayden collaborated on this class (Hanna initialized it and Brayden added to it and debugged it). It went through major changes along the way.
 
 public class Grid

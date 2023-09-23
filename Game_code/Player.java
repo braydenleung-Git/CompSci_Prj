@@ -1,4 +1,4 @@
-//This class controls the player id and is used to run the grid properly and assigns players to their objects. 
+package Game_code;//This class controls the player id and is used to run the grid properly and assigns players to their objects.
 //Brayden and Hanna collaborated on this class. (They both added seperate peices of code, and Brayden edited it.)
 
 public class Player
