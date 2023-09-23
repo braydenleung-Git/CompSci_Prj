@@ -9,9 +9,6 @@ public class Grid
   //These lines of code create the grid and seperate objects
   public static final int VERTICAL_SIZE = 6 ;
   public static final int HORIZONTAL_SIZE = 7;
-  public static final String COLOR_RED = "\033[0;31m";
-  public static final String COLOR_YELLOW = "\033[0;33m";
-  public static final String COLOR_RESET = "\033[0m";
   public static int lastVertical = 0;
   public static int lastHorizontal = 0;
   //Initializing grid object
@@ -31,17 +28,7 @@ public class Grid
   }
 
   /**
-   * This method is used to return the value at the position that is on the 2D Array
-   * @return int
-   */
-  /* DISABLED because is not needed for now.
-  public static int returnValue()
-  {
-    return grid[lastVertical][lastHorizontal];
-  }*/
-
-  /**
-   * This method is used to return the value at the postion that is on the 2D Array, but with added increment
+   * This method is used to return the value at the position that is on the 2D Array, but with added increment
    * @param increment_Y the vertical increment
    * @param increment_X the horizontal increment
    * @return int the player ID stored in that position
@@ -52,17 +39,12 @@ public class Grid
   }
   
   /**
-   * This method checks to see if the spot the player wants to put an object down upon is open.
-   * It has a few problems with it, like code that is unnecessary or doesn't make sense,
-   * but does its job properly, so we left them for now.
-   * It also fixes some bugs e.g. if a player inputs a wrong number.
-   * @param player_ID, the object they put is dependant on their player id.
+   * This method checks to see if the spot player wants to put an object down upon is open.
+   * @param player_ID, the object they put is dependent on their player id.
    * @return int, what the spots player_ID is
    */
   public int checkValidSpot(int player_ID)
   {
-    //int player = grid [0][0];
-    int count = 0;
     if(Game.input <= 0 || Game.input > HORIZONTAL_SIZE || grid[0][Game.input-1]!=0)
     {
       System.out.println("\nERROR: Invalid input. Please try again:");
@@ -128,7 +110,7 @@ public class Grid
     {
       for(int j = 0; j < grid[0].length; j++)
       {
-        //GUI.altTextColor(); taken over the printing part,
+        //GUI.altTextColor() taken over the printing part,
         //therefore when the grid is null(certain ID) it would just print the spacers
         if(sort_ID(grid[i][j]) == null){
           System.out.print(" ");

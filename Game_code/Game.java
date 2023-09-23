@@ -1,8 +1,6 @@
 //This class is the main file. It contains the information on how the game will actually run
 //Hanna and Brayden collaborated on this class. They both added separate pieces of code, and edited and changed different parts.
 package Game_code;
-
-
 /*
     To Do list:
  */
@@ -15,7 +13,6 @@ public class Game
   public static String text ="";
 
   //Main run method
-  //public static void main(String[] args)
   public static void run_Game()
   {
     //this shows rules before the game begins
@@ -62,7 +59,6 @@ public class Game
         break;
       }
       if(text.equals("N")) {
-        //System.out.println("Program Exited");
         System.exit(0);
       }
       prompt = "Error: Invalid input [Enter]";
@@ -79,8 +75,8 @@ public class Game
   public static void playerMove(Player player)
   {
     int status = 0;
-    //we created the loop so that if there is an error during validating player move, we can loop it to
-    
+    //we created the loop so that if there is an error during validating player move,
+    //we can ask for a correct input again.
     while(status == 0)
     {
       input = UNI_CMD.readInt_GUI( player.getName()+","+ "\nWhich column would you like to fill? ");
@@ -186,7 +182,6 @@ public class Game
     int initial_y = Grid.lastVertical;
     int x = initial_x;
     int y = initial_y;
-
     //checks for top left objects, going up
     while (x > 0 && y > 0)
     {
@@ -204,7 +199,6 @@ public class Game
         break;
       }
     }
-
     //checks for bottom right objects, going down
     x = initial_x;
     y = initial_y;
@@ -228,7 +222,6 @@ public class Game
     {
       return true;
     }
-
     //checks for bottom left objects, going down
     count = 1;
     x = initial_x;
@@ -249,7 +242,6 @@ public class Game
         break;
       }
     }
-
     //checks for top right objects, going up
     x = initial_x;
     y = initial_y;
@@ -269,7 +261,6 @@ public class Game
         break;
       }
     }
-
     return count >= 4;
   }
 }
