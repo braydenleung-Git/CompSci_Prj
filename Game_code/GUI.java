@@ -1,24 +1,30 @@
-package Game_code;//This class creates the beginning GUI in our game. Brayden created this class.
+//This class creates the beginning GUI in our game. Brayden created this class.
 
 //set up all the prerequisites for the class
+package Game_code;
 import java.awt.*;
 import javax.swing.*;
-import java.awt.event.*;
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 
 
 public class GUI {
 
   public static String Player1_Name = "Player 1";
   public static String Player2_Name = "Player 2";
+  public static boolean GUI_Triggered = false;
+  public static boolean GUI_Input_Confirmed = false;
+  public static final Object lock = new Object();
   public static final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
   public static JFrame frame = new JFrame("Connect 4, By Brayden & Hanna");
   private static final JPanel main_Panel = new JPanel(new CardLayout());
   private static final JPanel username_Layout = new JPanel();
-  private static final JPanel console_Layout= new JPanel();
-  public static String userInput = " ";
+  private static final JPanel console_Layout = new JPanel();
+  public static String userInput = "";
+  public static Dimension output_Max_Size = new Dimension();
 
-  public static boolean runGame = false;
+  public static JTextField console_Input = new JTextField();
+
   public static JTextArea console_Output = new JTextArea();
 
   //Font library, Each font variable must be declared with public visibility first
@@ -29,9 +35,7 @@ public class GUI {
 
   public static Font Arial_Unicode = null;
 
-  //public static void main(String[] args) {
-  public static void run_GUI(){
-
+  public static void main(String[] args) {
 
     //Set that when the user clicks cross button, it will kill the code
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -39,7 +43,7 @@ public class GUI {
     setup_Username_Layout();
     setup_Console_Layout();
     //Adds the username_Layout to the main layout
-    main_Panel.add(username_Layout,"Username");
+    main_Panel.add(username_Layout, "Username");
     main_Panel.add(console_Layout, "Console");
     main_Panel.setLocation(frame.getHeight() / 2, frame.getWidth() / 2);
     //add the main_panel(one that allow switching scene) to the JFrame
@@ -73,33 +77,23 @@ public class GUI {
     JPanel right_Side = new JPanel();
     right_Side.setLayout(new BoxLayout(right_Side, BoxLayout.Y_AXIS));
     JTextField player1_T = new JTextField("Insert your name");
-    //This is used for turning the text input that the user put in the text box as the player name, by default it is set to "Player 1"
-    player1_T.addActionListener(e -> {
-      if (player1_T.getText() != null) {
-        Player1_Name = player1_T.getText();
-      }
-    });
     player1_T.setFont(HelvetciaNeue_Cond_B_05.deriveFont(20f));
     player1_T.setSize(250, 25);
     //line below is for experimental purpose, not supposed to be implemented to code
     //player1_T.setMaximumSize(new Dimension(250/**(1+(username_Layout.getWidth()/25))*/,30/**(1+(username_Layout.getHeight()/25))*/));
+
     JTextField player2_T = new JTextField("Insert your name");
-    //This is used for turning the text input that the user put in the text box as the player name, by default it is set to "Player 2"
-    player2_T.addActionListener(e -> {
-      if (player2_T.getText() != null) {
-        Player2_Name = player2_T.getText();
-      }
-    });
     player2_T.setFont(HelvetciaNeue_Cond_B_05.deriveFont(20f));
     player2_T.setSize(250, 25);
     //line below is for experimental purpose, not supposed to be implemented to code
     //player2_T.setMaximumSize(new Dimension(250/**(1+(username_Layout.getWidth()/25))*/,30/**(1+(username_Layout.getHeight()/25))*/));
+
     right_Side.add(player1_T);
     right_Side.add(player2_T);
     username.add(right_Side);
 
     //This adds image to the panel
-    ImageIcon icon = new ImageIcon("Connect 4 Icon.png");
+    ImageIcon icon = new ImageIcon("Resource/Connect 4 Icon.png");
     Image icon_Image = (icon.getImage()).getScaledInstance((int) (icon.getIconHeight() * (0.30)), (int) (icon.getIconWidth() * (0.30)), Image.SCALE_SMOOTH);
     icon = new ImageIcon(icon_Image);
     JLabel game_Icon_TitleScreen = new JLabel(icon);
@@ -107,22 +101,34 @@ public class GUI {
 
 
     //This adds a button to start the game
-    JButton start_Button =  new JButton("Click to Proceed");
+    JButton start_Button = new JButton("Click to Start Game");
     start_Button.setFont(Impact.deriveFont(24f));
     start_Button.addActionListener(e -> {
-      CardLayout cl = (CardLayout)(main_Panel.getLayout());
-      //frame.setResizable(true);
-      //GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-      //frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-      cl.show(main_Panel, "Console");
-      frame.setBackground(Color.black);
-      GUI.frame.setSize(1080,720);
-      GUI.frame.setLocation((GUI.screenSize.width / 2) - (GUI.frame.getWidth() / 2), (GUI.screenSize.height / 2) - (GUI.frame.getHeight() / 2));
-      UNI_CMD.readLine("Start Game? [Enter]");
-      runGame = true;
-      //Note: if the application freeze, causation is from extended-state of the frame, run the extended within the game class to resolve
-      //Game.run_Game();
-      //System.out.println("test");
+
+      new Thread(()-> {
+        //System.out.println("2");
+        //This is used for turning the text input that the user put in the text box as the player name, by default it is set to "Player 1"
+        if (!player1_T.getText().equals("Insert your name")) {
+          Player1_Name = player1_T.getText();
+        }
+        //This is used for turning the text input that the user put in the text box as the player name, by default it is set to "Player 2"
+        if (!player2_T.getText().equals("Insert your name")) {
+          Player2_Name = player2_T.getText();
+        }
+
+        CardLayout cl = (CardLayout) (main_Panel.getLayout());
+        cl.show(main_Panel, "Console");
+        main_Panel.setBackground(Color.BLACK);
+        frame.setBackground(Color.black);
+        frame.setSize(output_Max_Size);
+        frame.setLocation((screenSize.width / 2) - (frame.getWidth() / 2), (screenSize.height / 2) - (frame.getHeight() / 2));
+        System.out.println("Player one's name:" + Player1_Name);
+        System.out.println("Player two's name:" + Player2_Name);
+        UNI_CMD.readLine_GUI("Start Game? [Enter]");
+        System.out.println("test");
+        //Note: if the application freeze, causation is from extended-state of the frame, run the extended within the game class to resolve
+        Game.run_Game();
+      }).start();
     });
 
 
@@ -130,7 +136,7 @@ public class GUI {
     username_Layout.setLayout(new BorderLayout());
     username_Layout.add(game_Icon_TitleScreen, BorderLayout.NORTH);
     username_Layout.add(username, BorderLayout.CENTER);
-    username_Layout.add(start_Button,BorderLayout.SOUTH);
+    username_Layout.add(start_Button, BorderLayout.SOUTH);
   }
 
   /**
@@ -138,35 +144,23 @@ public class GUI {
    */
   public static void setup_Console_Layout() {
     console_Layout.setLayout(new BorderLayout());
-    /*
-    console_Layout.setLayout(new GridBagLayout());
-    GridBagConstraints Output =new GridBagConstraints();
-    GridBagConstraints Input = new GridBagConstraints();
-    Output.weightx = 10.0;
-    Output.weighty = 0.9;
-    Output.gridy = GridBagConstraints.NORTH;
-    Input.weightx = 1.0;
-    Input.weighty = 0.1;
-    Input.gridy = GridBagConstraints.SOUTH;
-    */
     //Set up console out put to text area
 
     console_Output.setEditable(false);
+    console_Layout.setBackground(Color.BLACK);
+    //this setup the output of the console
     PrintStream output = new PrintStream(new OutputStream() {
       @Override
-      public void write(byte[] b, int off, int len){
-        try{
-        console_Output.setForeground(Color.white);
-        console_Output.append(new String(b, off, len, "UTF-8"));
+      public void write(byte[] b, int off, int len) {
+        console_Output.append(new String(b, off, len, StandardCharsets.UTF_8));
         //Automatically scroll down console
         console_Output.setCaretPosition(console_Output.getDocument().getLength());
 
-      } catch (UnsupportedEncodingException e){
-          e.printStackTrace();
-        }}
+      }
+
       public void write(int b) {
         try {
-          write(new byte[]{(byte)b});
+          write(new byte[]{(byte) b});
         } catch (IOException e) {
           throw new RuntimeException(e);
         }
@@ -177,34 +171,40 @@ public class GUI {
     console_Output.setBackground(Color.black);
     console_Output.setForeground(Color.white);
     console_Output.setFont(PTMono_Regular_02.deriveFont(15f));
-    //console_Output.setFont(new Font());
-    //console_Layout.add(console_Output,Output);
-    Dimension output_Max_Size = new Dimension();
-    output_Max_Size.setSize(screenSize.getWidth(),(screenSize.getHeight()-25));
-    //console_Output.setMaximumSize(output_Max_Size);
-    JScrollPane console_Output_Scroll =  new JScrollPane(console_Output);
-    console_Layout.add(console_Output_Scroll, BorderLayout.NORTH);
+    output_Max_Size.setSize(screenSize.getWidth(), (screenSize.getHeight() - 25));
 
+    JScrollPane console_Output_Scroll = new JScrollPane(console_Output);
+    console_Output_Scroll.setBackground(Color.BLACK);
+    console_Layout.add(console_Output_Scroll, BorderLayout.CENTER);
 
-    //Set up console input to the text field
-    JTextField console_Input = new JTextField();
-    console_Input.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        userInput = console_Input.getText();
-        ByteArrayInputStream in = new ByteArrayInputStream(userInput.getBytes());
-        System.setIn(in);
-        console_Output.append(userInput);
+    //This creates a new thread so that, when the action is triggered,
+    //GUI.lock.wait(); will not wait the same thread this listener is set on,
+    //preventing the gui to froze
+    new Thread(() -> {
+      //System.out.println("1");
+      //Set up console input to the text field
+      console_Input.addActionListener(e -> {
+        //This is to prevent accidental activation
+        if(GUI_Triggered){
+          userInput = console_Input.getText();
+          if (userInput.equals("")) {
+            userInput = "◽";
+          }
+          //this mirrors the user input to console output
+          console_Output.append("\n" + console_Input.getText());
+        }
         console_Input.setText("");
-      }
-    });
+        synchronized(lock) {
+          GUI_Input_Confirmed = true;
+          lock.notifyAll();
+        }
+      });
+    }).start();
+
     console_Input.setBackground(Color.decode("#4f4f4f"));
     console_Input.setForeground(Color.white);
     console_Input.setFont(PTMono_Regular_02.deriveFont(15f));
-    //console_Layout.add(console_Input,Input);
     console_Layout.add(console_Input, BorderLayout.SOUTH);
-    console_Layout.setBackground(Color.BLACK);
-
 
   }
 
@@ -212,13 +212,13 @@ public class GUI {
    * This method is used to import the font used in the program.
    * Note: Only one that are imported are count towards "Font", varies by file name.
    */
-  public static void setup_Fonts(){
+  public static void setup_Fonts() {
     GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
     try {
 
       // Load the font file
       //HelveticaNeue-CondensedBold-05
-      File HelvetciaNeue_Cond_B_05_File = new File("./Fonts/HelveticaNeue/HelveticaNeue-CondensedBold-05.ttf");
+      File HelvetciaNeue_Cond_B_05_File = new File("./Resource/Fonts/HelveticaNeue-CondensedBold-05.ttf");
       HelvetciaNeue_Cond_B_05 = Font.createFont(Font.TRUETYPE_FONT, HelvetciaNeue_Cond_B_05_File);
       ge.registerFont(HelvetciaNeue_Cond_B_05);
     } catch (IOException | FontFormatException e) {
@@ -226,7 +226,7 @@ public class GUI {
     }
     try {
       //Impact
-      File Impact_File = new File("./Fonts/Impact.ttf");
+      File Impact_File = new File("./Resource/Fonts/Impact.ttf");
       Impact = Font.createFont(Font.TRUETYPE_FONT, Impact_File);
       ge.registerFont(Impact);
     } catch (IOException | FontFormatException e) {
@@ -234,7 +234,7 @@ public class GUI {
     }
     try {
       //PTMono-Regular-02
-      File PTMono_Regular_02_File = new File("./Fonts/PTMono/PTMono-Regular-02.ttf");
+      File PTMono_Regular_02_File = new File("./Resource/Fonts/PTMono-Regular-02.ttf");
       PTMono_Regular_02 = Font.createFont(Font.TRUETYPE_FONT, PTMono_Regular_02_File);
       ge.registerFont(PTMono_Regular_02);
     } catch (IOException | FontFormatException e) {
@@ -242,7 +242,7 @@ public class GUI {
     }
     try {
       //SplineSansMono-VariableFont_wght
-      File SplineSansMono_VF_wght_File = new File("./Fonts/SplineSans/SplineSansMono-VariableFont_wght.ttf");
+      File SplineSansMono_VF_wght_File = new File("./Resource/Fonts/SplineSansMono-VariableFont_wght.ttf");
       SplineSansMono_VF_wght = Font.createFont(Font.TRUETYPE_FONT, SplineSansMono_VF_wght_File);
       ge.registerFont(SplineSansMono_VF_wght);
 
@@ -251,7 +251,7 @@ public class GUI {
     }
     try {
       //Arial Unicode
-      File Arial_Unicode_File = new File("./Fonts/Arial Unicode.ttf");
+      File Arial_Unicode_File = new File("./Resource/Fonts/Arial Unicode.ttf");
       Arial_Unicode = Font.createFont(Font.TRUETYPE_FONT, Arial_Unicode_File);
       ge.registerFont(Arial_Unicode);
 
@@ -260,6 +260,9 @@ public class GUI {
     }
   }
 }
+
+
+
 //Offline Copy of GPT code (Console)
 /*
 ==========================================================================
@@ -407,4 +410,3 @@ try {
 }
 
  */
-

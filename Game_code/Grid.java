@@ -1,6 +1,6 @@
-package Game_code;//This class creates a grid object and replaces them with player objects
+//This class creates a grid object and replaces them with player objects
 //Hanna and Brayden collaborated on this class (Hanna initialized it and Brayden added to it and debugged it). It went through major changes along the way.
-
+package Game_code;
 public class Grid
 {
   //These lines of code create the grid and seperate objects
@@ -49,7 +49,10 @@ public class Grid
   }
   
   /**
-   * This method checks to see if the spot the player wants to put an object down upon is open. It has a few problems with it, like code that is unnecsary or doesnt make sense, but does its job properly so we left them for now. It also fixes some bugs if a player inputs a wrong number. 
+   * This method checks to see if the spot the player wants to put an object down upon is open.
+   * It has a few problems with it, like code that is unnecessary or doesn't make sense,
+   * but does its job properly, so we left them for now.
+   * It also fixes some bugs e.g. if a player inputs a wrong number.
    * @param player_ID, the object they put is dependant on their player id.
    * @return int, what the spots player_ID is
    */

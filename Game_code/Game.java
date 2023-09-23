@@ -1,6 +1,9 @@
-package Game_code;//This class is the main file. It contains the information on how the game will actually run
+//This class is the main file. It contains the information on how the game will actually run
 //Hanna and Brayden collaborated on this class. They both added separate pieces of code, and edited and changed different parts.
-
+package Game_code;
+/*
+    To Do list:
+ */
 public class Game
 {
   //creates the game grid
@@ -31,25 +34,9 @@ public class Game
     UNI_CMD.ui_Line(82);
     UNI_CMD.readLine("\nEnjoy the game! \nPress [Enter] to proceed:");
     UNI_CMD.flush(50);
-    
-    //This section asks for players names
-    prompt= "Please enter Player 1's name, press [Enter] to skip";
-    UNI_CMD.ui_Line(prompt);
-    text = UNI_CMD.readLine(prompt);
-    if(!text.equals(""))
-    {
-      p1_Name = text;
-    }
-    prompt = "Please enter Player 2's name, press [Enter] to skip";
-    UNI_CMD.ui_Line(prompt);
-    text= UNI_CMD.readLine(prompt);
-    if(!text.equals(""))
-    {
-      p2_Name = text;
-    }
-    
-    Player player1 = new Player(1, p1_Name);
-    Player player2 = new Player(2, p2_Name);
+
+    Player player1 = new Player(1, GUI.Player1_Name);
+    Player player2 = new Player(2, GUI.Player2_Name);
     UNI_CMD.flush(50);
     grid.print();
     
@@ -90,7 +77,7 @@ public class Game
   }
   
   /**
-  * This method calls on 3 different checkwin methods to check whether the placed object completes a winning strike of four objects
+  * This method calls on 3 different check-win methods to check whether the placed object completes a winning strike of four objects
   * @param player_ID, the code looks for the players objects
   * @return boolean, value of whether there was a winner or not.
   */ 
