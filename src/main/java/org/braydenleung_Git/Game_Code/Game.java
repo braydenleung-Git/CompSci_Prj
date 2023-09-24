@@ -1,4 +1,4 @@
-//This class is the main file. It contains the information on how the game will actually run
+package org.braydenleung_Git.Game_Code;//This class is the main file. It contains the information on how the game will actually run
 //Hanna and Brayden collaborated on this class. They both added separate pieces of code, and edited and changed different parts.
 
 /*

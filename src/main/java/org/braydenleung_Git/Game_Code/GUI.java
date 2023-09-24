@@ -1,5 +1,5 @@
 //This class creates the beginning GUI in our game. Brayden created this class.
-
+package org.braydenleung_Git.Game_Code;
 //set up all the prerequisites for the class
 
 import java.awt.*;
@@ -264,7 +264,7 @@ public static void return_TitleScreen(){
 
       //Load the font file
       //HelveticaNeue-CondensedBold-05
-      File HelvetciaNeue_Cond_B_05_File = new File("src/main/resources/Fonts/HelveticaNeue/HelveticaNeue-CondensedBold-05.ttf");
+      File HelvetciaNeue_Cond_B_05_File = new File("../src/main/resources/Fonts/HelveticaNeue/HelveticaNeue-CondensedBold-05.ttf");
       HelvetciaNeue_Cond_B_05 = Font.createFont(Font.TRUETYPE_FONT, HelvetciaNeue_Cond_B_05_File);
       ge.registerFont(HelvetciaNeue_Cond_B_05);
     } catch (IOException | FontFormatException e) {
@@ -272,7 +272,7 @@ public static void return_TitleScreen(){
     }
     try {
       //Impact
-      File Impact_File = new File("src/main/resources/Fonts/Impact.ttf");
+      File Impact_File = new File("../src/main/resources/Fonts/Impact.ttf");
       Impact = Font.createFont(Font.TRUETYPE_FONT, Impact_File);
       ge.registerFont(Impact);
     } catch (IOException | FontFormatException e) {
@@ -280,7 +280,7 @@ public static void return_TitleScreen(){
     }
     try {
       //PTMono-Regular-02
-      File PTMono_Regular_02_File = new File("src/main/resources/Fonts/PTMono/PTMono-Regular-02.ttf");
+      File PTMono_Regular_02_File = new File("../src/main/resources/Fonts/PTMono/PTMono-Regular-02.ttf");
       PTMono_Regular_02 = Font.createFont(Font.TRUETYPE_FONT, PTMono_Regular_02_File);
       ge.registerFont(PTMono_Regular_02);
     } catch (IOException | FontFormatException e) {
@@ -288,7 +288,7 @@ public static void return_TitleScreen(){
     }
     try {
       //SplineSansMono-VariableFont_wght
-      File SplineSansMono_VF_wght_File = new File("src/main/resources/Fonts/SplineSans/SplineSansMono-VariableFont_wght.ttf");
+      File SplineSansMono_VF_wght_File = new File("../src/main/resources/Fonts/SplineSans/SplineSansMono-VariableFont_wght.ttf");
       SplineSansMono_VF_wght = Font.createFont(Font.TRUETYPE_FONT, SplineSansMono_VF_wght_File);
       ge.registerFont(SplineSansMono_VF_wght);
 
@@ -297,7 +297,7 @@ public static void return_TitleScreen(){
     }
     try {
       //Arial Unicode
-      File Arial_Unicode_File = new File("src/main/resources/Fonts/Arial Unicode.ttf");
+      File Arial_Unicode_File = new File("../src/main/resources/Fonts/Arial Unicode.ttf");
       Arial_Unicode = Font.createFont(Font.TRUETYPE_FONT, Arial_Unicode_File);
       ge.registerFont(Arial_Unicode);
 
@@ -306,7 +306,7 @@ public static void return_TitleScreen(){
     }
     try {
       //NanumGothicCoding-Bold
-      File Nanum_Gothic_Coding_B_File = new File("src/main/resources/Fonts/Nanum_Gothic_Coding/NanumGothicCoding-Bold.ttf");
+      File Nanum_Gothic_Coding_B_File = new File("../src/main/resources/Fonts/Nanum_Gothic_Coding/NanumGothicCoding-Bold.ttf");
       Nanum_Gothic_Coding_B = Font.createFont(Font.TRUETYPE_FONT, Nanum_Gothic_Coding_B_File);
       ge.registerFont(Nanum_Gothic_Coding_B);
 
@@ -315,7 +315,7 @@ public static void return_TitleScreen(){
     }
     try {
       //NanumGothicCoding-Regular
-      File Nanum_Gothic_Coding_R_File = new File("src/main/resources/Fonts/Nanum_Gothic_Coding/NanumGothicCoding-Regular.ttf");
+      File Nanum_Gothic_Coding_R_File = new File("../src/main/resources/Fonts/Nanum_Gothic_Coding/NanumGothicCoding-Regular.ttf");
       Nanum_Gothic_Coding_R = Font.createFont(Font.TRUETYPE_FONT, Nanum_Gothic_Coding_R_File);
       ge.registerFont(Nanum_Gothic_Coding_R);
 

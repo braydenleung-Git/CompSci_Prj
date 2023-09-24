@@ -1,6 +1,6 @@
 //This class was created so that we can store universal commands that every class can call. Ex: readLine(), readInt() etc. This was needed because these commands were not already in replits database, like they were in codehs' databse.
 //Separate commands and docs were added by Brayden and Hanna. Some edits were made and some debugging was required.
-
+package org.braydenleung_Git.Game_Code;
 import java.util.concurrent.CountDownLatch;
 
 public class UNI_CMD
