@@ -3,6 +3,7 @@ package org.braydenleung_Git.Game_Code;
 //set up all the prerequisites for the class
 
 import java.awt.*;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.SimpleAttributeSet;
@@ -32,13 +33,13 @@ public class GUI {
   public static JTextPane console_Output = new JTextPane();
 
   //Font library, Each font variable must be declared with public visibility first
-  public static Font HelvetciaNeue_Cond_B_05 = null;
-  public static Font Impact = null;
-  public static Font PTMono_Regular_02 = null;
-  public static Font SplineSansMono_VF_wght = null;
-  public static Font Arial_Unicode = null;
-  public static Font Nanum_Gothic_Coding_B = null;
-  public static Font Nanum_Gothic_Coding_R = null;
+  private static Font HelvetciaNeue_Cond_B_05 = null;
+  private static Font Impact = null;
+  private static Font PTMono_Regular_02 = null;
+  private static Font SplineSansMono_VF_wght = null;
+  private static Font Arial_Unicode = null;
+  private static Font Nanum_Gothic_Coding_B = null;
+  private static Font Nanum_Gothic_Coding_R = null;
   public static void gui_start(){
 
 
@@ -101,8 +102,14 @@ public class GUI {
     username.add(right_Side);
 
     //This adds image to the panel
-    ImageIcon icon = new ImageIcon("src/main/resources/Connect 4 Icon.png");
-    Image icon_Image = (icon.getImage()).getScaledInstance((int) (icon.getIconHeight() * (0.30)), (int) (icon.getIconWidth() * (0.30)), Image.SCALE_SMOOTH);
+    InputStream Image_Source = GUI.class.getResourceAsStream("/Connect 4 Icon.png");
+    ImageIcon icon ;
+    try {
+      icon = new ImageIcon(ImageIO.read(Image_Source));
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+    Image icon_Image = icon.getImage().getScaledInstance((int) (icon.getIconHeight() * (0.30)), (int) (icon.getIconWidth() * (0.30)), Image.SCALE_SMOOTH);
     icon = new ImageIcon(icon_Image);
     JLabel game_Icon_TitleScreen = new JLabel(icon);
     game_Icon_TitleScreen.setSize((frame.getWidth() / 100), (frame.getHeight() / 100));
@@ -264,7 +271,7 @@ public static void return_TitleScreen(){
 
       //Load the font file
       //HelveticaNeue-CondensedBold-05
-      File HelvetciaNeue_Cond_B_05_File = new File("../src/main/resources/Fonts/HelveticaNeue/HelveticaNeue-CondensedBold-05.ttf");
+      InputStream HelvetciaNeue_Cond_B_05_File = GUI.class.getResourceAsStream("/Fonts/HelveticaNeue/HelveticaNeue-CondensedBold-05.ttf");
       HelvetciaNeue_Cond_B_05 = Font.createFont(Font.TRUETYPE_FONT, HelvetciaNeue_Cond_B_05_File);
       ge.registerFont(HelvetciaNeue_Cond_B_05);
     } catch (IOException | FontFormatException e) {
@@ -272,7 +279,7 @@ public static void return_TitleScreen(){
     }
     try {
       //Impact
-      File Impact_File = new File("../src/main/resources/Fonts/Impact.ttf");
+      InputStream Impact_File = GUI.class.getResourceAsStream("/Fonts/Impact.ttf");
       Impact = Font.createFont(Font.TRUETYPE_FONT, Impact_File);
       ge.registerFont(Impact);
     } catch (IOException | FontFormatException e) {
@@ -280,7 +287,7 @@ public static void return_TitleScreen(){
     }
     try {
       //PTMono-Regular-02
-      File PTMono_Regular_02_File = new File("../src/main/resources/Fonts/PTMono/PTMono-Regular-02.ttf");
+      InputStream PTMono_Regular_02_File = GUI.class.getResourceAsStream("/Fonts/PTMono/PTMono-Regular-02.ttf");
       PTMono_Regular_02 = Font.createFont(Font.TRUETYPE_FONT, PTMono_Regular_02_File);
       ge.registerFont(PTMono_Regular_02);
     } catch (IOException | FontFormatException e) {
@@ -288,7 +295,7 @@ public static void return_TitleScreen(){
     }
     try {
       //SplineSansMono-VariableFont_wght
-      File SplineSansMono_VF_wght_File = new File("../src/main/resources/Fonts/SplineSans/SplineSansMono-VariableFont_wght.ttf");
+      InputStream SplineSansMono_VF_wght_File = GUI.class.getResourceAsStream("/Fonts/SplineSans/SplineSansMono-VariableFont_wght.ttf");
       SplineSansMono_VF_wght = Font.createFont(Font.TRUETYPE_FONT, SplineSansMono_VF_wght_File);
       ge.registerFont(SplineSansMono_VF_wght);
 
@@ -297,7 +304,7 @@ public static void return_TitleScreen(){
     }
     try {
       //Arial Unicode
-      File Arial_Unicode_File = new File("../src/main/resources/Fonts/Arial Unicode.ttf");
+      InputStream Arial_Unicode_File = GUI.class.getResourceAsStream("/Fonts/Arial Unicode.ttf");
       Arial_Unicode = Font.createFont(Font.TRUETYPE_FONT, Arial_Unicode_File);
       ge.registerFont(Arial_Unicode);
 
@@ -306,7 +313,7 @@ public static void return_TitleScreen(){
     }
     try {
       //NanumGothicCoding-Bold
-      File Nanum_Gothic_Coding_B_File = new File("../src/main/resources/Fonts/Nanum_Gothic_Coding/NanumGothicCoding-Bold.ttf");
+      InputStream Nanum_Gothic_Coding_B_File = GUI.class.getResourceAsStream("/Fonts/Nanum_Gothic_Coding/NanumGothicCoding-Bold.ttf");
       Nanum_Gothic_Coding_B = Font.createFont(Font.TRUETYPE_FONT, Nanum_Gothic_Coding_B_File);
       ge.registerFont(Nanum_Gothic_Coding_B);
 
@@ -315,7 +322,7 @@ public static void return_TitleScreen(){
     }
     try {
       //NanumGothicCoding-Regular
-      File Nanum_Gothic_Coding_R_File = new File("../src/main/resources/Fonts/Nanum_Gothic_Coding/NanumGothicCoding-Regular.ttf");
+      InputStream Nanum_Gothic_Coding_R_File = GUI.class.getResourceAsStream("/Fonts/Nanum_Gothic_Coding/NanumGothicCoding-Regular.ttf");
       Nanum_Gothic_Coding_R = Font.createFont(Font.TRUETYPE_FONT, Nanum_Gothic_Coding_R_File);
       ge.registerFont(Nanum_Gothic_Coding_R);
 
