@@ -5,8 +5,8 @@ package org.braydenleung_Git.Game_Code;
 public class Player
 {
   public static final int DEFAULT_ID = 0;
-  private int player_ID = 0;
-  private String player_Name = null;
+  private final int player_ID ;
+  private final String player_Name;
 
   //Constructor
   public Player(int id, String name)
@@ -17,7 +17,7 @@ public class Player
 
   /**
    * This method gets the player id of a player.
-   * @return
+   * @return Player's ID
    */
   public int getPlayer_ID()
   {
@@ -26,19 +26,10 @@ public class Player
 
   /**
    * this return Player's Name.
-   * @return
+   * @return Player's Name
    */
   public String getName(){
     return player_Name;
   }
 
-  /**
-  * This method changes the id of a grid array. 
-  * @param input, the change depends on this
-  * @return int, the new id of the grid spot
-  */
-  public int change_ID(int input)
-  {
-    return 0;
-  }
 }

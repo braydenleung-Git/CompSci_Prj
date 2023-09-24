@@ -202,7 +202,7 @@ public class GUI {
         //This is to prevent accidental activation
         if(GUI_Triggered){
           userInput = console_Input.getText();
-          if (userInput.equals("")) {
+          if (userInput.isEmpty()) {
             userInput = "◽";
           }
           //this mirrors the user input to console output
