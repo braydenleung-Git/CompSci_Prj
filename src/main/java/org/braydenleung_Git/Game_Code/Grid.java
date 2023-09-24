@@ -128,4 +128,15 @@ public class Grid
     System.out.println(column_id);
     UNI_CMD.ui_Line(column_id);
   }
+
+  /**
+   * this method would clear the grid upon being called
+   */
+  public static void clear_Grid(){
+    for(int i = 0; i < grid.length; i++) {
+      for (int j = 0; j < grid[0].length; j++) {
+        grid[i][j] = 0;
+      }
+    }
+  }
 }

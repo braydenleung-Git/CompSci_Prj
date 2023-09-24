@@ -258,6 +258,7 @@ public static void return_TitleScreen(){
   cl.show(GUI.main_Panel, "Username");
   frame.setSize(GUI.titlescreen_frame_Size);
   frame.setLocation((screenSize.width / 2) - (frame.getWidth() / 2), (screenSize.height / 2) - (frame.getHeight() / 2));
+  Grid.clear_Grid();
   StyledDocument doc = console_Output.getStyledDocument();
   try {
     doc.remove(0, doc.getLength());
