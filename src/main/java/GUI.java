@@ -1,7 +1,7 @@
 //This class creates the beginning GUI in our game. Brayden created this class.
 
 //set up all the prerequisites for the class
-package Game_code;
+
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.text.BadLocationException;
@@ -39,8 +39,10 @@ public class GUI {
   public static Font Arial_Unicode = null;
   public static Font Nanum_Gothic_Coding_B = null;
   public static Font Nanum_Gothic_Coding_R = null;
+  public static void gui_start(){
 
-  public static void main(String[] args) {
+
+ // public static void main(String[] args) {
 
     //Set that when the user clicks cross button, it will kill the code
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -99,7 +101,7 @@ public class GUI {
     username.add(right_Side);
 
     //This adds image to the panel
-    ImageIcon icon = new ImageIcon("Resource/Connect 4 Icon.png");
+    ImageIcon icon = new ImageIcon("src/main/resources/Connect 4 Icon.png");
     Image icon_Image = (icon.getImage()).getScaledInstance((int) (icon.getIconHeight() * (0.30)), (int) (icon.getIconWidth() * (0.30)), Image.SCALE_SMOOTH);
     icon = new ImageIcon(icon_Image);
     JLabel game_Icon_TitleScreen = new JLabel(icon);
@@ -163,7 +165,7 @@ public class GUI {
 
     //this setup the output of the console
     PrintStream output = new PrintStream(new OutputStream() {
-      @Override
+     @Override
       public void write(byte[] b, int off, int len) {
         String text = new String(b, off, len, StandardCharsets.UTF_8);
         try {
@@ -262,7 +264,7 @@ public static void return_TitleScreen(){
 
       //Load the font file
       //HelveticaNeue-CondensedBold-05
-      File HelvetciaNeue_Cond_B_05_File = new File("./Resource/Fonts/HelveticaNeue/HelveticaNeue-CondensedBold-05.ttf");
+      File HelvetciaNeue_Cond_B_05_File = new File("src/main/resources/Fonts/HelveticaNeue/HelveticaNeue-CondensedBold-05.ttf");
       HelvetciaNeue_Cond_B_05 = Font.createFont(Font.TRUETYPE_FONT, HelvetciaNeue_Cond_B_05_File);
       ge.registerFont(HelvetciaNeue_Cond_B_05);
     } catch (IOException | FontFormatException e) {
@@ -270,7 +272,7 @@ public static void return_TitleScreen(){
     }
     try {
       //Impact
-      File Impact_File = new File("./Resource/Fonts/Impact.ttf");
+      File Impact_File = new File("src/main/resources/Fonts/Impact.ttf");
       Impact = Font.createFont(Font.TRUETYPE_FONT, Impact_File);
       ge.registerFont(Impact);
     } catch (IOException | FontFormatException e) {
@@ -278,7 +280,7 @@ public static void return_TitleScreen(){
     }
     try {
       //PTMono-Regular-02
-      File PTMono_Regular_02_File = new File("./Resource/Fonts/PTMono/PTMono-Regular-02.ttf");
+      File PTMono_Regular_02_File = new File("src/main/resources/Fonts/PTMono/PTMono-Regular-02.ttf");
       PTMono_Regular_02 = Font.createFont(Font.TRUETYPE_FONT, PTMono_Regular_02_File);
       ge.registerFont(PTMono_Regular_02);
     } catch (IOException | FontFormatException e) {
@@ -286,7 +288,7 @@ public static void return_TitleScreen(){
     }
     try {
       //SplineSansMono-VariableFont_wght
-      File SplineSansMono_VF_wght_File = new File("./Resource/Fonts/SplineSans/SplineSansMono-VariableFont_wght.ttf");
+      File SplineSansMono_VF_wght_File = new File("src/main/resources/Fonts/SplineSans/SplineSansMono-VariableFont_wght.ttf");
       SplineSansMono_VF_wght = Font.createFont(Font.TRUETYPE_FONT, SplineSansMono_VF_wght_File);
       ge.registerFont(SplineSansMono_VF_wght);
 
@@ -295,7 +297,7 @@ public static void return_TitleScreen(){
     }
     try {
       //Arial Unicode
-      File Arial_Unicode_File = new File("./Resource/Fonts/Arial Unicode.ttf");
+      File Arial_Unicode_File = new File("src/main/resources/Fonts/Arial Unicode.ttf");
       Arial_Unicode = Font.createFont(Font.TRUETYPE_FONT, Arial_Unicode_File);
       ge.registerFont(Arial_Unicode);
 
@@ -304,7 +306,7 @@ public static void return_TitleScreen(){
     }
     try {
       //NanumGothicCoding-Bold
-      File Nanum_Gothic_Coding_B_File = new File("./Resource/Fonts/Nanum_Gothic_Coding/NanumGothicCoding-Bold.ttf");
+      File Nanum_Gothic_Coding_B_File = new File("src/main/resources/Fonts/Nanum_Gothic_Coding/NanumGothicCoding-Bold.ttf");
       Nanum_Gothic_Coding_B = Font.createFont(Font.TRUETYPE_FONT, Nanum_Gothic_Coding_B_File);
       ge.registerFont(Nanum_Gothic_Coding_B);
 
@@ -313,7 +315,7 @@ public static void return_TitleScreen(){
     }
     try {
       //NanumGothicCoding-Regular
-      File Nanum_Gothic_Coding_R_File = new File("./Resource/Fonts/Nanum_Gothic_Coding/NanumGothicCoding-Regular.ttf");
+      File Nanum_Gothic_Coding_R_File = new File("src/main/resources/Fonts/Nanum_Gothic_Coding/NanumGothicCoding-Regular.ttf");
       Nanum_Gothic_Coding_R = Font.createFont(Font.TRUETYPE_FONT, Nanum_Gothic_Coding_R_File);
       ge.registerFont(Nanum_Gothic_Coding_R);
 
