@@ -1,13 +1,18 @@
 #!/bin/bash
-if ! command -v java >/dev/null 2>&1; then
+java_v='command -v java'
+if [[ "$java_v" == null ]]; then
     read -p "Java is not found. Install? [Y/N] " input
-    if [[ ${input^^} == "Y" ]]; then
+    input=$(echo "$input" | tr '[:lower:]' '[:upper:]')
+    if [[ "$input" == "Y" ]]; then
         echo "Installing..."
-        if command -v brew >/dev/null 2>&1; then
-            brew install java
+        brew_v='command -v brew'
+        if "$brew_v" == null ; then
+            #echo executed brew install java21
+            brew install java21
         else
             read -p "Brew is not found. Install? [Y/N] " input_1
-            if [[ ${input_1^^} == "Y" ]]; then
+            input_1=$(echo "$input_1" | tr '[:lower:]' '[:upper:]')
+            if [[ "$input_1" == "Y" ]]; then
                 echo "Installing Brew..."
                 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
                 brew install java
