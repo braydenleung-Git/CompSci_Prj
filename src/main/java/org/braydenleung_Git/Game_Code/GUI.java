@@ -40,10 +40,10 @@ public class GUI {
   private static Font Arial_Unicode = null;
   private static Font Nanum_Gothic_Coding_B = null;
   private static Font Nanum_Gothic_Coding_R = null;
+
+
   public static void gui_start(){
-
-
- // public static void main(String[] args) {
+ //public static void main(String[] args) {
 
     //Set that when the user clicks cross button, it will kill the code
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -68,8 +68,6 @@ public class GUI {
    * This method is used to set up the username "Card" so that it make switching between "cards possible
    */
   public static void setup_Username_Layout() {
-
-
     JPanel username = new JPanel();
     //This is used to set up the left side(text) of the username layout
     JPanel left_Side = new JPanel();
@@ -119,7 +117,6 @@ public class GUI {
     JButton start_Button = new JButton("Click to Start Game");
     start_Button.setFont(Impact.deriveFont(24f));
     start_Button.addActionListener(e -> {
-
       new Thread(()-> {
         //System.out.println("2");
         //This is used for turning the text input that the user put in the text box as the player name, by default it is set to "Player 1"
@@ -231,7 +228,6 @@ public class GUI {
     console_Input.setForeground(Color.white);
     console_Input.setFont(PTMono_Regular_02.deriveFont(20f));
     console_Layout.add(console_Input, BorderLayout.SOUTH);
-
   }
 
   /**
@@ -253,7 +249,7 @@ public class GUI {
    * This method is used to import the font used in the program.
    * Note: Only one that are imported are count towards "Font", varies by file name.
    */
-public static void return_TitleScreen(){
+  public static void return_TitleScreen(){
   CardLayout cl = (CardLayout) (main_Panel.getLayout());
   cl.show(GUI.main_Panel, "Username");
   frame.setSize(GUI.titlescreen_frame_Size);
@@ -332,7 +328,6 @@ public static void return_TitleScreen(){
     }
   }
 }
-
 
 
 //Offline Copy of GPT code (Console)
